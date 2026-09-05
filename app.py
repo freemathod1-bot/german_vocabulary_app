@@ -1,15 +1,19 @@
 #!/usr/bin/env python3
 """
-German Daily Vocabulary Range Extractor (100% Local Offline Application)
-Runs entirely locally from your computer with zero external internet/GitHub dependencies.
+German Daily Vocabulary Range Extractor (100% Local Offline & Cloud Ready Application)
+Runs seamlessly locally or on Render/Docker.
 
-Local Data Files:
-- german_daily_roots_top1000.json (1,010 German core root words)
-- already_memorized_words.json (Local memorized words saved with sl_no and Bangladesh Standard Time)
-
-New Features:
-1. "Memorized Words Only" tickmark checkbox (searches & filters only inside already_memorized_words.json)
-2. Interactive German Calendar (Kalender) with German month/day names, date selection, and word count stats per date.
+Features:
+- 1,010 high-frequency German daily root words from german_daily_roots_top1000.json
+- Local and instant GitHub synchronization for already_memorized_words.json (BST Timestamps)
+- "Memorized Words Only" checkbox (queries strictly inside already_memorized_words.json)
+- Interactive German Calendar (📅 Kalender) with German month/day names and date filtering
+- Dual Quiz / Cover Up modes:
+  * 🙈 Cover German & Sentences (Only English visible)
+  * 🙈 Cover English & Sentences (Only German visible)
+  * 👁️ Show All
+  * Hover / click to peek any covered cell
+- Range extractor (Default max 100 words, customizable by From/To range or quick chips)
 """
 
 import os
@@ -37,55 +41,6 @@ GITHUB_REPO_OWNER = os.environ.get("GITHUB_REPO_OWNER", "freemathod1-bot")
 GITHUB_REPO_NAME = os.environ.get("GITHUB_REPO_NAME", "german_vocabulary_app")
 GITHUB_FILE_PATH = "already_memorized_words.json"
 MEMORIZE_LOCK = threading.Lock()
-
-def sync_to_github(entries_list, commit_msg="Update already_memorized_words.json"):
-    """Instantly syncs the memorized words list to GitHub repository via GitHub REST API."""
-    if not GITHUB_TOKEN:
-        print("GitHub Sync: No GITHUB_TOKEN available.")
-        return {"success": False, "error": "No token provided"}
-    try:
-        import base64
-        headers = {
-            "Authorization": f"token {GITHUB_TOKEN}",
-            "Accept": "application/vnd.github.v3+json",
-            "User-Agent": "GermanVocabApp"
-        }
-        url = f"https://api.github.com/repos/{GITHUB_REPO_OWNER}/{GITHUB_REPO_NAME}/contents/{GITHUB_FILE_PATH}"
-
-        # 1. Fetch current file SHA on GitHub
-        sha = None
-        try:
-            req = urllib.request.Request(url, headers=headers)
-            with urllib.request.urlopen(req, timeout=5) as resp:
-                data = json.loads(resp.read().decode("utf-8"))
-                sha = data.get("sha")
-        except urllib.error.HTTPError as e:
-            if e.code != 404:
-                print(f"GitHub SHA Fetch Notice: {e}")
-        except Exception as e:
-            print(f"GitHub Connection Notice: {e}")
-
-        # 2. Encode JSON and commit via PUT
-        json_str = json.dumps(entries_list, ensure_ascii=False, indent=2)
-        content_b64 = base64.b64encode(json_str.encode("utf-8")).decode("utf-8")
-
-        payload = {
-            "message": commit_msg,
-            "content": content_b64,
-            "branch": "main"
-        }
-        if sha:
-            payload["sha"] = sha
-
-        req = urllib.request.Request(url, data=json.dumps(payload).encode("utf-8"), headers=headers, method="PUT")
-        with urllib.request.urlopen(req, timeout=8) as resp:
-            res_data = json.loads(resp.read().decode("utf-8"))
-            commit_sha = res_data.get("commit", {}).get("sha", "")[:7]
-            print(f"✅ Instant GitHub Sync Successful (Commit {commit_sha}): {commit_msg}")
-            return {"success": True, "commit_sha": commit_sha}
-    except Exception as e:
-        print(f"❌ GitHub Sync Error: {e}")
-        return {"success": False, "error": str(e)}
 
 def get_bangladesh_timestamp():
     """Returns formatted time in Bangladesh Standard Time (UTC+6) with German day and month names."""
@@ -148,7 +103,7 @@ def load_memorized():
                         entry["memorized_at"] = default_ts
                         normalized.append(entry)
 
-            normalized.sort(key=lambda x: x.get("sl_no", 0))
+            normalized.sort(key=lambda x: int(x.get("sl_no", 0)))
             return normalized
     except Exception as e:
         print(f"Error loading {MEMORIZED_FILE}: {e}")
@@ -156,13 +111,61 @@ def load_memorized():
 
 def save_memorized(entries_list):
     try:
-        entries_list.sort(key=lambda x: x.get("sl_no", 0) if isinstance(x, dict) else 0)
+        entries_list.sort(key=lambda x: int(x.get("sl_no", 0)) if isinstance(x, dict) else 0)
         with open(MEMORIZED_FILE, "w", encoding="utf-8") as f:
             json.dump(entries_list, f, ensure_ascii=False, indent=2)
         return True
     except Exception as e:
         print(f"Error saving to {MEMORIZED_FILE}: {e}")
         return False
+
+def sync_to_github(entries_list, commit_msg="Update already_memorized_words.json"):
+    """Instantly syncs the memorized words list to GitHub repository via GitHub REST API."""
+    if not GITHUB_TOKEN:
+        print("GitHub Sync: No GITHUB_TOKEN available.")
+        return {"success": False, "error": "No token provided"}
+    try:
+        headers = {
+            "Authorization": f"token {GITHUB_TOKEN}",
+            "Accept": "application/vnd.github.v3+json",
+            "User-Agent": "GermanVocabApp"
+        }
+        url = f"https://api.github.com/repos/{GITHUB_REPO_OWNER}/{GITHUB_REPO_NAME}/contents/{GITHUB_FILE_PATH}"
+
+        # 1. Fetch current file SHA on GitHub
+        sha = None
+        try:
+            req = urllib.request.Request(url, headers=headers)
+            with urllib.request.urlopen(req, timeout=5) as resp:
+                data = json.loads(resp.read().decode("utf-8"))
+                sha = data.get("sha")
+        except urllib.error.HTTPError as e:
+            if e.code != 404:
+                print(f"GitHub SHA Fetch Notice: {e}")
+        except Exception as e:
+            print(f"GitHub Connection Notice: {e}")
+
+        # 2. Encode JSON and commit via PUT
+        json_str = json.dumps(entries_list, ensure_ascii=False, indent=2)
+        content_b64 = base64.b64encode(json_str.encode("utf-8")).decode("utf-8")
+
+        payload = {
+            "message": commit_msg,
+            "content": content_b64,
+            "branch": "main"
+        }
+        if sha:
+            payload["sha"] = sha
+
+        req = urllib.request.Request(url, data=json.dumps(payload).encode("utf-8"), headers=headers, method="PUT")
+        with urllib.request.urlopen(req, timeout=8) as resp:
+            res_data = json.loads(resp.read().decode("utf-8"))
+            commit_sha = res_data.get("commit", {}).get("sha", "")[:7]
+            print(f"✅ Instant GitHub Sync Successful (Commit {commit_sha}): {commit_msg}")
+            return {"success": True, "commit_sha": commit_sha}
+    except Exception as e:
+        print(f"❌ GitHub Sync Error: {e}")
+        return {"success": False, "error": str(e)}
 
 def toggle_memorized_entry(sl_no=None, word_text=None, action="add"):
     with MEMORIZE_LOCK:
@@ -238,11 +241,11 @@ def toggle_memorized_entry(sl_no=None, word_text=None, action="add"):
         }
 
 HTML_TEMPLATE = """<!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>German Daily Vocabulary (100% Local)</title>
+  <title>German Daily Vocabulary</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -805,58 +808,6 @@ HTML_TEMPLATE = """<!DOCTYPE html>
       color: #a5b4fc;
     }
 
-    .leo-dict-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      background: rgba(245, 158, 11, 0.15);
-      border: 1px solid rgba(245, 158, 11, 0.4);
-      border-radius: 6px;
-      color: #fcd34d;
-      font-size: 0.72rem;
-      font-weight: 700;
-      padding: 2px 7px;
-      text-decoration: none;
-      transition: all 0.2s ease;
-      vertical-align: middle;
-      cursor: pointer;
-      line-height: 1.2;
-    }
-
-    .leo-dict-btn:hover {
-      background: rgba(245, 158, 11, 0.3);
-      border-color: rgba(245, 158, 11, 0.8);
-      color: #ffffff;
-      box-shadow: 0 0 10px rgba(245, 158, 11, 0.4);
-      transform: translateY(-1px);
-    }
-
-    .web-dict-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 3px;
-      background: rgba(99, 102, 241, 0.12);
-      border: 1px solid rgba(99, 102, 241, 0.3);
-      border-radius: 5px;
-      color: #c7d2fe;
-      font-size: 0.74rem;
-      font-weight: 600;
-      padding: 2px 7px;
-      cursor: pointer;
-      text-decoration: none;
-      transition: all 0.2s ease;
-      vertical-align: middle;
-      margin-left: 5px;
-    }
-
-    .web-dict-btn:hover {
-      background: rgba(99, 102, 241, 0.3);
-      border-color: rgba(99, 102, 241, 0.7);
-      color: #ffffff;
-      box-shadow: 0 0 10px rgba(99, 102, 241, 0.35);
-      transform: translateY(-1px);
-    }
-
     .col-action {
       text-align: right;
       width: 140px;
@@ -1221,8 +1172,8 @@ HTML_TEMPLATE = """<!DOCTYPE html>
         <!-- Active Date Filter Tag -->
         <div id="activeDateBadge" style="display: none;">
           <div class="date-filter-tag">
-            <span>📅 Datum: <strong id="activeDateLabel"></strong></span>
-            <button class="tag-close" id="btnClearDateFilter" title="Datum-Filter aufheben">✕</button>
+            <span>📅 Date: <strong id="activeDateLabel"></strong></span>
+            <button class="tag-close" id="btnClearDateFilter" title="Clear Date Filter">✕</button>
           </div>
         </div>
       </div>
@@ -1353,14 +1304,29 @@ HTML_TEMPLATE = """<!DOCTYPE html>
       'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag', 'Sonntag'
     ];
 
+    const MONTH_MAP = {
+      'januar': 0, 'jan': 0, 'january': 0,
+      'februar': 1, 'feb': 1, 'february': 1,
+      'märz': 2, 'maerz': 2, 'mrz': 2, 'march': 2, 'mar': 2,
+      'april': 3, 'apr': 3,
+      'mai': 4, 'may': 4,
+      'juni': 5, 'jun': 5, 'june': 5,
+      'juli': 6, 'jul': 6, 'july': 6,
+      'august': 7, 'aug': 7,
+      'september': 8, 'sep': 8, 'sept': 8,
+      'oktober': 9, 'okt': 9, 'october': 9, 'oct': 9,
+      'november': 10, 'nov': 10,
+      'dezember': 11, 'dez': 11, 'december': 11, 'dec': 11
+    };
+
     let allWords = [];
     let memorizedList = [];
     let memorizedSlSet = new Set();
     let isSaving = false;
     let coverMode = "none"; // "none" | "cover-de" | "cover-en"
-    let selectedCalendarDateStr = null; // Normalized key: e.g. "2026-09-05" or German "5 September 2026"
+    let selectedCalendarDateStr = null;
     let calCurrentYear = new Date().getFullYear();
-    let calCurrentMonth = new Date().getMonth(); // 0-indexed
+    let calCurrentMonth = new Date().getMonth();
 
     const inputFrom = document.getElementById('inputFrom');
     const inputTo = document.getElementById('inputTo');
@@ -1425,29 +1391,10 @@ HTML_TEMPLATE = """<!DOCTYPE html>
       }
     }
 
-    // Comprehensive German & English month name mapping
-    const MONTH_MAP = {
-      'januar': 0, 'jan': 0, 'january': 0,
-      'februar': 1, 'feb': 1, 'february': 1,
-      'märz': 2, 'maerz': 2, 'mrz': 2, 'march': 2, 'mar': 2,
-      'april': 3, 'apr': 3,
-      'mai': 4, 'may': 4,
-      'juni': 5, 'jun': 5, 'june': 5,
-      'juli': 6, 'jul': 6, 'july': 6,
-      'august': 7, 'aug': 7,
-      'september': 8, 'sep': 8, 'sept': 8,
-      'oktober': 9, 'okt': 9, 'october': 9, 'oct': 9,
-      'november': 10, 'nov': 10,
-      'dezember': 11, 'dez': 11, 'december': 11, 'dec': 11
-    };
-
-    // Robust Date Extractor from memorized_at strings
-    // Handles formats like: "4:31 PM Samstag 5 September 2026", "2 pm Sonntag 22 juli 2026", "2026-09-05", etc.
     function extractDateFromTimestamp(ts) {
       if (!ts || typeof ts !== 'string') return null;
       const cleanTs = ts.trim().toLowerCase();
 
-      // 1. Match Pattern: <day> <monthName> <year> (e.g. "5 september 2026")
       const regexWords = /(\d{1,2})[.\s]+([a-zäöü]+)[.\s]+(\d{4})/i;
       const matchWords = cleanTs.match(regexWords);
       if (matchWords) {
@@ -1467,7 +1414,6 @@ HTML_TEMPLATE = """<!DOCTYPE html>
         }
       }
 
-      // 2. Match ISO Pattern: YYYY-MM-DD
       const regexIso = /(\d{4})-(\d{2})-(\d{2})/;
       const matchIso = cleanTs.match(regexIso);
       if (matchIso) {
@@ -1498,12 +1444,9 @@ HTML_TEMPLATE = """<!DOCTYPE html>
       const isMemorizedOnly = chkOnlyMemorized.checked;
       const q = inputSearch.value.toLowerCase().trim();
 
-      // Source dataset selection:
-      // If a calendar date is active OR "Memorized Only" is checked, search inside memorizedList!
       let sourceList = (selectedCalendarDateStr || isMemorizedOnly) ? memorizedList : allWords;
       let list = sourceList;
 
-      // 1. Filter by Calendar Date if active
       if (selectedCalendarDateStr) {
         list = memorizedList.filter(w => {
           const d = extractDateFromTimestamp(w.memorized_at);
@@ -1511,7 +1454,6 @@ HTML_TEMPLATE = """<!DOCTYPE html>
         });
       }
 
-      // 2. Filter by search query if present
       if (q) {
         list = list.filter(w => {
           return (
@@ -1524,19 +1466,15 @@ HTML_TEMPLATE = """<!DOCTYPE html>
         const scopeText = (selectedCalendarDateStr ? (" on " + activeDateLabel.textContent) : (isMemorizedOnly ? " in [already_memorized_words.json]" : ""));
         resultsInfo.innerHTML = 'Found <strong>' + list.length + '</strong> matching "' + escapeHtml(q) + '"' + scopeText;
       }
-      // 3. Calendar Date Mode Display
       else if (selectedCalendarDateStr) {
         const totalOnDate = list.length;
         const from = parseInt(inputFrom.value, 10) || 1;
         const to = parseInt(inputTo.value, 10) || Math.min(100, totalOnDate);
-        
-        // Apply custom range if list has items
         const pagedList = list.slice(from - 1, to);
         resultsInfo.innerHTML = '📅 Date: <strong>' + activeDateLabel.textContent + '</strong> • Showing <strong>' + pagedList.length + ' of ' + totalOnDate + ' words</strong> (Default Max 100)';
         renderTable(pagedList);
         return;
       }
-      // 4. Memorized Words Only Display
       else if (isMemorizedOnly) {
         const totalMem = list.length;
         const from = parseInt(inputFrom.value, 10) || 1;
@@ -1546,7 +1484,6 @@ HTML_TEMPLATE = """<!DOCTYPE html>
         renderTable(pagedList);
         return;
       }
-      // 5. Standard Vocabulary Range Mode (Default Max 100, custom by range)
       else {
         const from = parseInt(inputFrom.value, 10) || 1;
         const to = parseInt(inputTo.value, 10) || 100;
@@ -1555,19 +1492,6 @@ HTML_TEMPLATE = """<!DOCTYPE html>
       }
 
       renderTable(list);
-    }
-
-    function getCleanWordForDict(rawWord) {
-      if (!rawWord) return '';
-      let clean = rawWord.replace(/\(Pl:.*?\)/gi, '');
-      clean = clean.replace(/\[.*?\]/g, '');
-      clean = clean.replace(/^(der|die|das)\s+/i, '');
-      return clean.trim();
-    }
-
-    function getLeoUrl(rawWord) {
-      const clean = getCleanWordForDict(rawWord);
-      return 'https://dict.leo.org/german-english/' + encodeURIComponent(clean || rawWord);
     }
 
     function renderTable(words) {
@@ -1588,21 +1512,15 @@ HTML_TEMPLATE = """<!DOCTYPE html>
         const safeWord = escapeHtml(w.german).replace(/'/g, "\\'");
         const safeDe = escapeHtml(w.german_sen).replace(/'/g, "\\'");
         const timestampInfo = w.memorized_at ? ('<div class="timestamp-badge" title="Bangladesh Standard Time (BST)">🕒 ' + escapeHtml(w.memorized_at) + '</div>') : '';
-        const leoUrl = getLeoUrl(w.german);
 
         html += '<tr class="' + rowClass + '">' +
           '<td class="col-idx">#' + w.sl_no + '</td>' +
           '<td class="col-word" onclick="toggleCellReveal(this)" title="Click or hover to peek">' +
             '<div class="coverable">' +
-              '<div style="display:inline-flex; align-items:center; flex-wrap:wrap; gap:6px; margin-bottom:4px;">' +
-                '<span class="word-badge ' + memClass + '" onclick="event.stopPropagation(); toggleMemorize(' + w.sl_no + ')">' +
-                  escapeHtml(w.german) +
-                '</span>' +
-                '<button class="audio-btn" title="Listen pronunciation" onclick="event.stopPropagation(); playAudio(\'' + safeWord + '\')">🔊</button>' +
-                '<a href="' + leoUrl + '" target="_blank" rel="noopener noreferrer" class="leo-dict-btn" title="Open LEO German-English Dictionary (dict.leo.org)" onclick="event.stopPropagation()">' +
-                  '🦁 LEO' +
-                '</a>' +
-              '</div>' +
+              '<span class="word-badge ' + memClass + '" onclick="event.stopPropagation(); toggleMemorize(' + w.sl_no + ')">' +
+                escapeHtml(w.german) +
+              '</span>' +
+              '<button class="audio-btn" title="Listen pronunciation" onclick="event.stopPropagation(); playAudio(\'' + safeWord + '\')">🔊</button>' +
               timestampInfo +
             '</div>' +
           '</td>' +
@@ -1613,7 +1531,7 @@ HTML_TEMPLATE = """<!DOCTYPE html>
             '<div class="coverable">' +
               '<div class="example-de">' +
                 '<span>' + escapeHtml(w.german_sen) + '</span>' +
-                '<button class="audio-btn" title="Listen" onclick="event.stopPropagation(); playAudio(\'' + safeDe + '\')">🔊</button>' +
+                '<button class="audio-btn" title="Listen pronunciation" onclick="event.stopPropagation(); playAudio(\'' + safeDe + '\')">🔊</button>' +
               '</div>' +
               '<div class="example-en">' + escapeHtml(w.english_sen) + '</div>' +
             '</div>' +
@@ -1713,24 +1631,20 @@ HTML_TEMPLATE = """<!DOCTYPE html>
       calMonthYear.textContent = GERMAN_MONTHS[calCurrentMonth] + " " + calCurrentYear;
       calDaysGrid.innerHTML = '';
 
-      // First day of month (0 = Sunday, 1 = Monday, ... 6 = Saturday)
       const firstDay = new Date(calCurrentYear, calCurrentMonth, 1);
-      let startingDay = firstDay.getDay(); // 0 is Sun, 1 is Mon...
-      // Shift so Monday is 0 and Sunday is 6
+      let startingDay = firstDay.getDay();
       let startCol = (startingDay === 0) ? 6 : (startingDay - 1);
 
       const daysInMonth = new Date(calCurrentYear, calCurrentMonth + 1, 0).getDate();
       const today = new Date();
       const isThisMonth = (today.getFullYear() === calCurrentYear && today.getMonth() === calCurrentMonth);
 
-      // Empty padding cells before month start
       for (let i = 0; i < startCol; i++) {
         const emptyDiv = document.createElement('div');
         emptyDiv.className = 'cal-day empty';
         calDaysGrid.appendChild(emptyDiv);
       }
 
-      // Render days
       for (let d = 1; d <= daysInMonth; d++) {
         const dayDiv = document.createElement('div');
         dayDiv.className = 'cal-day';
@@ -1767,7 +1681,6 @@ HTML_TEMPLATE = """<!DOCTYPE html>
       selectedCalendarDateStr = dateKey;
       renderCalendarGrid();
 
-      // Find day of week in German
       const tempDate = new Date(year, monthIdx, day);
       let dayOfWeekIdx = tempDate.getDay();
       let germanDayName = (dayOfWeekIdx === 0) ? GERMAN_DAYS[6] : GERMAN_DAYS[dayOfWeekIdx - 1];
@@ -1785,38 +1698,8 @@ HTML_TEMPLATE = """<!DOCTYPE html>
         calStatsActions.style.display = 'flex';
       }
 
-      // Automatically show active date badge and update table in real-time
       activeDateBadge.style.display = 'block';
       applyFilters();
-    }
-
-    function getCleanWordForDict(rawWord) {
-      if (!rawWord) return '';
-      let clean = rawWord.replace(/\(Pl:.*?\)/gi, '');
-      clean = clean.replace(/\[.*?\]/g, '');
-      clean = clean.replace(/^(der|die|das)\s+/i, '');
-      return clean.trim();
-    }
-
-    function openWebDict(rawWord) {
-      const clean = getCleanWordForDict(rawWord);
-      if (clean) {
-        const url = 'https://dict.leo.org/german-english/' + encodeURIComponent(clean);
-        window.open(url, '_blank', 'noopener,noreferrer');
-      }
-    }
-
-    function getCleanWordForDict(rawWord) {
-      if (!rawWord) return '';
-      let clean = rawWord.replace(/\(Pl:.*?\)/gi, '');
-      clean = clean.replace(/\[.*?\]/g, '');
-      clean = clean.replace(/^(der|die|das)\s+/i, '');
-      return clean.trim();
-    }
-
-    function getLeoUrl(rawWord) {
-      const clean = getCleanWordForDict(rawWord);
-      return 'https://dict.leo.org/german-english/' + encodeURIComponent(clean || rawWord);
     }
 
     function playAudio(text) {
@@ -1941,7 +1824,7 @@ HTML_TEMPLATE = """<!DOCTYPE html>
     function resetDateFilter() {
       selectedCalendarDateStr = null;
       activeDateBadge.style.display = 'none';
-      calSelectedDateTitle.textContent = "Wählen Sie ein Datum aus";
+      calSelectedDateTitle.textContent = "Select a date";
       calSelectedStatsText.textContent = "Click on any date with a green indicator to view words memorized on that date.";
       calStatsActions.style.display = 'none';
       renderCalendarGrid();
@@ -2037,7 +1920,7 @@ class LocalAppHandler(BaseHTTPRequestHandler):
                 elif from_param or to_param:
                     f_val = int(from_param) if from_param and from_param.isdigit() else 1
                     t_val = int(to_param) if to_param and to_param.isdigit() else len(words)
-                    filtered = [w for w in filtered if f_val <= w.get("sl_no", 0) <= t_val]
+                    filtered = [w for w in filtered if f_val <= int(w.get("sl_no", 0)) <= t_val]
 
                 self._send_json({"total": len(words), "count": len(filtered), "words": filtered})
                 return
