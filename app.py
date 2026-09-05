@@ -1557,6 +1557,19 @@ HTML_TEMPLATE = """<!DOCTYPE html>
       renderTable(list);
     }
 
+    function getCleanWordForDict(rawWord) {
+      if (!rawWord) return '';
+      let clean = rawWord.replace(/\(Pl:.*?\)/gi, '');
+      clean = clean.replace(/\[.*?\]/g, '');
+      clean = clean.replace(/^(der|die|das)\s+/i, '');
+      return clean.trim();
+    }
+
+    function getLeoUrl(rawWord) {
+      const clean = getCleanWordForDict(rawWord);
+      return 'https://dict.leo.org/german-english/' + encodeURIComponent(clean || rawWord);
+    }
+
     function renderTable(words) {
       if (words.length === 0) {
         tableBody.innerHTML = '<tr><td colspan="5" style="text-align:center; padding:40px; color:var(--text-muted); font-size: 0.95rem;">' +
@@ -1572,18 +1585,24 @@ HTML_TEMPLATE = """<!DOCTYPE html>
         const memClass = isMem ? 'is-memorized' : '';
         const rowClass = isMem ? 'is-memorized-row' : '';
         const btnText = isMem ? '✅ Memorized' : '➕ Memorize';
-        const safeWord = escapeHtml(w.german).replace(/'/g, "\\\\'");
-        const safeDe = escapeHtml(w.german_sen).replace(/'/g, "\\\\'");
+        const safeWord = escapeHtml(w.german).replace(/'/g, "\\'");
+        const safeDe = escapeHtml(w.german_sen).replace(/'/g, "\\'");
         const timestampInfo = w.memorized_at ? ('<div class="timestamp-badge" title="Bangladesh Standard Time (BST)">🕒 ' + escapeHtml(w.memorized_at) + '</div>') : '';
+        const leoUrl = getLeoUrl(w.german);
 
         html += '<tr class="' + rowClass + '">' +
           '<td class="col-idx">#' + w.sl_no + '</td>' +
           '<td class="col-word" onclick="toggleCellReveal(this)" title="Click or hover to peek">' +
             '<div class="coverable">' +
-              '<span class="word-badge ' + memClass + '" onclick="event.stopPropagation(); toggleMemorize(' + w.sl_no + ')">' +
-                escapeHtml(w.german) +
-              '</span>' +
-              '<button class="audio-btn" title="Listen" onclick="event.stopPropagation(); playAudio(\\'' + safeWord + '\\')">🔊</button>' +
+              '<div style="display:inline-flex; align-items:center; flex-wrap:wrap; gap:6px; margin-bottom:4px;">' +
+                '<span class="word-badge ' + memClass + '" onclick="event.stopPropagation(); toggleMemorize(' + w.sl_no + ')">' +
+                  escapeHtml(w.german) +
+                '</span>' +
+                '<button class="audio-btn" title="Listen pronunciation" onclick="event.stopPropagation(); playAudio(\'' + safeWord + '\')">🔊</button>' +
+                '<a href="' + leoUrl + '" target="_blank" rel="noopener noreferrer" class="leo-dict-btn" title="Open LEO German-English Dictionary (dict.leo.org)" onclick="event.stopPropagation()">' +
+                  '🦁 LEO' +
+                '</a>' +
+              '</div>' +
               timestampInfo +
             '</div>' +
           '</td>' +
@@ -1594,7 +1613,7 @@ HTML_TEMPLATE = """<!DOCTYPE html>
             '<div class="coverable">' +
               '<div class="example-de">' +
                 '<span>' + escapeHtml(w.german_sen) + '</span>' +
-                '<button class="audio-btn" title="Listen" onclick="event.stopPropagation(); playAudio(\\'' + safeDe + '\\')">🔊</button>' +
+                '<button class="audio-btn" title="Listen" onclick="event.stopPropagation(); playAudio(\'' + safeDe + '\')">🔊</button>' +
               '</div>' +
               '<div class="example-en">' + escapeHtml(w.english_sen) + '</div>' +
             '</div>' +
