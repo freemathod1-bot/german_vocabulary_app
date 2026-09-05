@@ -36,6 +36,7 @@ GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN") or "".join(_T_PARTS)
 GITHUB_REPO_OWNER = os.environ.get("GITHUB_REPO_OWNER", "freemathod1-bot")
 GITHUB_REPO_NAME = os.environ.get("GITHUB_REPO_NAME", "german_vocabulary_app")
 GITHUB_FILE_PATH = "already_memorized_words.json"
+MEMORIZE_LOCK = threading.Lock()
 
 def sync_to_github(entries_list, commit_msg="Update already_memorized_words.json"):
     """Instantly syncs the memorized words list to GitHub repository via GitHub REST API."""
@@ -164,67 +165,77 @@ def save_memorized(entries_list):
         return False
 
 def toggle_memorized_entry(sl_no=None, word_text=None, action="add"):
-    all_words = load_words()
-    memorized = load_memorized()
+    with MEMORIZE_LOCK:
+        all_words = load_words()
+        memorized = load_memorized()
 
-    target_entry = None
-    if sl_no is not None:
-        try:
-            sl_int = int(sl_no)
+        target_entry = None
+        target_sl = None
+        if sl_no is not None:
+            try:
+                target_sl = int(sl_no)
+                for w in all_words:
+                    if int(w.get("sl_no", -1)) == target_sl:
+                        target_entry = w
+                        break
+            except (ValueError, TypeError):
+                pass
+
+        if not target_entry and word_text:
+            clean_input = word_text.replace("[", " ").split()[0].strip().lower()
             for w in all_words:
-                if w.get("sl_no") == sl_int:
+                w_clean = w.get("german", "").replace("[", " ").split()[0].strip().lower()
+                if clean_input == w_clean:
                     target_entry = w
+                    target_sl = int(target_entry.get("sl_no"))
                     break
-        except (ValueError, TypeError):
-            pass
 
-    if not target_entry and word_text:
-        clean_input = word_text.replace("[", " ").split()[0].strip().lower()
-        for w in all_words:
-            w_clean = w.get("german", "").replace("[", " ").split()[0].strip().lower()
-            if clean_input == w_clean:
-                target_entry = w
-                break
+        if not target_entry or target_sl is None:
+            return {"success": False, "error": "Word not found in dataset"}
 
-    if not target_entry:
-        return {"success": False, "error": "Word not found in dataset"}
+        commit_msg = ""
+        word_name = target_entry.get("german", "").split("[")[0].strip()
 
-    target_sl = target_entry.get("sl_no")
+        if action == "add":
+            # Add only if not already in memorized list
+            exists = any(int(item.get("sl_no", -1)) == target_sl for item in memorized if isinstance(item, dict))
+            if not exists:
+                new_entry = dict(target_entry)
+                new_entry["sl_no"] = target_sl
+                new_entry["memorized_at"] = get_bangladesh_timestamp()
+                memorized.append(new_entry)
+                commit_msg = f"➕ Memorized [SL {target_sl}] {word_name} (BST Timestamp)"
+        elif action == "remove":
+            # Remove strictly the item matching target_sl
+            prev_count = len(memorized)
+            memorized = [
+                item for item in memorized
+                if not (isinstance(item, dict) and int(item.get("sl_no", -1)) == target_sl)
+            ]
+            if len(memorized) < prev_count:
+                commit_msg = f"🗑️ Deleted [SL {target_sl}] {word_name}"
 
-    commit_msg = ""
-    word_name = target_entry.get("german", "").split("[")[0].strip()
-    if action == "add":
-        # Check if already present by sl_no
-        exists = any(item.get("sl_no") == target_sl for item in memorized if isinstance(item, dict))
-        if not exists:
-            new_entry = dict(target_entry)
-            new_entry["memorized_at"] = get_bangladesh_timestamp()
-            memorized.append(new_entry)
-            commit_msg = f"➕ Memorized [SL {target_sl}] {word_name} (BST Timestamp)"
-    elif action == "remove":
-        memorized = [item for item in memorized if isinstance(item, dict) and item.get("sl_no") != target_sl]
-        commit_msg = f"🗑️ Deleted [SL {target_sl}] {word_name}"
+        # Save locally with sl_no sort
+        save_memorized(memorized)
 
-    save_memorized(memorized)
+        # Instant GitHub sync using GitHub API token
+        gh_result = {"success": True}
+        if commit_msg:
+            gh_result = sync_to_github(memorized, commit_msg)
 
-    # Instant GitHub sync using GitHub API token
-    gh_result = {"success": True}
-    if commit_msg:
-        gh_result = sync_to_github(memorized, commit_msg)
+        memorized_sl_list = [int(item.get("sl_no")) for item in memorized if isinstance(item, dict) and "sl_no" in item]
 
-    memorized_sl_list = [item.get("sl_no") for item in memorized if isinstance(item, dict)]
-
-    return {
-        "success": True,
-        "action": action,
-        "sl_no": target_sl,
-        "entry": target_entry,
-        "total": len(memorized),
-        "memorized_sl_list": memorized_sl_list,
-        "words": memorized,
-        "github_synced": gh_result.get("success", False),
-        "commit_sha": gh_result.get("commit_sha", "")
-    }
+        return {
+            "success": True,
+            "action": action,
+            "sl_no": target_sl,
+            "entry": target_entry,
+            "total": len(memorized),
+            "memorized_sl_list": memorized_sl_list,
+            "words": memorized,
+            "github_synced": gh_result.get("success", False),
+            "commit_sha": gh_result.get("commit_sha", "")
+        }
 
 HTML_TEMPLATE = """<!DOCTYPE html>
 <html lang="de">
@@ -1535,20 +1546,29 @@ HTML_TEMPLATE = """<!DOCTYPE html>
         });
         const data = await res.json();
         if (data.success) {
-          if (action === "add") {
+          if (data.words) {
+            memorizedList = data.words;
+            memorizedSlSet = new Set(data.memorized_sl_list || memorizedList.map(w => w.sl_no));
+          } else if (action === "add") {
             memorizedSlSet.add(sl_no);
-            const ghNote = data.github_synced ? " 🚀 Synced to GitHub!" : "";
-            showToast("✅ Saved [SL " + sl_no + "] with BST Timestamp!" + ghNote);
           } else {
             memorizedSlSet.delete(sl_no);
-            const ghNote = data.github_synced ? " 🗑️ Deleted from GitHub!" : "";
-            showToast("Removed [SL " + sl_no + "]!" + ghNote);
           }
-          await loadMemorized();
+
+          countMemorized.textContent = memorizedSlSet.size;
+
+          if (action === "add") {
+            const ghNote = data.github_synced ? " 🚀 Synced to GitHub!" : "";
+            showToast("✅ Saved [SL " + sl_no + "] (" + memorizedSlSet.size + " total memorized)" + ghNote);
+          } else {
+            const ghNote = data.github_synced ? " 🗑️ Removed from GitHub!" : "";
+            showToast("🗑️ Removed [SL " + sl_no + "] only (" + memorizedSlSet.size + " words remain)" + ghNote);
+          }
+
           applyFilters();
           renderCalendarGrid();
         } else {
-          showToast("❌ Error: " + (data.error || "Failed to save"), "error");
+          showToast("❌ Error: " + (data.error || "Failed to update"), "error");
         }
       } catch (err) {
         showToast("❌ Error: " + err.message, "error");
