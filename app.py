@@ -240,7 +240,7 @@ def toggle_memorized_entry(sl_no=None, word_text=None, action="add"):
             "commit_sha": gh_result.get("commit_sha", "")
         }
 
-HTML_TEMPLATE = """<!DOCTYPE html>
+HTML_TEMPLATE = r"""<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -1323,7 +1323,7 @@ HTML_TEMPLATE = """<!DOCTYPE html>
     let memorizedList = [];
     let memorizedSlSet = new Set();
     let isSaving = false;
-    let coverMode = "none"; // "none" | "cover-de" | "cover-en"
+    let coverMode = "none";
     let selectedCalendarDateStr = null;
     let calCurrentYear = new Date().getFullYear();
     let calCurrentMonth = new Date().getMonth();
@@ -1365,6 +1365,7 @@ HTML_TEMPLATE = """<!DOCTYPE html>
       await loadWords();
       await loadMemorized();
       applyFilters();
+      renderCalendarGrid();
     }
 
     async function loadWords() {
@@ -1495,7 +1496,7 @@ HTML_TEMPLATE = """<!DOCTYPE html>
     }
 
     function renderTable(words) {
-      if (words.length === 0) {
+      if (!words || words.length === 0) {
         tableBody.innerHTML = '<tr><td colspan="5" style="text-align:center; padding:40px; color:var(--text-muted); font-size: 0.95rem;">' +
           (chkOnlyMemorized.checked ? 'No memorized words found matching current range or filter.' : 'No words found matching current range or search.') +
           '</td></tr>';
@@ -1509,35 +1510,35 @@ HTML_TEMPLATE = """<!DOCTYPE html>
         const memClass = isMem ? 'is-memorized' : '';
         const rowClass = isMem ? 'is-memorized-row' : '';
         const btnText = isMem ? '✅ Memorized' : '➕ Memorize';
-        const safeWord = escapeHtml(w.german).replace(/'/g, "\\'");
-        const safeDe = escapeHtml(w.german_sen).replace(/'/g, "\\'");
         const timestampInfo = w.memorized_at ? ('<div class="timestamp-badge" title="Bangladesh Standard Time (BST)">🕒 ' + escapeHtml(w.memorized_at) + '</div>') : '';
 
         html += '<tr class="' + rowClass + '">' +
           '<td class="col-idx">#' + w.sl_no + '</td>' +
-          '<td class="col-word" onclick="toggleCellReveal(this)" title="Click or hover to peek">' +
+          '<td class="col-word">' +
             '<div class="coverable">' +
-              '<span class="word-badge ' + memClass + '" onclick="event.stopPropagation(); toggleMemorize(' + w.sl_no + ')">' +
-                escapeHtml(w.german) +
-              '</span>' +
-              '<button class="audio-btn" title="Listen pronunciation" onclick="event.stopPropagation(); playAudio(\'' + safeWord + '\')">🔊</button>' +
+              '<div style="display:inline-flex; align-items:center; flex-wrap:wrap; gap:6px; margin-bottom:4px;">' +
+                '<span class="word-badge ' + memClass + '" data-sl="' + w.sl_no + '">' +
+                  escapeHtml(w.german) +
+                '</span>' +
+                '<button class="audio-btn" data-audio="' + encodeURIComponent(w.german) + '" title="Listen pronunciation">🔊</button>' +
+              '</div>' +
               timestampInfo +
             '</div>' +
           '</td>' +
-          '<td class="col-meaning" onclick="toggleCellReveal(this)" title="Click or hover to peek">' +
+          '<td class="col-meaning">' +
             '<div class="coverable">' + escapeHtml(w.english) + '</div>' +
           '</td>' +
-          '<td class="col-example" onclick="toggleCellReveal(this)" title="Click or hover to peek">' +
+          '<td class="col-example">' +
             '<div class="coverable">' +
               '<div class="example-de">' +
                 '<span>' + escapeHtml(w.german_sen) + '</span>' +
-                '<button class="audio-btn" title="Listen pronunciation" onclick="event.stopPropagation(); playAudio(\'' + safeDe + '\')">🔊</button>' +
+                '<button class="audio-btn" data-audio="' + encodeURIComponent(w.german_sen) + '" title="Listen pronunciation">🔊</button>' +
               '</div>' +
               '<div class="example-en">' + escapeHtml(w.english_sen) + '</div>' +
             '</div>' +
           '</td>' +
           '<td class="col-action">' +
-            '<button class="memorize-btn ' + memClass + '" onclick="toggleMemorize(' + w.sl_no + ')">' +
+            '<button class="memorize-btn ' + memClass + '" data-sl="' + w.sl_no + '">' +
               btnText +
             '</button>' +
           '</td>' +
@@ -1546,6 +1547,38 @@ HTML_TEMPLATE = """<!DOCTYPE html>
 
       tableBody.innerHTML = html;
     }
+
+    // Clean Event Delegation for Table Interactions
+    tableBody.addEventListener('click', function(e) {
+      const audioBtn = e.target.closest('.audio-btn');
+      if (audioBtn) {
+        e.stopPropagation();
+        const raw = audioBtn.getAttribute('data-audio');
+        if (raw) playAudio(decodeURIComponent(raw));
+        return;
+      }
+
+      const memBtn = e.target.closest('.memorize-btn');
+      if (memBtn) {
+        e.stopPropagation();
+        const sl = parseInt(memBtn.getAttribute('data-sl'), 10);
+        if (sl) toggleMemorize(sl);
+        return;
+      }
+
+      const wordBadge = e.target.closest('.word-badge');
+      if (wordBadge) {
+        e.stopPropagation();
+        const sl = parseInt(wordBadge.getAttribute('data-sl'), 10);
+        if (sl) toggleMemorize(sl);
+        return;
+      }
+
+      const cell = e.target.closest('td');
+      if (cell) {
+        toggleCellReveal(cell);
+      }
+    });
 
     function toggleCellReveal(cell) {
       if (coverMode !== "none") {
@@ -1703,9 +1736,9 @@ HTML_TEMPLATE = """<!DOCTYPE html>
     }
 
     function playAudio(text) {
-      if ('speechSynthesis' in window) {
+      if ('speechSynthesis' in window && text) {
         window.speechSynthesis.cancel();
-        const clean = text.replace(/\\[\\w+\\]/g, '').trim();
+        const clean = text.replace(/\[.*?\]/g, '').trim();
         const utterance = new SpeechSynthesisUtterance(clean);
         utterance.lang = 'de-DE';
         utterance.rate = 0.9;
