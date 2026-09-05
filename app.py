@@ -805,6 +805,32 @@ HTML_TEMPLATE = """<!DOCTYPE html>
       color: #a5b4fc;
     }
 
+    .leo-dict-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: rgba(245, 158, 11, 0.15);
+      border: 1px solid rgba(245, 158, 11, 0.4);
+      border-radius: 6px;
+      color: #fcd34d;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 2px 7px;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      vertical-align: middle;
+      cursor: pointer;
+      line-height: 1.2;
+    }
+
+    .leo-dict-btn:hover {
+      background: rgba(245, 158, 11, 0.3);
+      border-color: rgba(245, 158, 11, 0.8);
+      color: #ffffff;
+      box-shadow: 0 0 10px rgba(245, 158, 11, 0.4);
+      transform: translateY(-1px);
+    }
+
     .web-dict-btn {
       display: inline-flex;
       align-items: center;
@@ -1759,6 +1785,19 @@ HTML_TEMPLATE = """<!DOCTYPE html>
         const url = 'https://dict.leo.org/german-english/' + encodeURIComponent(clean);
         window.open(url, '_blank', 'noopener,noreferrer');
       }
+    }
+
+    function getCleanWordForDict(rawWord) {
+      if (!rawWord) return '';
+      let clean = rawWord.replace(/\(Pl:.*?\)/gi, '');
+      clean = clean.replace(/\[.*?\]/g, '');
+      clean = clean.replace(/^(der|die|das)\s+/i, '');
+      return clean.trim();
+    }
+
+    function getLeoUrl(rawWord) {
+      const clean = getCleanWordForDict(rawWord);
+      return 'https://dict.leo.org/german-english/' + encodeURIComponent(clean || rawWord);
     }
 
     function playAudio(text) {
