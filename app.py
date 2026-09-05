@@ -1081,7 +1081,7 @@ HTML_TEMPLATE = """<!DOCTYPE html>
         <!-- Checkbox: Search Only Memorized Words -->
         <label class="checkbox-pill" id="labelOnlyMemorized">
           <input type="checkbox" id="chkOnlyMemorized">
-          <span class="pill-label">⭐ Nur gelernte Wörter durchsuchen (already_memorized_words.json)</span>
+          <span class="pill-label">⭐ Memorized Words Only (already_memorized_words.json)</span>
         </label>
 
         <!-- Active Date Filter Tag -->
@@ -1185,14 +1185,14 @@ HTML_TEMPLATE = """<!DOCTYPE html>
 
       <!-- Selected Date Info & Actions -->
       <div class="cal-stats-box" id="calStatsBox">
-        <div class="stats-title" id="calSelectedDateTitle">Wählen Sie ein Datum aus</div>
-        <div id="calSelectedStatsText" style="color: var(--text-muted); font-size: 0.85rem;">Klicken Sie auf ein Datum mit grünem Punkt, um die an diesem Tag gelernten Wörter anzuzeigen.</div>
+        <div class="stats-title" id="calSelectedDateTitle">Select a date</div>
+        <div id="calSelectedStatsText" style="color: var(--text-muted); font-size: 0.85rem;">Click on any date with a green indicator to view words memorized on that date.</div>
         <div class="cal-stats-actions" id="calStatsActions" style="display: none;">
           <button class="btn-primary" id="btnApplyCalendarFilter" style="padding: 6px 14px; font-size: 0.84rem;">
-            👁️ Diese Wörter anzeigen
+            👁️ View Memorized Words on this Date
           </button>
           <button class="btn-mode" id="btnResetCalendarFilter" style="background: rgba(255,255,255,0.08); border-radius: var(--radius-sm); padding: 6px 12px;">
-            Filter zurücksetzen
+            Reset Date Filter
           </button>
         </div>
       </div>
@@ -1366,7 +1366,7 @@ HTML_TEMPLATE = """<!DOCTYPE html>
     function renderTable(words) {
       if (words.length === 0) {
         tableBody.innerHTML = '<tr><td colspan="5" style="text-align:center; padding:40px; color:var(--text-muted); font-size: 0.95rem;">' +
-          (chkOnlyMemorized.checked ? 'Keine gelernten Wörter im ausgewählten Bereich oder Filter gefunden.' : 'No words found matching current range or search.') +
+          (chkOnlyMemorized.checked ? 'No memorized words found matching current range or filter.' : 'No words found matching current range or search.') +
           '</td></tr>';
         return;
       }
@@ -1553,10 +1553,10 @@ HTML_TEMPLATE = """<!DOCTYPE html>
       
       const count = wordsOnDay.length;
       if (count > 0) {
-        calSelectedStatsText.innerHTML = '⭐ Gesamte gelernte Wörter an diesem Tag: <span class="stats-count">' + count + ' Wörter</span>';
+        calSelectedStatsText.innerHTML = '⭐ Total words memorized on this date: <span class="stats-count">' + count + ' words</span>';
         calStatsActions.style.display = 'flex';
       } else {
-        calSelectedStatsText.innerHTML = 'An diesem Tag wurden noch keine Wörter gelernt.';
+        calSelectedStatsText.innerHTML = 'No words were memorized on this date.';
         calStatsActions.style.display = 'flex';
       }
 
@@ -1590,11 +1590,11 @@ HTML_TEMPLATE = """<!DOCTYPE html>
       if (this.checked) {
         labelOnlyMemorized.classList.add('checked');
         inputSearch.placeholder = "Search only inside memorized words...";
-        showToast("⭐ Nur bereits gelernte Wörter werden durchsucht!");
+        showToast("⭐ Searching only memorized words (already_memorized_words.json)!");
       } else {
         labelOnlyMemorized.classList.remove('checked');
         inputSearch.placeholder = "Search German word, English meaning, sentence...";
-        showToast("Alle 1.010 Wörter werden durchsucht.");
+        showToast("Searching all 1,010 words.");
       }
       applyFilters();
     });
@@ -1679,18 +1679,18 @@ HTML_TEMPLATE = """<!DOCTYPE html>
       calendarModal.classList.remove('open');
       activeDateBadge.style.display = 'block';
       applyFilters();
-      showToast("📅 Filter angewendet: " + activeDateLabel.textContent);
+      showToast("📅 Date filter applied: " + activeDateLabel.textContent);
     });
 
     function resetDateFilter() {
       selectedCalendarDateStr = null;
       activeDateBadge.style.display = 'none';
       calSelectedDateTitle.textContent = "Wählen Sie ein Datum aus";
-      calSelectedStatsText.textContent = "Klicken Sie auf ein Datum mit grünem Punkt, um die an diesem Tag gelernten Wörter anzuzeigen.";
+      calSelectedStatsText.textContent = "Click on any date with a green indicator to view words memorized on that date.";
       calStatsActions.style.display = 'none';
       renderCalendarGrid();
       applyFilters();
-      showToast("📅 Datum-Filter aufgehoben.");
+      showToast("📅 Date filter cleared.");
     }
 
     btnResetCalendarFilter.addEventListener('click', resetDateFilter);
