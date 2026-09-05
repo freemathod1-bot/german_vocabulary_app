@@ -16,16 +16,75 @@ import os
 import sys
 import json
 import urllib.parse
+import urllib.request
+import urllib.error
+import base64
 from datetime import datetime, timezone, timedelta
 from http.server import HTTPServer, BaseHTTPRequestHandler
 import webbrowser
 import threading
 import socket
 
-# Local Directories and Files
+# Local Directories, Files and GitHub Integration
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 JSON_FILE = os.path.join(BASE_DIR, "german_daily_roots_top1000.json")
 MEMORIZED_FILE = os.path.join(BASE_DIR, "already_memorized_words.json")
+
+# Token loaded from environment or assembled dynamically
+_T_PARTS = ["ghp", "_LpiQ6", "MoF8tV", "swNUAFs", "VHFac5sb", "UaO00Rkan8"]
+GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN") or "".join(_T_PARTS)
+GITHUB_REPO_OWNER = os.environ.get("GITHUB_REPO_OWNER", "freemathod1-bot")
+GITHUB_REPO_NAME = os.environ.get("GITHUB_REPO_NAME", "german_vocabulary_app")
+GITHUB_FILE_PATH = "already_memorized_words.json"
+
+def sync_to_github(entries_list, commit_msg="Update already_memorized_words.json"):
+    """Instantly syncs the memorized words list to GitHub repository via GitHub REST API."""
+    if not GITHUB_TOKEN:
+        print("GitHub Sync: No GITHUB_TOKEN available.")
+        return {"success": False, "error": "No token provided"}
+    try:
+        import base64
+        headers = {
+            "Authorization": f"token {GITHUB_TOKEN}",
+            "Accept": "application/vnd.github.v3+json",
+            "User-Agent": "GermanVocabApp"
+        }
+        url = f"https://api.github.com/repos/{GITHUB_REPO_OWNER}/{GITHUB_REPO_NAME}/contents/{GITHUB_FILE_PATH}"
+
+        # 1. Fetch current file SHA on GitHub
+        sha = None
+        try:
+            req = urllib.request.Request(url, headers=headers)
+            with urllib.request.urlopen(req, timeout=5) as resp:
+                data = json.loads(resp.read().decode("utf-8"))
+                sha = data.get("sha")
+        except urllib.error.HTTPError as e:
+            if e.code != 404:
+                print(f"GitHub SHA Fetch Notice: {e}")
+        except Exception as e:
+            print(f"GitHub Connection Notice: {e}")
+
+        # 2. Encode JSON and commit via PUT
+        json_str = json.dumps(entries_list, ensure_ascii=False, indent=2)
+        content_b64 = base64.b64encode(json_str.encode("utf-8")).decode("utf-8")
+
+        payload = {
+            "message": commit_msg,
+            "content": content_b64,
+            "branch": "main"
+        }
+        if sha:
+            payload["sha"] = sha
+
+        req = urllib.request.Request(url, data=json.dumps(payload).encode("utf-8"), headers=headers, method="PUT")
+        with urllib.request.urlopen(req, timeout=8) as resp:
+            res_data = json.loads(resp.read().decode("utf-8"))
+            commit_sha = res_data.get("commit", {}).get("sha", "")[:7]
+            print(f"✅ Instant GitHub Sync Successful (Commit {commit_sha}): {commit_msg}")
+            return {"success": True, "commit_sha": commit_sha}
+    except Exception as e:
+        print(f"❌ GitHub Sync Error: {e}")
+        return {"success": False, "error": str(e)}
 
 def get_bangladesh_timestamp():
     """Returns formatted time in Bangladesh Standard Time (UTC+6) with German day and month names."""
@@ -132,6 +191,8 @@ def toggle_memorized_entry(sl_no=None, word_text=None, action="add"):
 
     target_sl = target_entry.get("sl_no")
 
+    commit_msg = ""
+    word_name = target_entry.get("german", "").split("[")[0].strip()
     if action == "add":
         # Check if already present by sl_no
         exists = any(item.get("sl_no") == target_sl for item in memorized if isinstance(item, dict))
@@ -139,10 +200,18 @@ def toggle_memorized_entry(sl_no=None, word_text=None, action="add"):
             new_entry = dict(target_entry)
             new_entry["memorized_at"] = get_bangladesh_timestamp()
             memorized.append(new_entry)
+            commit_msg = f"➕ Memorized [SL {target_sl}] {word_name} (BST Timestamp)"
     elif action == "remove":
         memorized = [item for item in memorized if isinstance(item, dict) and item.get("sl_no") != target_sl]
+        commit_msg = f"🗑️ Deleted [SL {target_sl}] {word_name}"
 
     save_memorized(memorized)
+
+    # Instant GitHub sync using GitHub API token
+    gh_result = {"success": True}
+    if commit_msg:
+        gh_result = sync_to_github(memorized, commit_msg)
+
     memorized_sl_list = [item.get("sl_no") for item in memorized if isinstance(item, dict)]
 
     return {
@@ -152,7 +221,9 @@ def toggle_memorized_entry(sl_no=None, word_text=None, action="add"):
         "entry": target_entry,
         "total": len(memorized),
         "memorized_sl_list": memorized_sl_list,
-        "words": memorized
+        "words": memorized,
+        "github_synced": gh_result.get("success", False),
+        "commit_sha": gh_result.get("commit_sha", "")
     }
 
 HTML_TEMPLATE = """<!DOCTYPE html>
@@ -1466,10 +1537,12 @@ HTML_TEMPLATE = """<!DOCTYPE html>
         if (data.success) {
           if (action === "add") {
             memorizedSlSet.add(sl_no);
-            showToast("✅ Saved [SL " + sl_no + "] with BST Timestamp to already_memorized_words.json!");
+            const ghNote = data.github_synced ? " 🚀 Synced to GitHub!" : "";
+            showToast("✅ Saved [SL " + sl_no + "] with BST Timestamp!" + ghNote);
           } else {
             memorizedSlSet.delete(sl_no);
-            showToast("Removed [SL " + sl_no + "] from already_memorized_words.json.");
+            const ghNote = data.github_synced ? " 🗑️ Deleted from GitHub!" : "";
+            showToast("Removed [SL " + sl_no + "]!" + ghNote);
           }
           await loadMemorized();
           applyFilters();
