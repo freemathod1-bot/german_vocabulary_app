@@ -1139,7 +1139,7 @@ HTML_TEMPLATE = """<!DOCTYPE html>
           <div class="range-inputs">
             <input type="number" id="inputFrom" class="input-box" value="1" min="1" max="1010" placeholder="From">
             <span class="range-sep">to</span>
-            <input type="number" id="inputTo" class="input-box" value="10" min="1" max="1010" placeholder="To">
+            <input type="number" id="inputTo" class="input-box" value="100" min="1" max="1010" placeholder="To">
             <button id="btnApply" class="btn-primary">Extract Range</button>
           </div>
         </div>
@@ -1192,7 +1192,7 @@ HTML_TEMPLATE = """<!DOCTYPE html>
 
     <!-- Status Bar with Cover Up Modes -->
     <div class="status-bar">
-      <div id="resultsInfo">Displaying range: <strong>Words 1 to 10</strong> (10 words)</div>
+      <div id="resultsInfo">Displaying range: <strong>Words 1 to 100</strong> (100 words)</div>
       
       <div class="status-actions">
         <!-- Cover Up Mode Buttons -->
@@ -1373,30 +1373,65 @@ HTML_TEMPLATE = """<!DOCTYPE html>
       }
     }
 
-    // Helper to extract clean date tokens from memorized_at string
-    // e.g. "4:31 PM Samstag 5 September 2026"
+    // Comprehensive German & English month name mapping
+    const MONTH_MAP = {
+      'januar': 0, 'jan': 0, 'january': 0,
+      'februar': 1, 'feb': 1, 'february': 1,
+      'märz': 2, 'maerz': 2, 'mrz': 2, 'march': 2, 'mar': 2,
+      'april': 3, 'apr': 3,
+      'mai': 4, 'may': 4,
+      'juni': 5, 'jun': 5, 'june': 5,
+      'juli': 6, 'jul': 6, 'july': 6,
+      'august': 7, 'aug': 7,
+      'september': 8, 'sep': 8, 'sept': 8,
+      'oktober': 9, 'okt': 9, 'october': 9, 'oct': 9,
+      'november': 10, 'nov': 10,
+      'dezember': 11, 'dez': 11, 'december': 11, 'dec': 11
+    };
+
+    // Robust Date Extractor from memorized_at strings
+    // Handles formats like: "4:31 PM Samstag 5 September 2026", "2 pm Sonntag 22 juli 2026", "2026-09-05", etc.
     function extractDateFromTimestamp(ts) {
       if (!ts || typeof ts !== 'string') return null;
-      for (let mIdx = 0; mIdx < GERMAN_MONTHS.length; mIdx++) {
-        const mName = GERMAN_MONTHS[mIdx];
-        if (ts.includes(mName)) {
-          // match: (\d{1,2})\s+Month\s+(\d{4})
-          const regex = new RegExp('(\\d{1,2})\\s+' + mName + '\\s+(\\d{4})', 'i');
-          const match = ts.match(regex);
-          if (match) {
-            const day = parseInt(match[1], 10);
-            const year = parseInt(match[2], 10);
-            return {
-              day: day,
-              monthIndex: mIdx,
-              monthName: mName,
-              year: year,
-              key: year + '-' + String(mIdx + 1).padStart(2, '0') + '-' + String(day).padStart(2, '0'),
-              germanFormatted: day + '. ' + mName + ' ' + year
-            };
-          }
+      const cleanTs = ts.trim().toLowerCase();
+
+      // 1. Match Pattern: <day> <monthName> <year> (e.g. "5 september 2026")
+      const regexWords = /(\d{1,2})[.\s]+([a-zäöü]+)[.\s]+(\d{4})/i;
+      const matchWords = cleanTs.match(regexWords);
+      if (matchWords) {
+        const day = parseInt(matchWords[1], 10);
+        const mKey = matchWords[2];
+        const year = parseInt(matchWords[3], 10);
+        if (MONTH_MAP[mKey] !== undefined) {
+          const mIdx = MONTH_MAP[mKey];
+          return {
+            day: day,
+            monthIndex: mIdx,
+            monthName: GERMAN_MONTHS[mIdx],
+            year: year,
+            key: year + '-' + String(mIdx + 1).padStart(2, '0') + '-' + String(day).padStart(2, '0'),
+            germanFormatted: day + '. ' + GERMAN_MONTHS[mIdx] + ' ' + year
+          };
         }
       }
+
+      // 2. Match ISO Pattern: YYYY-MM-DD
+      const regexIso = /(\d{4})-(\d{2})-(\d{2})/;
+      const matchIso = cleanTs.match(regexIso);
+      if (matchIso) {
+        const year = parseInt(matchIso[1], 10);
+        const mIdx = parseInt(matchIso[2], 10) - 1;
+        const day = parseInt(matchIso[3], 10);
+        return {
+          day: day,
+          monthIndex: mIdx,
+          monthName: GERMAN_MONTHS[mIdx] || '',
+          year: year,
+          key: year + '-' + String(mIdx + 1).padStart(2, '0') + '-' + String(day).padStart(2, '0'),
+          germanFormatted: day + '. ' + (GERMAN_MONTHS[mIdx] || '') + ' ' + year
+        };
+      }
+
       return null;
     }
 
@@ -1409,17 +1444,22 @@ HTML_TEMPLATE = """<!DOCTYPE html>
 
     function applyFilters() {
       const isMemorizedOnly = chkOnlyMemorized.checked;
-      let list = isMemorizedOnly ? memorizedList : allWords;
       const q = inputSearch.value.toLowerCase().trim();
 
-      // If Date Filter is active
+      // Source dataset selection:
+      // If a calendar date is active OR "Memorized Only" is checked, search inside memorizedList!
+      let sourceList = (selectedCalendarDateStr || isMemorizedOnly) ? memorizedList : allWords;
+      let list = sourceList;
+
+      // 1. Filter by Calendar Date if active
       if (selectedCalendarDateStr) {
-        list = list.filter(w => {
+        list = memorizedList.filter(w => {
           const d = extractDateFromTimestamp(w.memorized_at);
           return d && d.key === selectedCalendarDateStr;
         });
       }
 
+      // 2. Filter by search query if present
       if (q) {
         list = list.filter(w => {
           return (
@@ -1429,15 +1469,35 @@ HTML_TEMPLATE = """<!DOCTYPE html>
             (w.english_sen && w.english_sen.toLowerCase().includes(q))
           );
         });
-        const scopeText = isMemorizedOnly ? " in [already_memorized_words.json]" : "";
+        const scopeText = (selectedCalendarDateStr ? (" on " + activeDateLabel.textContent) : (isMemorizedOnly ? " in [already_memorized_words.json]" : ""));
         resultsInfo.innerHTML = 'Found <strong>' + list.length + '</strong> matching "' + escapeHtml(q) + '"' + scopeText;
-      } else if (selectedCalendarDateStr) {
-        resultsInfo.innerHTML = '📅 Datum: <strong>' + activeDateLabel.textContent + '</strong> (<strong>' + list.length + ' Wörter</strong> gelernt)';
-      } else if (isMemorizedOnly) {
-        resultsInfo.innerHTML = 'Displaying <strong>' + list.length + ' memorized words</strong> from already_memorized_words.json';
-      } else {
+      }
+      // 3. Calendar Date Mode Display
+      else if (selectedCalendarDateStr) {
+        const totalOnDate = list.length;
         const from = parseInt(inputFrom.value, 10) || 1;
-        const to = parseInt(inputTo.value, 10) || list.length;
+        const to = parseInt(inputTo.value, 10) || Math.min(100, totalOnDate);
+        
+        // Apply custom range if list has items
+        const pagedList = list.slice(from - 1, to);
+        resultsInfo.innerHTML = '📅 Date: <strong>' + activeDateLabel.textContent + '</strong> • Showing <strong>' + pagedList.length + ' of ' + totalOnDate + ' words</strong> (Default Max 100)';
+        renderTable(pagedList);
+        return;
+      }
+      // 4. Memorized Words Only Display
+      else if (isMemorizedOnly) {
+        const totalMem = list.length;
+        const from = parseInt(inputFrom.value, 10) || 1;
+        const to = parseInt(inputTo.value, 10) || Math.min(100, totalMem);
+        const pagedList = list.slice(from - 1, to);
+        resultsInfo.innerHTML = 'Displaying <strong>' + pagedList.length + ' of ' + totalMem + ' memorized words</strong> (already_memorized_words.json)';
+        renderTable(pagedList);
+        return;
+      }
+      // 5. Standard Vocabulary Range Mode (Default Max 100, custom by range)
+      else {
+        const from = parseInt(inputFrom.value, 10) || 1;
+        const to = parseInt(inputTo.value, 10) || 100;
         list = list.filter(w => w.sl_no >= from && w.sl_no <= to);
         resultsInfo.innerHTML = 'Displaying range: <strong>Words ' + from + ' to ' + to + '</strong> (' + list.length + ' words)';
       }
@@ -1643,6 +1703,7 @@ HTML_TEMPLATE = """<!DOCTYPE html>
       const germanDateStr = germanDayName + ", " + day + ". " + GERMAN_MONTHS[monthIdx] + " " + year;
 
       calSelectedDateTitle.innerHTML = '📅 <strong>' + germanDateStr + '</strong>';
+      activeDateLabel.textContent = germanDateStr;
       
       const count = wordsOnDay.length;
       if (count > 0) {
@@ -1653,7 +1714,9 @@ HTML_TEMPLATE = """<!DOCTYPE html>
         calStatsActions.style.display = 'flex';
       }
 
-      activeDateLabel.textContent = day + '. ' + GERMAN_MONTHS[monthIdx] + ' ' + year;
+      // Automatically show active date badge and update table in real-time
+      activeDateBadge.style.display = 'block';
+      applyFilters();
     }
 
     function playAudio(text) {
