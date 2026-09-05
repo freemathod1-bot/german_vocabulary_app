@@ -805,6 +805,32 @@ HTML_TEMPLATE = """<!DOCTYPE html>
       color: #a5b4fc;
     }
 
+    .web-dict-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      background: rgba(99, 102, 241, 0.12);
+      border: 1px solid rgba(99, 102, 241, 0.3);
+      border-radius: 5px;
+      color: #c7d2fe;
+      font-size: 0.74rem;
+      font-weight: 600;
+      padding: 2px 7px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      vertical-align: middle;
+      margin-left: 5px;
+    }
+
+    .web-dict-btn:hover {
+      background: rgba(99, 102, 241, 0.3);
+      border-color: rgba(99, 102, 241, 0.7);
+      color: #ffffff;
+      box-shadow: 0 0 10px rgba(99, 102, 241, 0.35);
+      transform: translateY(-1px);
+    }
+
     .col-action {
       text-align: right;
       width: 140px;
@@ -1717,6 +1743,22 @@ HTML_TEMPLATE = """<!DOCTYPE html>
       // Automatically show active date badge and update table in real-time
       activeDateBadge.style.display = 'block';
       applyFilters();
+    }
+
+    function getCleanWordForDict(rawWord) {
+      if (!rawWord) return '';
+      let clean = rawWord.replace(/\(Pl:.*?\)/gi, '');
+      clean = clean.replace(/\[.*?\]/g, '');
+      clean = clean.replace(/^(der|die|das)\s+/i, '');
+      return clean.trim();
+    }
+
+    function openWebDict(rawWord) {
+      const clean = getCleanWordForDict(rawWord);
+      if (clean) {
+        const url = 'https://dict.leo.org/german-english/' + encodeURIComponent(clean);
+        window.open(url, '_blank', 'noopener,noreferrer');
+      }
     }
 
     function playAudio(text) {
