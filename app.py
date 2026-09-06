@@ -1,19 +1,33 @@
 #!/usr/bin/env python3
 """
-German Daily Vocabulary Range Extractor (100% Local Offline & Cloud Ready Application)
+German Daily Vocabulary Range Extractor & Multi-Dataset Dictionary
+(100% Local Offline & Cloud Ready Application)
 Runs seamlessly locally or on Render/Docker.
 
+Integrated Datasets:
+- 🌟 german_daily_roots_top1000.json (1,010 Daily Root Words with Example Sentences)
+- 📘 a1_german_word_list_with_english.json (790 Goethe A1 Vocabulary)
+- 📗 a2_german_word_list_with_english.json (1,342 Goethe A2 Vocabulary)
+- 📙 b1_german_word_list_with_english.json (3,261 Goethe B1 Vocabulary)
+- 📚 a1_a2_b1_combined.json (3,328 Complete CEFR A1-B1 Combined Words)
+- 📄 Dynamic auto-discovery of any other .json files in the folder
+
+Data Tracking:
+- 💾 already_memorized_words.json: Stores memorized words with BST timestamps & GitHub sync
+- 🗑️ deleted_datas.json: Stores deleted words with BST timestamps, source dataset & GitHub sync
+
 Features:
-- 1,010 high-frequency German daily root words from german_daily_roots_top1000.json
-- Local and instant GitHub synchronization for already_memorized_words.json (BST Timestamps)
-- "Memorized Words Only" checkbox (queries strictly inside already_memorized_words.json)
+- Instant Dataset Switching with real-time range reconfiguration
+- One-click "Delete" button beside "Memorize" button (stores to deleted_datas.json)
+- Filter by "Memorized Words Only" and "Deleted Words Only (with Restore option)"
 - Interactive German Calendar (📅 Kalender) with German month/day names and date filtering
 - Dual Quiz / Cover Up modes:
   * 🙈 Cover German & Sentences (Only English visible)
   * 🙈 Cover English & Sentences (Only German visible)
   * 👁️ Show All
   * Hover / click to peek any covered cell
-- Range extractor (Default max 100 words, customizable by From/To range or quick chips)
+- Range extractor (Customizable by From/To range or dynamic quick chips)
+- German Text-to-Speech audio pronunciation for all vocabulary & sentences
 """
 
 import os
@@ -31,16 +45,226 @@ import socket
 
 # Local Directories, Files and GitHub Integration
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-JSON_FILE = os.path.join(BASE_DIR, "german_daily_roots_top1000.json")
+DEFAULT_DATASET = "german_daily_roots_top1000.json"
 MEMORIZED_FILE = os.path.join(BASE_DIR, "already_memorized_words.json")
+DELETED_FILE = os.path.join(BASE_DIR, "deleted_datas.json")
+
+# Metadata mapping for known datasets
+KNOWN_DATASETS = {
+    "german_daily_roots_top1000.json": {
+        "name": "Top 1,000 Daily Roots",
+        "icon": "🌟",
+        "badge": "Roots + Sentences",
+        "description": "1,010 high-frequency German daily root words with example sentences & translations"
+    },
+    "a1_german_word_list_with_english.json": {
+        "name": "Goethe A1 Word List",
+        "icon": "📘",
+        "badge": "A1 Beginner",
+        "description": "790 Goethe-Zertifikat A1 official vocabulary items"
+    },
+    "a2_german_word_list_with_english.json": {
+        "name": "Goethe A2 Word List",
+        "icon": "📗",
+        "badge": "A2 Elementary",
+        "description": "1,342 Goethe-Zertifikat A2 official vocabulary items"
+    },
+    "b1_german_word_list_with_english.json": {
+        "name": "Goethe B1 Word List",
+        "icon": "📙",
+        "badge": "B1 Intermediate",
+        "description": "3,261 Goethe-Zertifikat B1 official vocabulary items"
+    },
+    "a1_a2_b1_combined.json": {
+        "name": "A1 + A2 + B1 Combined",
+        "icon": "📚",
+        "badge": "Full CEFR A1–B1",
+        "description": "3,328 combined Goethe/CEFR A1, A2, and B1 vocabulary collection"
+    }
+}
+
+# Metadata mapping for known German PDF reference guides
+KNOWN_PDFS = {
+    # 🏷️ Suffixes & Prefixes
+    "german_noun_suffixes_and_prefixes.pdf": {
+        "title": "German Noun Suffixes & Prefixes",
+        "category": "Suffixes & Prefixes",
+        "icon": "🏷️",
+        "badge": "Nouns",
+        "description": "Comprehensive guide to prefixes and suffixes forming German nouns and gender patterns."
+    },
+    "german_verb_suffixes_and_prefixes.pdf": {
+        "title": "German Verb Suffixes & Prefixes",
+        "category": "Suffixes & Prefixes",
+        "icon": "🏷️",
+        "badge": "Verbs",
+        "description": "Essential inseparable and separable prefixes and suffix rules for German verbs."
+    },
+    "german_adjective_suffixes_and_prefixes.pdf": {
+        "title": "German Adjective Suffixes & Prefixes",
+        "category": "Suffixes & Prefixes",
+        "icon": "🏷️",
+        "badge": "Adjectives",
+        "description": "Rules and patterns for building adjectives with prefixes (un-, ur-) and suffixes (-bar, -lich, -ig)."
+    },
+    "german_adverb_suffixes_and_prefixes.pdf": {
+        "title": "German Adverb Suffixes & Prefixes",
+        "category": "Suffixes & Prefixes",
+        "icon": "🏷️",
+        "badge": "Adverbs",
+        "description": "Adverbial derivation patterns, prefixes, and suffixes in standard German."
+    },
+
+    # ⚡ Verbs & Conjugation
+    "most_common_german_regular_verbs.pdf": {
+        "title": "Most Common German Regular Verbs",
+        "category": "Verbs & Conjugation",
+        "icon": "⚡",
+        "badge": "Regular Verbs",
+        "description": "Frequent regular (weak) German verbs with standard conjugations and definitions."
+    },
+    "all_irregular_german_verbs_with_english_meaning.pdf": {
+        "title": "All Irregular German Verbs + English Meaning",
+        "category": "Verbs & Conjugation",
+        "icon": "⚡",
+        "badge": "Irregular Verbs",
+        "description": "Complete list of strong and irregular German verbs with vowel stems and English translations."
+    },
+    "german_verbs_6_septermber_2026_gemni.pdf": {
+        "title": "German Verbs Master Reference (Gemini)",
+        "category": "Verbs & Conjugation",
+        "icon": "⚡",
+        "badge": "Master Verbs",
+        "description": "Comprehensive German verbs compilation and detailed reference guide."
+    },
+
+    # 🔤 Parts of Speech
+    "most_common_german_nouns_with_english_meaning.pdf": {
+        "title": "Most Common German Nouns + English Meaning",
+        "category": "Parts of Speech",
+        "icon": "🔤",
+        "badge": "Nouns",
+        "description": "Essential high-frequency German nouns with genders (der/die/das) and English meanings."
+    },
+    "most_common_german_adjectives_with_english_meaning.pdf": {
+        "title": "Most Common German Adjectives + English Meaning",
+        "category": "Parts of Speech",
+        "icon": "🔤",
+        "badge": "Adjectives",
+        "description": "Essential descriptive adjectives with meanings and usage contexts."
+    },
+    "most_common_german_adverbs_with_english_meaning.pdf": {
+        "title": "Most Common German Adverbs + English Meaning",
+        "category": "Parts of Speech",
+        "icon": "🔤",
+        "badge": "Adverbs",
+        "description": "High-frequency German adverbs of time, manner, place, and degree."
+    },
+    "most_common_german_prepositions_with_english_meaning.pdf": {
+        "title": "Most Common German Prepositions + English Meaning",
+        "category": "Parts of Speech",
+        "icon": "🔤",
+        "badge": "Prepositions",
+        "description": "Accusative, Dative, Genitive, and Two-Way (Wechselpräpositionen) prepositions."
+    },
+    "most_common_german_conjunctions_with_english_meaning.pdf": {
+        "title": "Most Common German Conjunctions + English Meaning",
+        "category": "Parts of Speech",
+        "icon": "🔤",
+        "badge": "Conjunctions",
+        "description": "Coordinating and subordinating conjunctions and their word order effects."
+    },
+    "most_common_german_interjections_with_english_meaning.pdf": {
+        "title": "Most Common German Interjections + English Meaning",
+        "category": "Parts of Speech",
+        "icon": "🔤",
+        "badge": "Interjections",
+        "description": "Common German conversational exclamations, sounds, and idioms."
+    },
+
+    # 📖 Grammar & Reference Guides
+    "complete_german_pronouns_guide.pdf": {
+        "title": "Complete German Pronouns Guide",
+        "category": "Grammar Guides",
+        "icon": "📖",
+        "badge": "Pronouns",
+        "description": "Master table and guide for personal, possessive, reflexive, and relative pronouns across all 4 cases."
+    }
+}
+
+def format_file_size(size_bytes):
+    """Formats file size in bytes to human-readable string."""
+    if size_bytes < 1024:
+        return f"{size_bytes} B"
+    elif size_bytes < 1024 * 1024:
+        return f"{size_bytes / 1024:.1f} KB"
+    else:
+        return f"{size_bytes / (1024 * 1024):.1f} MB"
+
+def get_available_pdfs():
+    """Discovers all available PDF documents in BASE_DIR with category groupings."""
+    pdfs = []
+    seen = set()
+
+    # 1. Add known PDFs in curated order
+    for filename, meta in KNOWN_PDFS.items():
+        filepath = os.path.join(BASE_DIR, filename)
+        if os.path.exists(filepath):
+            try:
+                size_bytes = os.path.getsize(filepath)
+                pdfs.append({
+                    "id": filename,
+                    "title": meta["title"],
+                    "category": meta["category"],
+                    "icon": meta["icon"],
+                    "badge": meta["badge"],
+                    "description": meta["description"],
+                    "size_bytes": size_bytes,
+                    "size_formatted": format_file_size(size_bytes),
+                    "url": f"/pdf/{urllib.parse.quote(filename)}"
+                })
+                seen.add(filename)
+            except Exception as e:
+                print(f"Error inspecting PDF {filename}: {e}")
+
+    # 2. Auto-discover any additional .pdf files
+    try:
+        for fname in sorted(os.listdir(BASE_DIR)):
+            if (
+                fname.lower().endswith(".pdf")
+                and fname not in seen
+                and not fname.startswith(".")
+            ):
+                filepath = os.path.join(BASE_DIR, fname)
+                try:
+                    size_bytes = os.path.getsize(filepath)
+                    clean_title = fname[:-4].replace("_", " ").title()
+                    pdfs.append({
+                        "id": fname,
+                        "title": clean_title,
+                        "category": "Other PDF Guides",
+                        "icon": "📄",
+                        "badge": "Custom PDF",
+                        "description": f"German PDF reference guide: {fname}",
+                        "size_bytes": size_bytes,
+                        "size_formatted": format_file_size(size_bytes),
+                        "url": f"/pdf/{urllib.parse.quote(fname)}"
+                    })
+                    seen.add(fname)
+                except Exception:
+                    pass
+    except Exception as e:
+        print(f"Error reading directory for PDFs: {e}")
+
+    return pdfs
 
 # Token loaded from environment or assembled dynamically
 _T_PARTS = ["ghp", "_LpiQ6", "MoF8tV", "swNUAFs", "VHFac5sb", "UaO00Rkan8"]
 GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN") or "".join(_T_PARTS)
 GITHUB_REPO_OWNER = os.environ.get("GITHUB_REPO_OWNER", "freemathod1-bot")
 GITHUB_REPO_NAME = os.environ.get("GITHUB_REPO_NAME", "german_vocabulary_app")
-GITHUB_FILE_PATH = "already_memorized_words.json"
 MEMORIZE_LOCK = threading.Lock()
+DELETED_LOCK = threading.Lock()
 
 def get_bangladesh_timestamp():
     """Returns formatted time in Bangladesh Standard Time (UTC+6) with German day and month names."""
@@ -56,17 +280,109 @@ def get_bangladesh_timestamp():
     year = now.year
     return f"{time_str} {day_name} {day_num} {month_name} {year}"
 
-def load_words():
-    if not os.path.exists(JSON_FILE):
-        return []
+def get_available_datasets():
+    """Discovers all available JSON datasets in BASE_DIR (excluding tracking files)."""
+    datasets = []
+    seen = set()
+    excluded_files = {"already_memorized_words.json", "deleted_datas.json", "package.json", "tsconfig.json"}
+
+    # 1. Add known datasets first in predefined order
+    for filename, meta in KNOWN_DATASETS.items():
+        filepath = os.path.join(BASE_DIR, filename)
+        if os.path.exists(filepath):
+            try:
+                with open(filepath, "r", encoding="utf-8") as f:
+                    data = json.load(f)
+                    count = len(data) if isinstance(data, list) else 0
+                    has_sen = False
+                    if count > 0 and isinstance(data[0], dict):
+                        has_sen = bool(data[0].get("german_sen"))
+                    datasets.append({
+                        "id": filename,
+                        "name": meta["name"],
+                        "icon": meta["icon"],
+                        "badge": meta["badge"],
+                        "description": meta["description"],
+                        "count": count,
+                        "has_sentences": has_sen
+                    })
+                    seen.add(filename)
+            except Exception as e:
+                print(f"Error scanning {filename}: {e}")
+
+    # 2. Auto-discover any additional .json files
     try:
-        with open(JSON_FILE, "r", encoding="utf-8") as f:
-            return json.load(f)
+        for fname in sorted(os.listdir(BASE_DIR)):
+            if (
+                fname.endswith(".json")
+                and fname not in seen
+                and fname not in excluded_files
+                and not fname.startswith(".")
+            ):
+                filepath = os.path.join(BASE_DIR, fname)
+                try:
+                    with open(filepath, "r", encoding="utf-8") as f:
+                        data = json.load(f)
+                        if isinstance(data, list) and len(data) > 0 and isinstance(data[0], dict):
+                            count = len(data)
+                            has_sen = bool(data[0].get("german_sen"))
+                            clean_name = fname.replace(".json", "").replace("_", " ").title()
+                            datasets.append({
+                                "id": fname,
+                                "name": clean_name,
+                                "icon": "📄",
+                                "badge": "Custom JSON",
+                                "description": f"{count} vocabulary items from {fname}",
+                                "count": count,
+                                "has_sentences": has_sen
+                            })
+                            seen.add(fname)
+                except Exception:
+                    pass
     except Exception as e:
-        print(f"Error loading {JSON_FILE}: {e}")
+        print(f"Error reading directory for datasets: {e}")
+
+    return datasets
+
+def load_words(dataset_id=None):
+    """Loads vocabulary list for the specified dataset ID."""
+    if not dataset_id:
+        dataset_id = DEFAULT_DATASET
+    dataset_id = os.path.basename(dataset_id)
+    target_path = os.path.join(BASE_DIR, dataset_id)
+
+    if not os.path.exists(target_path):
+        target_path = os.path.join(BASE_DIR, DEFAULT_DATASET)
+
+    if not os.path.exists(target_path):
+        return []
+
+    try:
+        with open(target_path, "r", encoding="utf-8") as f:
+            data = json.load(f)
+            if not isinstance(data, list):
+                return []
+            
+            # Normalize fields
+            normalized = []
+            for idx, item in enumerate(data, start=1):
+                if not isinstance(item, dict):
+                    continue
+                entry = {
+                    "sl_no": int(item.get("sl_no", idx)),
+                    "german": item.get("german", item.get("word", "")),
+                    "english": item.get("english", item.get("meaning", "")),
+                    "german_sen": item.get("german_sen", item.get("example_de", "")),
+                    "english_sen": item.get("english_sen", item.get("example_en", ""))
+                }
+                normalized.append(entry)
+            return normalized
+    except Exception as e:
+        print(f"Error loading {target_path}: {e}")
         return []
 
 def load_memorized():
+    """Loads and normalizes already memorized words."""
     if not os.path.exists(MEMORIZED_FILE):
         return []
     try:
@@ -75,43 +391,23 @@ def load_memorized():
             if not isinstance(data, list):
                 return []
             
-            # Normalize to ensure all have sl_no and timestamp
-            words_db = {w.get("sl_no"): w for w in load_words()}
-            words_by_name = {}
-            for w in load_words():
-                clean = w.get("german", "").split("[")[0].strip().lower()
-                words_by_name[clean] = w
-                stripped = clean.replace("der ", "").replace("die ", "").replace("das ", "").strip()
-                words_by_name[stripped] = w
-
             default_ts = get_bangladesh_timestamp()
             normalized = []
             for item in data:
-                if isinstance(item, dict) and "sl_no" in item:
+                if isinstance(item, dict):
                     if "memorized_at" not in item:
                         item["memorized_at"] = default_ts
+                    if "sl_no" not in item:
+                        item["sl_no"] = len(normalized) + 1
                     normalized.append(item)
-                elif isinstance(item, int) and item in words_db:
-                    entry = dict(words_db[item])
-                    entry["memorized_at"] = default_ts
-                    normalized.append(entry)
-                elif isinstance(item, str):
-                    clean = item.strip().lower()
-                    matched = words_by_name.get(clean)
-                    if matched and matched not in normalized:
-                        entry = dict(matched)
-                        entry["memorized_at"] = default_ts
-                        normalized.append(entry)
-
-            normalized.sort(key=lambda x: int(x.get("sl_no", 0)))
             return normalized
     except Exception as e:
         print(f"Error loading {MEMORIZED_FILE}: {e}")
         return []
 
 def save_memorized(entries_list):
+    """Saves memorized words locally."""
     try:
-        entries_list.sort(key=lambda x: int(x.get("sl_no", 0)) if isinstance(x, dict) else 0)
         with open(MEMORIZED_FILE, "w", encoding="utf-8") as f:
             json.dump(entries_list, f, ensure_ascii=False, indent=2)
         return True
@@ -119,10 +415,44 @@ def save_memorized(entries_list):
         print(f"Error saving to {MEMORIZED_FILE}: {e}")
         return False
 
-def sync_to_github(entries_list, commit_msg="Update already_memorized_words.json"):
-    """Instantly syncs the memorized words list to GitHub repository via GitHub REST API."""
+def load_deleted():
+    """Loads and normalizes deleted words from deleted_datas.json."""
+    if not os.path.exists(DELETED_FILE):
+        return []
+    try:
+        with open(DELETED_FILE, "r", encoding="utf-8") as f:
+            data = json.load(f)
+            if not isinstance(data, list):
+                return []
+            
+            default_ts = get_bangladesh_timestamp()
+            normalized = []
+            for item in data:
+                if isinstance(item, dict):
+                    if "deleted_at" not in item:
+                        item["deleted_at"] = default_ts
+                    if "sl_no" not in item:
+                        item["sl_no"] = len(normalized) + 1
+                    normalized.append(item)
+            return normalized
+    except Exception as e:
+        print(f"Error loading {DELETED_FILE}: {e}")
+        return []
+
+def save_deleted(entries_list):
+    """Saves deleted words locally into deleted_datas.json."""
+    try:
+        with open(DELETED_FILE, "w", encoding="utf-8") as f:
+            json.dump(entries_list, f, ensure_ascii=False, indent=2)
+        return True
+    except Exception as e:
+        print(f"Error saving to {DELETED_FILE}: {e}")
+        return False
+
+def sync_to_github(remote_filename, entries_list, commit_msg):
+    """Instantly syncs any json list to GitHub repository via GitHub REST API."""
     if not GITHUB_TOKEN:
-        print("GitHub Sync: No GITHUB_TOKEN available.")
+        print(f"GitHub Sync ({remote_filename}): No GITHUB_TOKEN available.")
         return {"success": False, "error": "No token provided"}
     try:
         headers = {
@@ -130,9 +460,8 @@ def sync_to_github(entries_list, commit_msg="Update already_memorized_words.json
             "Accept": "application/vnd.github.v3+json",
             "User-Agent": "GermanVocabApp"
         }
-        url = f"https://api.github.com/repos/{GITHUB_REPO_OWNER}/{GITHUB_REPO_NAME}/contents/{GITHUB_FILE_PATH}"
+        url = f"https://api.github.com/repos/{GITHUB_REPO_OWNER}/{GITHUB_REPO_NAME}/contents/{remote_filename}"
 
-        # 1. Fetch current file SHA on GitHub
         sha = None
         try:
             req = urllib.request.Request(url, headers=headers)
@@ -141,11 +470,10 @@ def sync_to_github(entries_list, commit_msg="Update already_memorized_words.json
                 sha = data.get("sha")
         except urllib.error.HTTPError as e:
             if e.code != 404:
-                print(f"GitHub SHA Fetch Notice: {e}")
+                print(f"GitHub SHA Fetch Notice for {remote_filename}: {e}")
         except Exception as e:
-            print(f"GitHub Connection Notice: {e}")
+            print(f"GitHub Connection Notice for {remote_filename}: {e}")
 
-        # 2. Encode JSON and commit via PUT
         json_str = json.dumps(entries_list, ensure_ascii=False, indent=2)
         content_b64 = base64.b64encode(json_str.encode("utf-8")).decode("utf-8")
 
@@ -161,15 +489,20 @@ def sync_to_github(entries_list, commit_msg="Update already_memorized_words.json
         with urllib.request.urlopen(req, timeout=8) as resp:
             res_data = json.loads(resp.read().decode("utf-8"))
             commit_sha = res_data.get("commit", {}).get("sha", "")[:7]
-            print(f"✅ Instant GitHub Sync Successful (Commit {commit_sha}): {commit_msg}")
+            print(f"✅ Instant GitHub Sync Successful for {remote_filename} (Commit {commit_sha}): {commit_msg}")
             return {"success": True, "commit_sha": commit_sha}
     except Exception as e:
-        print(f"❌ GitHub Sync Error: {e}")
+        print(f"❌ GitHub Sync Error for {remote_filename}: {e}")
         return {"success": False, "error": str(e)}
 
-def toggle_memorized_entry(sl_no=None, word_text=None, action="add"):
+def toggle_memorized_entry(sl_no=None, word_text=None, dataset_id=None, action="add"):
+    """Adds or removes a word from memorized words dataset."""
     with MEMORIZE_LOCK:
-        all_words = load_words()
+        if not dataset_id:
+            dataset_id = DEFAULT_DATASET
+        dataset_id = os.path.basename(dataset_id)
+
+        all_words = load_words(dataset_id)
         memorized = load_memorized()
 
         target_entry = None
@@ -190,7 +523,7 @@ def toggle_memorized_entry(sl_no=None, word_text=None, action="add"):
                 w_clean = w.get("german", "").replace("[", " ").split()[0].strip().lower()
                 if clean_input == w_clean:
                     target_entry = w
-                    target_sl = int(target_entry.get("sl_no"))
+                    target_sl = int(target_entry.get("sl_no", 0))
                     break
 
         if not target_entry or target_sl is None:
@@ -198,35 +531,51 @@ def toggle_memorized_entry(sl_no=None, word_text=None, action="add"):
 
         commit_msg = ""
         word_name = target_entry.get("german", "").split("[")[0].strip()
+        clean_german = target_entry.get("german", "").strip().lower()
 
         if action == "add":
-            # Add only if not already in memorized list
-            exists = any(int(item.get("sl_no", -1)) == target_sl for item in memorized if isinstance(item, dict))
+            exists = any(
+                (item.get("german", "").strip().lower() == clean_german) or
+                (item.get("dataset") == dataset_id and int(item.get("sl_no", -1)) == target_sl)
+                for item in memorized if isinstance(item, dict)
+            )
             if not exists:
                 new_entry = dict(target_entry)
                 new_entry["sl_no"] = target_sl
+                new_entry["dataset"] = dataset_id
                 new_entry["memorized_at"] = get_bangladesh_timestamp()
                 memorized.append(new_entry)
-                commit_msg = f"➕ Memorized [SL {target_sl}] {word_name} (BST Timestamp)"
+                commit_msg = f"➕ Memorized [{dataset_id} SL {target_sl}] {word_name} (BST Timestamp)"
         elif action == "remove":
-            # Remove strictly the item matching target_sl
             prev_count = len(memorized)
             memorized = [
                 item for item in memorized
-                if not (isinstance(item, dict) and int(item.get("sl_no", -1)) == target_sl)
+                if not (
+                    isinstance(item, dict) and (
+                        (item.get("german", "").strip().lower() == clean_german) or
+                        (item.get("dataset") == dataset_id and int(item.get("sl_no", -1)) == target_sl)
+                    )
+                )
             ]
             if len(memorized) < prev_count:
-                commit_msg = f"🗑️ Deleted [SL {target_sl}] {word_name}"
+                commit_msg = f"🗑️ Removed memorized [{dataset_id} SL {target_sl}] {word_name}"
 
-        # Save locally with sl_no sort
         save_memorized(memorized)
 
-        # Instant GitHub sync using GitHub API token
         gh_result = {"success": True}
         if commit_msg:
-            gh_result = sync_to_github(memorized, commit_msg)
+            gh_result = sync_to_github("already_memorized_words.json", memorized, commit_msg)
 
-        memorized_sl_list = [int(item.get("sl_no")) for item in memorized if isinstance(item, dict) and "sl_no" in item]
+        memorized_sl_list = [
+            int(item.get("sl_no"))
+            for item in memorized
+            if isinstance(item, dict) and "sl_no" in item and item.get("dataset", DEFAULT_DATASET) == dataset_id
+        ]
+        memorized_words_set = [
+            item.get("german", "").strip().lower()
+            for item in memorized
+            if isinstance(item, dict) and item.get("german")
+        ]
 
         return {
             "success": True,
@@ -235,7 +584,114 @@ def toggle_memorized_entry(sl_no=None, word_text=None, action="add"):
             "entry": target_entry,
             "total": len(memorized),
             "memorized_sl_list": memorized_sl_list,
+            "memorized_words_list": memorized_words_set,
             "words": memorized,
+            "github_synced": gh_result.get("success", False),
+            "commit_sha": gh_result.get("commit_sha", "")
+        }
+
+def delete_word_entry(sl_no=None, word_text=None, dataset_id=None, action="delete"):
+    """
+    Deletes a word from active list and records it into deleted_datas.json.
+    Also supports 'restore' action to bring a word back from deleted_datas.json.
+    """
+    with DELETED_LOCK:
+        if not dataset_id:
+            dataset_id = DEFAULT_DATASET
+        dataset_id = os.path.basename(dataset_id)
+
+        all_words = load_words(dataset_id)
+        deleted_list = load_deleted()
+
+        target_entry = None
+        target_sl = None
+        if sl_no is not None:
+            try:
+                target_sl = int(sl_no)
+                for w in all_words:
+                    if int(w.get("sl_no", -1)) == target_sl:
+                        target_entry = w
+                        break
+            except (ValueError, TypeError):
+                pass
+
+        if not target_entry and word_text:
+            clean_input = word_text.replace("[", " ").split()[0].strip().lower()
+            for w in all_words:
+                w_clean = w.get("german", "").replace("[", " ").split()[0].strip().lower()
+                if clean_input == w_clean:
+                    target_entry = w
+                    target_sl = int(target_entry.get("sl_no", 0))
+                    break
+
+        if not target_entry and action == "restore" and sl_no is not None:
+            # Check in deleted_list itself for restore
+            for d in deleted_list:
+                if int(d.get("sl_no", -1)) == int(sl_no) and d.get("dataset", DEFAULT_DATASET) == dataset_id:
+                    target_entry = d
+                    target_sl = int(sl_no)
+                    break
+
+        if not target_entry or target_sl is None:
+            return {"success": False, "error": "Word not found"}
+
+        commit_msg = ""
+        word_name = target_entry.get("german", "").split("[")[0].strip()
+        clean_german = target_entry.get("german", "").strip().lower()
+
+        if action == "delete":
+            exists = any(
+                (item.get("german", "").strip().lower() == clean_german) or
+                (item.get("dataset") == dataset_id and int(item.get("sl_no", -1)) == target_sl)
+                for item in deleted_list if isinstance(item, dict)
+            )
+            if not exists:
+                new_entry = dict(target_entry)
+                new_entry["sl_no"] = target_sl
+                new_entry["dataset"] = dataset_id
+                new_entry["deleted_at"] = get_bangladesh_timestamp()
+                deleted_list.append(new_entry)
+                commit_msg = f"🗑️ Deleted [{dataset_id} SL {target_sl}] {word_name} -> deleted_datas.json (BST Timestamp)"
+        elif action == "restore":
+            prev_count = len(deleted_list)
+            deleted_list = [
+                item for item in deleted_list
+                if not (
+                    isinstance(item, dict) and (
+                        (item.get("german", "").strip().lower() == clean_german) or
+                        (item.get("dataset") == dataset_id and int(item.get("sl_no", -1)) == target_sl)
+                    )
+                )
+            ]
+            if len(deleted_list) < prev_count:
+                commit_msg = f"↩️ Restored [{dataset_id} SL {target_sl}] {word_name} from deleted_datas.json"
+
+        save_deleted(deleted_list)
+
+        gh_result = {"success": True}
+        if commit_msg:
+            gh_result = sync_to_github("deleted_datas.json", deleted_list, commit_msg)
+
+        deleted_sl_list = [
+            int(item.get("sl_no"))
+            for item in deleted_list
+            if isinstance(item, dict) and "sl_no" in item and item.get("dataset", DEFAULT_DATASET) == dataset_id
+        ]
+        deleted_words_set = [
+            item.get("german", "").strip().lower()
+            for item in deleted_list
+            if isinstance(item, dict) and item.get("german")
+        ]
+
+        return {
+            "success": True,
+            "action": action,
+            "sl_no": target_sl,
+            "entry": target_entry,
+            "total": len(deleted_list),
+            "deleted_sl_list": deleted_sl_list,
+            "deleted_words_list": deleted_words_set,
+            "words": deleted_list,
             "github_synced": gh_result.get("success", False),
             "commit_sha": gh_result.get("commit_sha", "")
         }
@@ -245,7 +701,7 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>German Daily Vocabulary</title>
+  <title>German Vocabulary Range Extractor & Master Dictionary</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -260,6 +716,8 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
       --accent-glow: rgba(99, 102, 241, 0.25);
       --accent-green: #10b981;
       --accent-green-bg: rgba(16, 185, 129, 0.15);
+      --accent-red: #ef4444;
+      --accent-red-bg: rgba(239, 68, 68, 0.15);
       --text: #f3f4f6;
       --text-muted: #9ca3af;
       --radius: 12px;
@@ -272,24 +730,25 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
       font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
       background: var(--bg);
       background-image: 
-        radial-gradient(at 10% 10%, rgba(99, 102, 241, 0.12) 0px, transparent 50%),
-        radial-gradient(at 90% 90%, rgba(16, 185, 129, 0.08) 0px, transparent 50%);
+        radial-gradient(at 10% 10%, rgba(99, 102, 241, 0.15) 0px, transparent 50%),
+        radial-gradient(at 90% 90%, rgba(16, 185, 129, 0.1) 0px, transparent 50%),
+        radial-gradient(at 50% 50%, rgba(239, 68, 68, 0.05) 0px, transparent 60%);
       color: var(--text);
       min-height: 100vh;
       padding: 24px 16px 60px;
     }
 
     .container {
-      max-width: 1200px;
+      max-width: 1260px;
       margin: 0 auto;
     }
 
     header {
       text-align: center;
-      margin-bottom: 24px;
+      margin-bottom: 20px;
     }
 
-    .badge {
+    .badge-top {
       display: inline-flex;
       align-items: center;
       gap: 6px;
@@ -309,7 +768,7 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
       font-size: 2.2rem;
       font-weight: 800;
       letter-spacing: -0.5px;
-      background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%);
+      background: linear-gradient(135deg, #ffffff 0%, #c7d2fe 50%, #93c5fd 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       margin-bottom: 8px;
@@ -317,9 +776,10 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
 
     .subtitle {
       color: var(--text-muted);
-      font-size: 1rem;
-      max-width: 720px;
+      font-size: 0.98rem;
+      max-width: 820px;
       margin: 0 auto 16px;
+      line-height: 1.5;
     }
 
     .header-links {
@@ -364,13 +824,120 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
       box-shadow: 0 0 14px var(--accent-glow);
     }
 
+    .btn-link.btn-deleted-trigger {
+      background: rgba(239, 68, 68, 0.12);
+      border-color: rgba(239, 68, 68, 0.3);
+      color: #fca5a5;
+    }
+
+    .btn-link.btn-deleted-trigger:hover {
+      background: rgba(239, 68, 68, 0.22);
+      border-color: rgba(239, 68, 68, 0.6);
+      color: #ffffff;
+      box-shadow: 0 0 14px rgba(239, 68, 68, 0.3);
+    }
+
+    /* Dataset Selector Tabs Bar */
+    .dataset-bar-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 14px 16px;
+      margin-bottom: 18px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(12px);
+    }
+
+    .dataset-bar-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .dataset-bar-title {
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: #94a3b8;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .dataset-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .dataset-tab {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 9px 14px;
+      color: #94a3b8;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 0.85rem;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      user-select: none;
+    }
+
+    .dataset-tab:hover {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.2);
+      color: #f1f5f9;
+      transform: translateY(-1px);
+    }
+
+    .dataset-tab.active {
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.25) 0%, rgba(79, 70, 229, 0.35) 100%);
+      border-color: #6366f1;
+      color: #ffffff;
+      box-shadow: 0 0 16px rgba(99, 102, 241, 0.35);
+    }
+
+    .dataset-tab .tab-count {
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 9999px;
+      padding: 2px 7px;
+      font-size: 0.75rem;
+      font-family: 'JetBrains Mono', monospace;
+      color: #cbd5e1;
+    }
+
+    .dataset-tab.active .tab-count {
+      background: rgba(99, 102, 241, 0.4);
+      border-color: rgba(165, 180, 252, 0.4);
+      color: #e0e7ff;
+    }
+
+    .dataset-tab .tab-badge {
+      font-size: 0.72rem;
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      color: #6ee7b7;
+      border-radius: 4px;
+      padding: 1px 5px;
+    }
+
     /* Control Panel */
     .control-card {
       background: var(--card-bg);
       border: 1px solid var(--border);
       border-radius: var(--radius);
       padding: 20px;
-      margin-bottom: 24px;
+      margin-bottom: 20px;
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
       backdrop-filter: blur(12px);
     }
@@ -501,6 +1068,13 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
       border-top: 1px solid var(--border);
     }
 
+    .checkbox-pill-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+
     .checkbox-pill {
       display: inline-flex;
       align-items: center;
@@ -519,17 +1093,22 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
       border-color: rgba(16, 185, 129, 0.3);
     }
 
-    .checkbox-pill.checked {
+    .checkbox-pill.checked-memorized {
       background: rgba(16, 185, 129, 0.15);
       border-color: rgba(16, 185, 129, 0.5);
       box-shadow: 0 0 12px rgba(16, 185, 129, 0.2);
+    }
+
+    .checkbox-pill.checked-deleted {
+      background: rgba(239, 68, 68, 0.15);
+      border-color: rgba(239, 68, 68, 0.5);
+      box-shadow: 0 0 12px rgba(239, 68, 68, 0.2);
     }
 
     .checkbox-pill input[type="checkbox"] {
       width: 16px;
       height: 16px;
       cursor: pointer;
-      accent-color: var(--accent-green);
     }
 
     .checkbox-pill .pill-label {
@@ -538,9 +1117,8 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
       color: #e2e8f0;
     }
 
-    .checkbox-pill.checked .pill-label {
-      color: #6ee7b7;
-    }
+    .checkbox-pill.checked-memorized .pill-label { color: #6ee7b7; }
+    .checkbox-pill.checked-deleted .pill-label { color: #fca5a5; }
 
     .date-filter-tag {
       display: inline-flex;
@@ -565,9 +1143,7 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
       padding: 0 2px;
     }
 
-    .date-filter-tag .tag-close:hover {
-      color: #ffffff;
-    }
+    .date-filter-tag .tag-close:hover { color: #ffffff; }
 
     /* Quick Range Chips */
     .quick-chips {
@@ -575,6 +1151,7 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
       flex-wrap: wrap;
       gap: 6px;
       margin-top: 12px;
+      align-items: center;
     }
 
     .chip-btn {
@@ -615,22 +1192,40 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
       gap: 8px;
     }
 
-    .status-bar strong {
-      color: var(--text);
-    }
+    .status-bar strong { color: var(--text); }
 
-    .memorized-counter {
+    .counter-pill {
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      background: var(--accent-green-bg);
-      border: 1px solid rgba(16, 185, 129, 0.3);
       padding: 6px 14px;
       border-radius: 9999px;
-      color: #6ee7b7;
       font-weight: 600;
       font-size: 0.85rem;
       cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .memorized-counter {
+      background: var(--accent-green-bg);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      color: #6ee7b7;
+    }
+
+    .memorized-counter:hover {
+      background: rgba(16, 185, 129, 0.25);
+      box-shadow: 0 0 12px rgba(16, 185, 129, 0.3);
+    }
+
+    .deleted-counter {
+      background: var(--accent-red-bg);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      color: #fca5a5;
+    }
+
+    .deleted-counter:hover {
+      background: rgba(239, 68, 68, 0.25);
+      box-shadow: 0 0 12px rgba(239, 68, 68, 0.3);
     }
 
     /* Cover Mode Buttons */
@@ -680,7 +1275,7 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
       background: var(--card-bg);
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      overflow: hidden;
+      overflow-x: auto;
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
       backdrop-filter: blur(12px);
     }
@@ -717,6 +1312,11 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
       background: rgba(16, 185, 129, 0.04);
     }
 
+    .words-table tr.is-deleted-row {
+      background: rgba(239, 68, 68, 0.04);
+      opacity: 0.85;
+    }
+
     .col-idx {
       font-family: 'JetBrains Mono', monospace;
       color: #64748b;
@@ -728,7 +1328,7 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
       font-weight: 700;
       font-size: 1.05rem;
       color: #ffffff;
-      width: 220px;
+      width: 240px;
       position: relative;
     }
 
@@ -757,7 +1357,7 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
     .col-meaning {
       color: #cbd5e1;
       font-weight: 500;
-      width: 200px;
+      width: 220px;
       position: relative;
     }
 
@@ -781,6 +1381,12 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
       font-style: italic;
     }
 
+    .no-example {
+      color: #475569;
+      font-size: 0.82rem;
+      font-style: italic;
+    }
+
     .timestamp-badge {
       display: inline-block;
       margin-top: 4px;
@@ -791,6 +1397,12 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
       border: 1px solid rgba(16, 185, 129, 0.2);
       padding: 2px 6px;
       border-radius: 4px;
+    }
+
+    .timestamp-badge.deleted-ts {
+      color: #fca5a5;
+      background: rgba(239, 68, 68, 0.1);
+      border-color: rgba(239, 68, 68, 0.2);
     }
 
     .audio-btn {
@@ -804,13 +1416,18 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
       transition: color 0.15s ease;
     }
 
-    .audio-btn:hover {
-      color: #a5b4fc;
-    }
+    .audio-btn:hover { color: #a5b4fc; }
 
     .col-action {
       text-align: right;
-      width: 140px;
+      width: 220px;
+    }
+
+    .action-btn-group {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      justify-content: flex-end;
     }
 
     .memorize-btn {
@@ -821,7 +1438,7 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
       font-family: inherit;
       font-size: 0.8rem;
       font-weight: 600;
-      padding: 6px 12px;
+      padding: 6px 11px;
       cursor: pointer;
       transition: all 0.2s ease;
       white-space: nowrap;
@@ -837,6 +1454,48 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
       background: var(--accent-green-bg);
       border-color: rgba(16, 185, 129, 0.5);
       color: #6ee7b7;
+    }
+
+    .delete-btn {
+      background: rgba(239, 68, 68, 0.08);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      border-radius: var(--radius-sm);
+      color: #fca5a5;
+      font-family: inherit;
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 6px 11px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .delete-btn:hover {
+      background: rgba(239, 68, 68, 0.25);
+      border-color: var(--accent-red);
+      color: #ffffff;
+      box-shadow: 0 0 12px rgba(239, 68, 68, 0.35);
+    }
+
+    .restore-btn {
+      background: rgba(99, 102, 241, 0.15);
+      border: 1px solid rgba(99, 102, 241, 0.4);
+      border-radius: var(--radius-sm);
+      color: #c7d2fe;
+      font-family: inherit;
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 6px 12px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .restore-btn:hover {
+      background: rgba(99, 102, 241, 0.3);
+      border-color: #6366f1;
+      color: #ffffff;
+      box-shadow: 0 0 12px var(--accent-glow);
     }
 
     /* COVER UP / QUIZ MODES */
@@ -1070,6 +1729,7 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
     .toast.show { transform: translateY(0); opacity: 1; }
     .toast.toast-success { border-color: var(--accent-green); background: #064e3b; }
     .toast.toast-error { border-color: #ef4444; background: #7f1d1d; }
+    .toast.toast-delete { border-color: #ef4444; background: #450a0a; }
 
     /* Modal */
     .modal-overlay {
@@ -1090,7 +1750,7 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
       border: 1px solid var(--border);
       border-radius: var(--radius);
       width: 100%;
-      max-width: 720px;
+      max-width: 780px;
       max-height: 85vh;
       display: flex;
       flex-direction: column;
@@ -1116,33 +1776,641 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
       color: #cbd5e1;
       background: rgba(0, 0, 0, 0.25);
     }
+
+    /* Main View Mode Switcher */
+    .main-mode-switcher {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin: 0 auto 20px;
+      max-width: 780px;
+      padding: 6px;
+      background: rgba(17, 24, 39, 0.7);
+      border: 1px solid var(--border);
+      border-radius: 9999px;
+      backdrop-filter: blur(16px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+    }
+
+    .mode-tab-btn {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 10px 20px;
+      background: transparent;
+      border: 1px solid transparent;
+      border-radius: 9999px;
+      color: #94a3b8;
+      font-size: 0.94rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      text-decoration: none;
+    }
+
+    .mode-tab-btn:hover {
+      color: #f1f5f9;
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .mode-tab-btn.active {
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.35) 0%, rgba(79, 70, 229, 0.5) 100%);
+      border-color: rgba(99, 102, 241, 0.7);
+      color: #ffffff;
+      box-shadow: 0 0 20px rgba(99, 102, 241, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    }
+
+    .mode-tab-btn .mode-tab-icon {
+      font-size: 1.15rem;
+    }
+
+    .mode-tab-badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 2px 9px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+      color: #cbd5e1;
+    }
+
+    .mode-tab-btn.active .mode-tab-badge {
+      background: rgba(255, 255, 255, 0.22);
+      color: #ffffff;
+    }
+
+    .mode-tab-badge.pdf-live-count {
+      background: rgba(16, 185, 129, 0.2);
+      color: #6ee7b7;
+      border: 1px solid rgba(16, 185, 129, 0.4);
+    }
+
+    .btn-link.btn-pdf-nav-trigger {
+      background: rgba(139, 92, 246, 0.18);
+      border-color: rgba(139, 92, 246, 0.45);
+      color: #ddd6fe;
+    }
+
+    .btn-link.btn-pdf-nav-trigger:hover {
+      background: rgba(139, 92, 246, 0.3);
+      border-color: rgba(139, 92, 246, 0.7);
+      color: #ffffff;
+      box-shadow: 0 0 14px rgba(139, 92, 246, 0.35);
+    }
+
+    /* PDF Hub Layout */
+    .pdf-container-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.45);
+      backdrop-filter: blur(14px);
+      overflow: hidden;
+      margin-bottom: 24px;
+    }
+
+    .pdf-hub-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 24px;
+      border-bottom: 1px solid var(--border);
+      background: linear-gradient(90deg, rgba(99, 102, 241, 0.1) 0%, rgba(17, 24, 39, 0.4) 100%);
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .pdf-hub-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 3px 10px;
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid rgba(16, 185, 129, 0.4);
+      border-radius: 9999px;
+      color: #6ee7b7;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 6px;
+    }
+
+    .pdf-hub-title {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: #ffffff;
+      margin-bottom: 4px;
+    }
+
+    .pdf-hub-sub {
+      color: var(--text-muted);
+      font-size: 0.88rem;
+    }
+
+    .btn-pdf-header-switch {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      color: #cbd5e1;
+      font-size: 0.84rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-pdf-header-switch:hover {
+      background: rgba(255, 255, 255, 0.12);
+      border-color: rgba(255, 255, 255, 0.3);
+      color: #fff;
+    }
+
+    .pdf-workspace {
+      display: grid;
+      grid-template-columns: 370px 1fr;
+      min-height: 840px;
+      background: rgba(10, 14, 23, 0.5);
+    }
+
+    @media (max-width: 1024px) {
+      .pdf-workspace {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* PDF Sidebar / Menu */
+    .pdf-menu-sidebar {
+      border-right: 1px solid var(--border);
+      background: rgba(15, 23, 42, 0.4);
+      display: flex;
+      flex-direction: column;
+      max-height: 860px;
+      overflow: hidden;
+    }
+
+    @media (max-width: 1024px) {
+      .pdf-menu-sidebar {
+        max-height: 480px;
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+      }
+    }
+
+    .pdf-sidebar-controls {
+      padding: 16px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      background: rgba(17, 24, 39, 0.6);
+    }
+
+    .pdf-search-wrap {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .pdf-search-ico {
+      position: absolute;
+      left: 12px;
+      font-size: 0.88rem;
+      color: #64748b;
+      pointer-events: none;
+    }
+
+    .pdf-search-field {
+      width: 100%;
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 9px 36px 9px 34px;
+      color: #fff;
+      font-size: 0.86rem;
+      font-family: inherit;
+      outline: none;
+      transition: all 0.2s;
+    }
+
+    .pdf-search-field:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 10px var(--accent-glow);
+    }
+
+    .pdf-search-clear {
+      position: absolute;
+      right: 10px;
+      background: none;
+      border: none;
+      color: #94a3b8;
+      cursor: pointer;
+      font-size: 0.85rem;
+      padding: 2px 6px;
+    }
+
+    .pdf-search-clear:hover {
+      color: #fff;
+    }
+
+    .pdf-category-pills {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+      scrollbar-width: thin;
+    }
+
+    .pdf-cat-pill {
+      padding: 4px 10px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border);
+      border-radius: 9999px;
+      color: #94a3b8;
+      font-size: 0.74rem;
+      font-weight: 600;
+      white-space: nowrap;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .pdf-cat-pill:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: #e2e8f0;
+    }
+
+    .pdf-cat-pill.active {
+      background: rgba(99, 102, 241, 0.25);
+      border-color: rgba(99, 102, 241, 0.6);
+      color: #c7d2fe;
+      font-weight: 700;
+    }
+
+    .pdf-menu-items {
+      overflow-y: auto;
+      padding: 12px 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      flex: 1;
+    }
+
+    .pdf-category-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .pdf-category-header {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: #64748b;
+      padding: 4px 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .pdf-category-count {
+      background: rgba(255, 255, 255, 0.07);
+      padding: 1px 6px;
+      border-radius: 9999px;
+      font-size: 0.7rem;
+    }
+
+    .pdf-item-btn {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      padding: 10px 12px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: var(--radius-sm);
+      text-align: left;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      color: inherit;
+      width: 100%;
+    }
+
+    .pdf-item-btn:hover {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.15);
+      transform: translateX(2px);
+    }
+
+    .pdf-item-btn.active {
+      background: rgba(99, 102, 241, 0.18);
+      border-color: rgba(99, 102, 241, 0.7);
+      box-shadow: 0 0 14px rgba(99, 102, 241, 0.25);
+    }
+
+    .pdf-item-top {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .pdf-item-icon {
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+
+    .pdf-item-title {
+      font-size: 0.86rem;
+      font-weight: 600;
+      color: #e2e8f0;
+      line-height: 1.3;
+    }
+
+    .pdf-item-btn.active .pdf-item-title {
+      color: #ffffff;
+      font-weight: 700;
+    }
+
+    .pdf-item-bottom {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-left: 26px;
+      flex-wrap: wrap;
+    }
+
+    .pdf-sub-badge {
+      display: inline-block;
+      padding: 1px 6px;
+      border-radius: 4px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      background: rgba(99, 102, 241, 0.15);
+      color: #a5b4fc;
+      border: 1px solid rgba(99, 102, 241, 0.3);
+    }
+
+    .pdf-sub-size {
+      font-size: 0.72rem;
+      color: #94a3b8;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* PDF Reader Panel (Right) */
+    .pdf-reader-panel {
+      display: flex;
+      flex-direction: column;
+      background: rgba(10, 14, 23, 0.8);
+      min-height: 840px;
+      position: relative;
+    }
+
+    .pdf-reader-panel.fullscreen-active {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 99999;
+      background: #090d16;
+      border-radius: 0;
+      min-height: 100vh;
+      height: 100vh;
+      width: 100vw;
+      padding: 8px;
+    }
+
+    .pdf-reader-toolbar {
+      padding: 12px 18px;
+      border-bottom: 1px solid var(--border);
+      background: rgba(17, 24, 39, 0.7);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .pdf-active-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      max-width: 65%;
+    }
+
+    .pdf-active-icon {
+      font-size: 1.8rem;
+      flex-shrink: 0;
+    }
+
+    .pdf-active-text {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .pdf-active-title-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .pdf-active-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #ffffff;
+    }
+
+    .pdf-readonly-tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 1px 7px;
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid rgba(16, 185, 129, 0.4);
+      border-radius: 9999px;
+      color: #6ee7b7;
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .pdf-active-meta-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      font-size: 0.76rem;
+      color: #94a3b8;
+    }
+
+    .pdf-tag-cat {
+      background: rgba(99, 102, 241, 0.15);
+      color: #c7d2fe;
+      padding: 1px 6px;
+      border-radius: 4px;
+    }
+
+    .pdf-tag-size {
+      font-family: 'JetBrains Mono', monospace;
+      color: #cbd5e1;
+    }
+
+    .pdf-tag-filename {
+      color: #64748b;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+    }
+
+    .pdf-reader-tools {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-tool-pdf {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      color: #cbd5e1;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-tool-pdf:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.25);
+      color: #ffffff;
+    }
+
+    .pdf-viewport-wrapper {
+      position: relative;
+      flex: 1;
+      min-height: 760px;
+      display: flex;
+      background: #111827;
+    }
+
+    .pdf-reader-panel.fullscreen-active .pdf-viewport-wrapper {
+      min-height: calc(100vh - 70px);
+      height: calc(100vh - 70px);
+    }
+
+    .pdf-embed-frame {
+      width: 100%;
+      height: 100%;
+      min-height: 760px;
+      border: none;
+      background: #1f2937;
+    }
+
+    .pdf-reader-panel.fullscreen-active .pdf-embed-frame {
+      min-height: calc(100vh - 70px);
+    }
+
+    .pdf-empty-state {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 30px;
+      text-align: center;
+      background: rgba(15, 23, 42, 0.85);
+      color: var(--text-muted);
+    }
+
+    .pdf-empty-icon {
+      font-size: 3.5rem;
+      margin-bottom: 14px;
+      opacity: 0.8;
+    }
+
+    .pdf-empty-state h3 {
+      font-size: 1.2rem;
+      color: #ffffff;
+      margin-bottom: 6px;
+    }
+
+    .pdf-empty-state p {
+      font-size: 0.88rem;
+      max-width: 450px;
+    }
   </style>
 </head>
 <body>
 
   <div class="container">
     <header>
-      <div class="badge">💻 Local Computer Drive</div>
+      <div class="badge-top">💻 Local Offline Drive & Multi-Dataset Hub</div>
       <h1>German Vocabulary Range Extractor</h1>
-      <p class="subtitle">Extract vocabulary from local JSON dataset by serial range, instant search, or explore memorized progress with the German Calendar.</p>
+      <p class="subtitle" id="headerSubtitle">Extract vocabulary from multiple JSON collections, memorize progress, manage deletions saved to <code>deleted_datas.json</code>, or explore with the German Calendar.</p>
       
       <div class="header-links">
         <button class="btn-link btn-calendar-trigger" id="btnOpenCalendar">📅 Kalender (German Calendar)</button>
+        <button class="btn-link btn-pdf-nav-trigger" id="btnNavPdfReader">📖 PDF Reader & Library (14 Guides)</button>
         <button class="btn-link" id="btnViewMemorized">📝 View already_memorized_words.json</button>
+        <button class="btn-link btn-deleted-trigger" id="btnViewDeleted">🗑️ View deleted_datas.json</button>
         <button class="btn-link" id="btnReloadLocal">🔄 Reload Local Data</button>
       </div>
     </header>
+
+    <!-- Main View Mode Switcher -->
+    <div class="main-mode-switcher">
+      <button class="mode-tab-btn active" id="tabVocabView" title="Vocabulary datasets and word tables">
+        <span class="mode-tab-icon">📚</span>
+        <span class="mode-tab-title">Vocabulary Extractor</span>
+        <span class="mode-tab-badge" id="vocabCountBadge">5 Datasets</span>
+      </button>
+      <button class="mode-tab-btn" id="tabPdfView" title="Read all 14 German grammar and vocabulary PDFs">
+        <span class="mode-tab-icon">📖</span>
+        <span class="mode-tab-title">German PDF Library & Reader</span>
+        <span class="mode-tab-badge pdf-live-count" id="pdfCountBadge">14 PDF Guides</span>
+      </button>
+    </div>
+
+    <!-- 1. Vocabulary Explorer View Section -->
+    <div id="vocabSection" class="view-section">
+      <!-- Dataset Selector Bar -->
+      <div class="dataset-bar-card">
+      <div class="dataset-bar-header">
+        <div class="dataset-bar-title">
+          <span>📚 Select Vocabulary Dataset:</span>
+        </div>
+        <span id="activeDatasetDesc" style="font-size: 0.82rem; color: #94a3b8;">Loading datasets...</span>
+      </div>
+      <div class="dataset-tabs" id="datasetTabsContainer">
+        <!-- Dynamically populated -->
+      </div>
+    </div>
 
     <!-- Controls -->
     <div class="control-card">
       <div class="controls-grid">
         <!-- Range Extraction -->
         <div class="field-group">
-          <label class="field-label"><span>Serial Range (1 to 1010)</span></label>
+          <label class="field-label">
+            <span id="labelRangeTitle">Serial Range (1 to 100)</span>
+          </label>
           <div class="range-inputs">
-            <input type="number" id="inputFrom" class="input-box" value="1" min="1" max="1010" placeholder="From">
+            <input type="number" id="inputFrom" class="input-box" value="1" min="1" placeholder="From">
             <span class="range-sep">to</span>
-            <input type="number" id="inputTo" class="input-box" value="100" min="1" max="1010" placeholder="To">
+            <input type="number" id="inputTo" class="input-box" value="100" min="1" placeholder="To">
             <button id="btnApply" class="btn-primary">Extract Range</button>
           </div>
         </div>
@@ -1163,11 +2431,19 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
 
       <!-- Filter Options & Toggles Bar -->
       <div class="filter-options-bar">
-        <!-- Checkbox: Search Only Memorized Words -->
-        <label class="checkbox-pill" id="labelOnlyMemorized">
-          <input type="checkbox" id="chkOnlyMemorized">
-          <span class="pill-label">⭐ Memorized Words Only (already_memorized_words.json)</span>
-        </label>
+        <div class="checkbox-pill-group">
+          <!-- Checkbox: Search Only Memorized Words -->
+          <label class="checkbox-pill" id="labelOnlyMemorized">
+            <input type="checkbox" id="chkOnlyMemorized">
+            <span class="pill-label">⭐ Memorized Words (already_memorized_words.json)</span>
+          </label>
+
+          <!-- Checkbox: View Deleted Words -->
+          <label class="checkbox-pill" id="labelOnlyDeleted">
+            <input type="checkbox" id="chkOnlyDeleted">
+            <span class="pill-label">🗑️ Deleted Words (deleted_datas.json)</span>
+          </label>
+        </div>
 
         <!-- Active Date Filter Tag -->
         <div id="activeDateBadge" style="display: none;">
@@ -1179,23 +2455,15 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
       </div>
 
       <!-- Quick Range Chips -->
-      <div class="quick-chips">
-        <span style="font-size: 0.8rem; color: #64748b; margin-right: 4px; align-self: center;">Quick Ranges:</span>
-        <button class="chip-btn" data-from="1" data-to="10">1 – 10</button>
-        <button class="chip-btn" data-from="1" data-to="25">1 – 25</button>
-        <button class="chip-btn" data-from="1" data-to="50">1 – 50</button>
-        <button class="chip-btn" data-from="1" data-to="100">1 – 100</button>
-        <button class="chip-btn" data-from="50" data-to="85">50 – 85</button>
-        <button class="chip-btn" data-from="101" data-to="200">101 – 200</button>
-        <button class="chip-btn" data-from="201" data-to="500">201 – 500</button>
-        <button class="chip-btn" data-from="501" data-to="1010">501 – 1010</button>
-        <button class="chip-btn" data-from="1" data-to="1010">All 1,010 Words</button>
+      <div class="quick-chips" id="quickChipsContainer">
+        <span style="font-size: 0.8rem; color: #64748b; margin-right: 4px;">Quick Ranges:</span>
+        <!-- Populated dynamically based on active dataset size -->
       </div>
     </div>
 
     <!-- Status Bar with Cover Up Modes -->
     <div class="status-bar">
-      <div id="resultsInfo">Displaying range: <strong>Words 1 to 100</strong> (100 words)</div>
+      <div id="resultsInfo">Loading dataset...</div>
       
       <div class="status-actions">
         <!-- Cover Up Mode Buttons -->
@@ -1211,9 +2479,14 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
           </button>
         </div>
 
-        <div class="memorized-counter" id="btnMemorizedCounter" title="Click to view already_memorized_words.json">
-          <span>⭐ Memorized (BST):</span>
+        <div class="counter-pill memorized-counter" id="btnMemorizedCounter" title="Click to view already_memorized_words.json">
+          <span>⭐ Memorized:</span>
           <strong id="countMemorized">0</strong>
+        </div>
+
+        <div class="counter-pill deleted-counter" id="btnDeletedCounter" title="Click to view deleted_datas.json">
+          <span>🗑️ Deleted:</span>
+          <strong id="countDeleted">0</strong>
         </div>
       </div>
     </div>
@@ -1227,11 +2500,89 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
             <th class="col-word">German Word</th>
             <th class="col-meaning">English Meaning</th>
             <th class="col-example">Example Sentence & English</th>
-            <th class="col-action">Memorize</th>
+            <th class="col-action" id="colActionHeader">Actions</th>
           </tr>
         </thead>
         <tbody id="tableBody"></tbody>
       </table>
+    </div>
+    </div> <!-- /vocabSection -->
+
+    <!-- 2. PDF Reader View Section -->
+    <div id="pdfSection" class="view-section" style="display: none;">
+      <div class="pdf-container-card">
+        <!-- PDF Reader Top Bar -->
+        <div class="pdf-hub-header">
+          <div class="pdf-hub-title-group">
+            <span class="pdf-hub-badge">🔒 Read-Only Document Reader</span>
+            <h2 class="pdf-hub-title">📖 German PDF Grammar & Vocabulary Library</h2>
+            <p class="pdf-hub-sub">Browse, select, and read all 14 official German grammar guides, prefix/suffix references, and vocabulary lists directly in your browser.</p>
+          </div>
+          <div class="pdf-hub-actions">
+            <button class="btn-pdf-header-switch" id="btnBackToVocab">← Back to Vocabulary Extractor</button>
+          </div>
+        </div>
+
+        <div class="pdf-workspace">
+          <!-- Left Menu / Sidebar -->
+          <aside class="pdf-menu-sidebar">
+            <div class="pdf-sidebar-controls">
+              <div class="pdf-search-wrap">
+                <span class="pdf-search-ico">🔍</span>
+                <input type="text" id="pdfSearchInput" class="pdf-search-field" placeholder="Search 14 PDF guides...">
+                <button id="pdfSearchClearBtn" class="pdf-search-clear" style="display:none;" title="Clear search">✕</button>
+              </div>
+
+              <!-- Category Filter Tabs -->
+              <div class="pdf-category-pills" id="pdfCategoryFilterContainer">
+                <!-- Dynamically filled: All, Suffixes & Prefixes, Verbs, Parts of Speech, etc. -->
+              </div>
+            </div>
+
+            <div class="pdf-menu-items" id="pdfMenuItemsContainer">
+              <!-- Dynamically populated PDF list with icons, badges, size -->
+            </div>
+          </aside>
+
+          <!-- Right Main Reader Frame -->
+          <section class="pdf-reader-panel" id="pdfReaderPanel">
+            <div class="pdf-reader-toolbar">
+              <div class="pdf-active-info">
+                <span class="pdf-active-icon" id="pdfActiveDocIcon">📖</span>
+                <div class="pdf-active-text">
+                  <div class="pdf-active-title-row">
+                    <h3 class="pdf-active-title" id="pdfActiveDocTitle">Select a PDF guide</h3>
+                    <span class="pdf-readonly-tag">🔒 Read Only</span>
+                  </div>
+                  <div class="pdf-active-meta-row">
+                    <span class="pdf-tag-cat" id="pdfActiveDocCategory">Category</span>
+                    <span class="pdf-tag-size" id="pdfActiveDocSize">Size</span>
+                    <span class="pdf-tag-filename" id="pdfActiveDocFilename">Filename</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="pdf-reader-tools">
+                <a id="btnPdfPopout" href="#" target="_blank" rel="noopener noreferrer" class="btn-tool-pdf" title="Open in dedicated browser tab">
+                  ↗ New Tab
+                </a>
+                <button id="btnPdfFullscreen" class="btn-tool-pdf" title="Toggle Fullscreen Reader">
+                  ⛶ Fullscreen
+                </button>
+              </div>
+            </div>
+
+            <div class="pdf-viewport-wrapper" id="pdfViewportWrapper">
+              <iframe id="pdfViewerIframe" class="pdf-embed-frame" src="" title="PDF Document Viewer"></iframe>
+              <div id="pdfEmptyState" class="pdf-empty-state">
+                <div class="pdf-empty-icon">📖</div>
+                <h3>Choose a German PDF from the menu to start reading</h3>
+                <p>Select any grammar guide, verb list, or affix reference from the left menu.</p>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -1288,7 +2639,7 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
   <div id="modal" class="modal-overlay">
     <div class="modal-card">
       <div class="modal-header">
-        <div class="modal-title">already_memorized_words.json (Local Drive • BST Time)</div>
+        <div class="modal-title" id="modalTitle">JSON Viewer</div>
         <button id="modalClose" class="modal-close">✕</button>
       </div>
       <div id="modalText" class="modal-body">Loading...</div>
@@ -1319,21 +2670,34 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
       'dezember': 11, 'dez': 11, 'december': 11, 'dec': 11
     };
 
+    let availableDatasets = [];
+    let currentDatasetId = "german_daily_roots_top1000.json";
     let allWords = [];
     let memorizedList = [];
+    let deletedList = [];
     let memorizedSlSet = new Set();
+    let memorizedCleanWordSet = new Set();
+    let deletedSlSet = new Set();
+    let deletedCleanWordSet = new Set();
+
     let isSaving = false;
     let coverMode = "none";
     let selectedCalendarDateStr = null;
     let calCurrentYear = new Date().getFullYear();
     let calCurrentMonth = new Date().getMonth();
 
+    const datasetTabsContainer = document.getElementById('datasetTabsContainer');
+    const activeDatasetDesc = document.getElementById('activeDatasetDesc');
+    const labelRangeTitle = document.getElementById('labelRangeTitle');
     const inputFrom = document.getElementById('inputFrom');
     const inputTo = document.getElementById('inputTo');
+    const quickChipsContainer = document.getElementById('quickChipsContainer');
     const inputSearch = document.getElementById('inputSearch');
     const searchClear = document.getElementById('searchClear');
     const chkOnlyMemorized = document.getElementById('chkOnlyMemorized');
     const labelOnlyMemorized = document.getElementById('labelOnlyMemorized');
+    const chkOnlyDeleted = document.getElementById('chkOnlyDeleted');
+    const labelOnlyDeleted = document.getElementById('labelOnlyDeleted');
     const activeDateBadge = document.getElementById('activeDateBadge');
     const activeDateLabel = document.getElementById('activeDateLabel');
     const btnClearDateFilter = document.getElementById('btnClearDateFilter');
@@ -1341,6 +2705,7 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
     const tableBody = document.getElementById('tableBody');
     const resultsInfo = document.getElementById('resultsInfo');
     const countMemorized = document.getElementById('countMemorized');
+    const countDeleted = document.getElementById('countDeleted');
     const btnCoverGerman = document.getElementById('btnCoverGerman');
     const btnCoverEnglish = document.getElementById('btnCoverEnglish');
     const btnUncoverAll = document.getElementById('btnUncoverAll');
@@ -1362,20 +2727,131 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
     const btnResetCalendarFilter = document.getElementById('btnResetCalendarFilter');
 
     async function init() {
-      await loadWords();
+      await loadDatasets();
       await loadMemorized();
-      applyFilters();
+      await loadDeleted();
+      await switchDataset(currentDatasetId);
       renderCalendarGrid();
+      await loadPdfs();
+
+      // Check URL hash for direct PDF loading
+      const hash = window.location.hash;
+      if (hash && hash.startsWith('#pdf=')) {
+        const pdfFile = decodeURIComponent(hash.substring(5));
+        switchMainMode('pdf');
+        selectPdf(pdfFile);
+      } else {
+        const savedPdf = localStorage.getItem('last_active_pdf');
+        if (savedPdf && availablePdfs.some(p => p.id === savedPdf)) {
+          selectPdf(savedPdf, false);
+        } else if (availablePdfs.length > 0) {
+          selectPdf(availablePdfs[0].id, false);
+        }
+      }
     }
 
-    async function loadWords() {
+    async function loadDatasets() {
       try {
-        const res = await fetch('/api/words');
+        const res = await fetch('/api/datasets');
+        const data = await res.json();
+        availableDatasets = data.datasets || [];
+        renderDatasetTabs();
+      } catch (err) {
+        showToast("Error loading dataset list: " + err.message, "error");
+      }
+    }
+
+    function renderDatasetTabs() {
+      datasetTabsContainer.innerHTML = '';
+      availableDatasets.forEach(ds => {
+        const btn = document.createElement('button');
+        btn.className = 'dataset-tab' + (ds.id === currentDatasetId ? ' active' : '');
+        btn.innerHTML = `
+          <span>${ds.icon || '📄'} <strong>${escapeHtml(ds.name)}</strong></span>
+          <span class="tab-count">${ds.count.toLocaleString()}</span>
+          ${ds.badge ? `<span class="tab-badge">${escapeHtml(ds.badge)}</span>` : ''}
+        `;
+        btn.title = ds.description || ds.id;
+        btn.addEventListener('click', () => {
+          if (currentDatasetId !== ds.id) {
+            switchDataset(ds.id);
+          }
+        });
+        datasetTabsContainer.appendChild(btn);
+      });
+    }
+
+    async function switchDataset(datasetId) {
+      currentDatasetId = datasetId;
+      renderDatasetTabs();
+
+      const activeDs = availableDatasets.find(d => d.id === datasetId) || { count: 100, name: datasetId };
+      activeDatasetDesc.textContent = activeDs.description || `${activeDs.count} words in dataset`;
+      
+      try {
+        const res = await fetch('/api/words?dataset=' + encodeURIComponent(datasetId));
         const data = await res.json();
         allWords = data.words || [];
+        
+        const total = allWords.length;
+        labelRangeTitle.textContent = `Serial Range (1 to ${total})`;
+        inputFrom.min = 1;
+        inputFrom.max = total;
+        inputFrom.value = 1;
+        inputTo.min = 1;
+        inputTo.max = total;
+        inputTo.value = Math.min(100, total);
+
+        renderQuickChips(total);
+        applyFilters();
       } catch (err) {
-        showToast("Error loading local words: " + err.message, "error");
+        showToast("Error loading words: " + err.message, "error");
       }
+    }
+
+    function renderQuickChips(total) {
+      quickChipsContainer.innerHTML = '<span style="font-size: 0.8rem; color: #64748b; margin-right: 4px;">Quick Ranges:</span>';
+      
+      const standardRanges = [
+        [1, 10], [1, 25], [1, 50], [1, 100], [50, 85],
+        [101, 200], [201, 500], [501, 1000], [1001, 2000], [2001, 3000]
+      ];
+
+      standardRanges.forEach(([f, t]) => {
+        if (f <= total) {
+          const actualTo = Math.min(t, total);
+          if (actualTo > f) {
+            const chip = document.createElement('button');
+            chip.className = 'chip-btn';
+            chip.textContent = `${f} – ${actualTo}`;
+            chip.setAttribute('data-from', f);
+            chip.setAttribute('data-to', actualTo);
+            chip.addEventListener('click', () => {
+              inputFrom.value = f;
+              inputTo.value = actualTo;
+              inputSearch.value = "";
+              searchClear.style.display = "none";
+              applyFilters();
+            });
+            quickChipsContainer.appendChild(chip);
+          }
+        }
+      });
+
+      // All Words Chip
+      const allChip = document.createElement('button');
+      allChip.className = 'chip-btn';
+      allChip.textContent = `All ${total.toLocaleString()} Words`;
+      allChip.setAttribute('data-from', 1);
+      allChip.setAttribute('data-to', total);
+      allChip.addEventListener('click', () => {
+        inputFrom.value = 1;
+        inputTo.value = total;
+        inputSearch.value = "";
+        searchClear.style.display = "none";
+        applyFilters();
+      });
+      quickChipsContainer.appendChild(allChip);
     }
 
     async function loadMemorized() {
@@ -1384,12 +2860,55 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
         const data = await res.json();
         if (data && data.words) {
           memorizedList = data.words;
-          memorizedSlSet = new Set(memorizedList.map(w => w.sl_no));
-          countMemorized.textContent = memorizedSlSet.size;
+          updateMemorizedSets();
         }
       } catch (err) {
         console.warn("Notice loading memorized:", err);
       }
+    }
+
+    function updateMemorizedSets() {
+      memorizedSlSet = new Set(memorizedList.map(w => `${w.dataset || 'german_daily_roots_top1000.json'}#${w.sl_no}`));
+      memorizedCleanWordSet = new Set(memorizedList.map(w => cleanWordKey(w.german)));
+      countMemorized.textContent = memorizedList.length;
+    }
+
+    async function loadDeleted() {
+      try {
+        const res = await fetch('/api/deleted');
+        const data = await res.json();
+        if (data && data.words) {
+          deletedList = data.words;
+          updateDeletedSets();
+        }
+      } catch (err) {
+        console.warn("Notice loading deleted data:", err);
+      }
+    }
+
+    function updateDeletedSets() {
+      deletedSlSet = new Set(deletedList.map(w => `${w.dataset || 'german_daily_roots_top1000.json'}#${w.sl_no}`));
+      deletedCleanWordSet = new Set(deletedList.map(w => cleanWordKey(w.german)));
+      countDeleted.textContent = deletedList.length;
+    }
+
+    function cleanWordKey(str) {
+      if (!str) return '';
+      return String(str).split('[')[0].replace(/^(der|die|das)\s+/i, '').trim().toLowerCase();
+    }
+
+    function isWordMemorized(w) {
+      const specificKey = `${currentDatasetId}#${w.sl_no}`;
+      if (memorizedSlSet.has(specificKey)) return true;
+      const clean = cleanWordKey(w.german);
+      return clean && memorizedCleanWordSet.has(clean);
+    }
+
+    function isWordDeleted(w) {
+      const specificKey = `${currentDatasetId}#${w.sl_no}`;
+      if (deletedSlSet.has(specificKey)) return true;
+      const clean = cleanWordKey(w.german);
+      return clean && deletedCleanWordSet.has(clean);
     }
 
     function extractDateFromTimestamp(ts) {
@@ -1443,16 +2962,23 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
 
     function applyFilters() {
       const isMemorizedOnly = chkOnlyMemorized.checked;
+      const isDeletedOnly = chkOnlyDeleted.checked;
       const q = inputSearch.value.toLowerCase().trim();
 
-      let sourceList = (selectedCalendarDateStr || isMemorizedOnly) ? memorizedList : allWords;
-      let list = sourceList;
+      let list = [];
 
-      if (selectedCalendarDateStr) {
+      if (isDeletedOnly) {
+        list = deletedList;
+      } else if (selectedCalendarDateStr) {
         list = memorizedList.filter(w => {
           const d = extractDateFromTimestamp(w.memorized_at);
           return d && d.key === selectedCalendarDateStr;
         });
+      } else if (isMemorizedOnly) {
+        list = memorizedList;
+      } else {
+        // Exclude deleted items in normal view
+        list = allWords.filter(w => !isWordDeleted(w));
       }
 
       if (q) {
@@ -1464,15 +2990,24 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
             (w.english_sen && w.english_sen.toLowerCase().includes(q))
           );
         });
-        const scopeText = (selectedCalendarDateStr ? (" on " + activeDateLabel.textContent) : (isMemorizedOnly ? " in [already_memorized_words.json]" : ""));
+        const scopeText = isDeletedOnly ? " in [deleted_datas.json]" : (selectedCalendarDateStr ? (" on " + activeDateLabel.textContent) : (isMemorizedOnly ? " in [already_memorized_words.json]" : ""));
         resultsInfo.innerHTML = 'Found <strong>' + list.length + '</strong> matching "' + escapeHtml(q) + '"' + scopeText;
+      }
+      else if (isDeletedOnly) {
+        const totalDel = list.length;
+        const from = parseInt(inputFrom.value, 10) || 1;
+        const to = parseInt(inputTo.value, 10) || Math.max(1, totalDel);
+        const pagedList = list.slice(from - 1, to);
+        resultsInfo.innerHTML = '🗑️ Displaying <strong>' + pagedList.length + ' of ' + totalDel + ' deleted words</strong> (saved in deleted_datas.json)';
+        renderTable(pagedList, true);
+        return;
       }
       else if (selectedCalendarDateStr) {
         const totalOnDate = list.length;
         const from = parseInt(inputFrom.value, 10) || 1;
         const to = parseInt(inputTo.value, 10) || Math.min(100, totalOnDate);
         const pagedList = list.slice(from - 1, to);
-        resultsInfo.innerHTML = '📅 Date: <strong>' + activeDateLabel.textContent + '</strong> • Showing <strong>' + pagedList.length + ' of ' + totalOnDate + ' words</strong> (Default Max 100)';
+        resultsInfo.innerHTML = '📅 Date: <strong>' + activeDateLabel.textContent + '</strong> • Showing <strong>' + pagedList.length + ' of ' + totalOnDate + ' words</strong>';
         renderTable(pagedList);
         return;
       }
@@ -1481,24 +3016,24 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
         const from = parseInt(inputFrom.value, 10) || 1;
         const to = parseInt(inputTo.value, 10) || Math.min(100, totalMem);
         const pagedList = list.slice(from - 1, to);
-        resultsInfo.innerHTML = 'Displaying <strong>' + pagedList.length + ' of ' + totalMem + ' memorized words</strong> (already_memorized_words.json)';
+        resultsInfo.innerHTML = '⭐ Displaying <strong>' + pagedList.length + ' of ' + totalMem + ' memorized words</strong> (already_memorized_words.json)';
         renderTable(pagedList);
         return;
       }
       else {
         const from = parseInt(inputFrom.value, 10) || 1;
-        const to = parseInt(inputTo.value, 10) || 100;
+        const to = parseInt(inputTo.value, 10) || Math.min(100, allWords.length);
         list = list.filter(w => w.sl_no >= from && w.sl_no <= to);
-        resultsInfo.innerHTML = 'Displaying range: <strong>Words ' + from + ' to ' + to + '</strong> (' + list.length + ' words)';
+        resultsInfo.innerHTML = 'Displaying range: <strong>Words ' + from + ' to ' + to + '</strong> (' + list.length + ' active words)';
       }
 
       renderTable(list);
     }
 
-    function renderTable(words) {
+    function renderTable(words, isDeletedView = false) {
       if (!words || words.length === 0) {
         tableBody.innerHTML = '<tr><td colspan="5" style="text-align:center; padding:40px; color:var(--text-muted); font-size: 0.95rem;">' +
-          (chkOnlyMemorized.checked ? 'No memorized words found matching current range or filter.' : 'No words found matching current range or search.') +
+          (isDeletedView ? 'No deleted words found in deleted_datas.json.' : (chkOnlyMemorized.checked ? 'No memorized words found.' : 'No words found matching current range or search.')) +
           '</td></tr>';
         return;
       }
@@ -1506,43 +3041,82 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
       let html = '';
       for (let i = 0; i < words.length; i++) {
         const w = words[i];
-        const isMem = memorizedSlSet.has(w.sl_no);
+        const isMem = isWordMemorized(w);
         const memClass = isMem ? 'is-memorized' : '';
-        const rowClass = isMem ? 'is-memorized-row' : '';
+        const rowClass = isDeletedView ? 'is-deleted-row' : (isMem ? 'is-memorized-row' : '');
         const btnText = isMem ? '✅ Memorized' : '➕ Memorize';
-        const timestampInfo = w.memorized_at ? ('<div class="timestamp-badge" title="Bangladesh Standard Time (BST)">🕒 ' + escapeHtml(w.memorized_at) + '</div>') : '';
+        
+        let timestampInfo = '';
+        if (isDeletedView && w.deleted_at) {
+          timestampInfo = '<div class="timestamp-badge deleted-ts" title="Bangladesh Standard Time (BST)">🗑️ Deleted: ' + escapeHtml(w.deleted_at) + '</div>';
+        } else if (w.memorized_at) {
+          timestampInfo = '<div class="timestamp-badge" title="Bangladesh Standard Time (BST)">🕒 ' + escapeHtml(w.memorized_at) + '</div>';
+        }
 
-        html += '<tr class="' + rowClass + '">' +
-          '<td class="col-idx">#' + w.sl_no + '</td>' +
-          '<td class="col-word">' +
-            '<div class="coverable">' +
-              '<div style="display:inline-flex; align-items:center; flex-wrap:wrap; gap:6px; margin-bottom:4px;">' +
-                '<span class="word-badge ' + memClass + '" data-sl="' + w.sl_no + '">' +
-                  escapeHtml(w.german) +
-                '</span>' +
-                '<button class="audio-btn" data-audio="' + encodeURIComponent(w.german) + '" title="Listen pronunciation">🔊</button>' +
-              '</div>' +
-              timestampInfo +
-            '</div>' +
-          '</td>' +
-          '<td class="col-meaning">' +
-            '<div class="coverable">' + escapeHtml(w.english) + '</div>' +
-          '</td>' +
-          '<td class="col-example">' +
-            '<div class="coverable">' +
-              '<div class="example-de">' +
-                '<span>' + escapeHtml(w.german_sen) + '</span>' +
-                '<button class="audio-btn" data-audio="' + encodeURIComponent(w.german_sen) + '" title="Listen pronunciation">🔊</button>' +
-              '</div>' +
-              '<div class="example-en">' + escapeHtml(w.english_sen) + '</div>' +
-            '</div>' +
-          '</td>' +
-          '<td class="col-action">' +
-            '<button class="memorize-btn ' + memClass + '" data-sl="' + w.sl_no + '">' +
-              btnText +
-            '</button>' +
-          '</td>' +
-        '</tr>';
+        // Example sentence representation
+        let sentenceHtml = '';
+        if (w.german_sen) {
+          sentenceHtml = `
+            <div class="example-de">
+              <span>${escapeHtml(w.german_sen)}</span>
+              <button class="audio-btn" data-audio="${encodeURIComponent(w.german_sen)}" title="Listen sentence pronunciation">🔊</button>
+            </div>
+            <div class="example-en">${escapeHtml(w.english_sen || '')}</div>
+          `;
+        } else {
+          sentenceHtml = `<span class="no-example">—</span>`;
+        }
+
+        // Action buttons
+        let actionsHtml = '';
+        if (isDeletedView) {
+          actionsHtml = `
+            <div class="action-btn-group">
+              <button class="restore-btn" data-sl="${w.sl_no}" data-word="${encodeURIComponent(w.german)}" data-dataset="${escapeHtml(w.dataset || currentDatasetId)}" title="Restore word back to active list">
+                ↩️ Restore
+              </button>
+            </div>
+          `;
+        } else {
+          actionsHtml = `
+            <div class="action-btn-group">
+              <button class="memorize-btn ${memClass}" data-sl="${w.sl_no}" data-word="${encodeURIComponent(w.german)}" title="Toggle Memorized (saves to already_memorized_words.json)">
+                ${btnText}
+              </button>
+              <button class="delete-btn" data-sl="${w.sl_no}" data-word="${encodeURIComponent(w.german)}" title="Delete word and save to deleted_datas.json">
+                🗑️ Delete
+              </button>
+            </div>
+          `;
+        }
+
+        html += `
+          <tr class="${rowClass}" id="row-sl-${w.sl_no}">
+            <td class="col-idx">#${w.sl_no}</td>
+            <td class="col-word">
+              <div class="coverable">
+                <div style="display:inline-flex; align-items:center; flex-wrap:wrap; gap:6px; margin-bottom:4px;">
+                  <span class="word-badge ${memClass}" data-sl="${w.sl_no}">
+                    ${escapeHtml(w.german)}
+                  </span>
+                  <button class="audio-btn" data-audio="${encodeURIComponent(w.german)}" title="Listen German pronunciation">🔊</button>
+                </div>
+                ${timestampInfo}
+              </div>
+            </td>
+            <td class="col-meaning">
+              <div class="coverable">${escapeHtml(w.english)}</div>
+            </td>
+            <td class="col-example">
+              <div class="coverable">
+                ${sentenceHtml}
+              </div>
+            </td>
+            <td class="col-action">
+              ${actionsHtml}
+            </td>
+          </tr>
+        `;
       }
 
       tableBody.innerHTML = html;
@@ -1562,7 +3136,30 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
       if (memBtn) {
         e.stopPropagation();
         const sl = parseInt(memBtn.getAttribute('data-sl'), 10);
-        if (sl) toggleMemorize(sl);
+        const rawWord = memBtn.getAttribute('data-word');
+        const wordText = rawWord ? decodeURIComponent(rawWord) : '';
+        if (sl) toggleMemorize(sl, wordText);
+        return;
+      }
+
+      const delBtn = e.target.closest('.delete-btn');
+      if (delBtn) {
+        e.stopPropagation();
+        const sl = parseInt(delBtn.getAttribute('data-sl'), 10);
+        const rawWord = delBtn.getAttribute('data-word');
+        const wordText = rawWord ? decodeURIComponent(rawWord) : '';
+        if (sl) deleteWord(sl, wordText);
+        return;
+      }
+
+      const restoreBtn = e.target.closest('.restore-btn');
+      if (restoreBtn) {
+        e.stopPropagation();
+        const sl = parseInt(restoreBtn.getAttribute('data-sl'), 10);
+        const rawWord = restoreBtn.getAttribute('data-word');
+        const wordText = rawWord ? decodeURIComponent(rawWord) : '';
+        const datasetId = restoreBtn.getAttribute('data-dataset') || currentDatasetId;
+        if (sl) restoreWord(sl, wordText, datasetId);
         return;
       }
 
@@ -1613,44 +3210,116 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
     btnUncoverAll.addEventListener('click', function() { setCoverMode('none'); });
 
     // Memorize Toggle
-    async function toggleMemorize(sl_no) {
+    async function toggleMemorize(sl_no, word_text) {
       if (isSaving) return;
       isSaving = true;
 
-      const isMem = memorizedSlSet.has(sl_no);
+      const targetWordObj = allWords.find(w => w.sl_no === sl_no) || { sl_no: sl_no, german: word_text };
+      const isMem = isWordMemorized(targetWordObj);
       const action = isMem ? "remove" : "add";
 
       try {
         const res = await fetch('/api/memorize', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ sl_no: sl_no, action: action })
+          body: JSON.stringify({
+            sl_no: sl_no,
+            word: word_text || (targetWordObj ? targetWordObj.german : ''),
+            dataset: currentDatasetId,
+            action: action
+          })
         });
         const data = await res.json();
         if (data.success) {
           if (data.words) {
             memorizedList = data.words;
-            memorizedSlSet = new Set(data.memorized_sl_list || memorizedList.map(w => w.sl_no));
-          } else if (action === "add") {
-            memorizedSlSet.add(sl_no);
-          } else {
-            memorizedSlSet.delete(sl_no);
+            updateMemorizedSets();
           }
-
-          countMemorized.textContent = memorizedSlSet.size;
 
           if (action === "add") {
             const ghNote = data.github_synced ? " 🚀 Synced to GitHub!" : "";
-            showToast("✅ Saved [SL " + sl_no + "] (" + memorizedSlSet.size + " total memorized)" + ghNote);
+            showToast("✅ Saved [SL " + sl_no + "] (" + memorizedList.length + " total memorized)" + ghNote);
           } else {
             const ghNote = data.github_synced ? " 🗑️ Removed from GitHub!" : "";
-            showToast("🗑️ Removed [SL " + sl_no + "] only (" + memorizedSlSet.size + " words remain)" + ghNote);
+            showToast("🗑️ Removed [SL " + sl_no + "] (" + memorizedList.length + " words remain)" + ghNote);
           }
 
           applyFilters();
           renderCalendarGrid();
         } else {
           showToast("❌ Error: " + (data.error || "Failed to update"), "error");
+        }
+      } catch (err) {
+        showToast("❌ Error: " + err.message, "error");
+      } finally {
+        isSaving = false;
+      }
+    }
+
+    // Delete Word to deleted_datas.json
+    async function deleteWord(sl_no, word_text) {
+      if (isSaving) return;
+      isSaving = true;
+
+      const targetWordObj = allWords.find(w => w.sl_no === sl_no) || { sl_no: sl_no, german: word_text };
+
+      try {
+        const res = await fetch('/api/delete', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            sl_no: sl_no,
+            word: word_text || (targetWordObj ? targetWordObj.german : ''),
+            dataset: currentDatasetId,
+            action: 'delete'
+          })
+        });
+        const data = await res.json();
+        if (data.success) {
+          if (data.words) {
+            deletedList = data.words;
+            updateDeletedSets();
+          }
+          const ghNote = data.github_synced ? " 🚀 Synced to GitHub!" : "";
+          showToast("🗑️ Deleted [SL " + sl_no + "] " + (word_text || '') + " -> Saved to deleted_datas.json" + ghNote, "delete");
+          applyFilters();
+        } else {
+          showToast("❌ Error deleting: " + (data.error || "Failed"), "error");
+        }
+      } catch (err) {
+        showToast("❌ Error: " + err.message, "error");
+      } finally {
+        isSaving = false;
+      }
+    }
+
+    // Restore Word from deleted_datas.json
+    async function restoreWord(sl_no, word_text, datasetId) {
+      if (isSaving) return;
+      isSaving = true;
+
+      try {
+        const res = await fetch('/api/delete', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            sl_no: sl_no,
+            word: word_text,
+            dataset: datasetId || currentDatasetId,
+            action: 'restore'
+          })
+        });
+        const data = await res.json();
+        if (data.success) {
+          if (data.words) {
+            deletedList = data.words;
+            updateDeletedSets();
+          }
+          const ghNote = data.github_synced ? " 🚀 Synced to GitHub!" : "";
+          showToast("↩️ Restored [SL " + sl_no + "] " + (word_text || '') + " back to active list" + ghNote);
+          applyFilters();
+        } else {
+          showToast("❌ Error restoring: " + (data.error || "Failed"), "error");
         }
       } catch (err) {
         showToast("❌ Error: " + err.message, "error");
@@ -1748,8 +3417,13 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
 
     function showToast(msg, type) {
       toast.textContent = msg;
-      toast.className = "toast show " + (type === "error" ? "toast-error" : "toast-success");
-      setTimeout(function() { toast.className = "toast"; }, 3000);
+      let toastClass = "toast show ";
+      if (type === "error") toastClass += "toast-error";
+      else if (type === "delete") toastClass += "toast-delete";
+      else toastClass += "toast-success";
+      
+      toast.className = toastClass;
+      setTimeout(function() { toast.className = "toast"; }, 3200);
     }
 
     function escapeHtml(str) {
@@ -1757,16 +3431,33 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
       return String(str).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
     }
 
-    // Event Listeners
+    // Filter Listeners
     chkOnlyMemorized.addEventListener('change', function() {
       if (this.checked) {
-        labelOnlyMemorized.classList.add('checked');
+        chkOnlyDeleted.checked = false;
+        labelOnlyDeleted.classList.remove('checked-deleted');
+        labelOnlyMemorized.classList.add('checked-memorized');
         inputSearch.placeholder = "Search only inside memorized words...";
-        showToast("⭐ Searching only memorized words (already_memorized_words.json)!");
+        showToast("⭐ Viewing only memorized words (already_memorized_words.json)!");
       } else {
-        labelOnlyMemorized.classList.remove('checked');
+        labelOnlyMemorized.classList.remove('checked-memorized');
         inputSearch.placeholder = "Search German word, English meaning, sentence...";
-        showToast("Searching all 1,010 words.");
+        showToast("Searching active dataset (" + currentDatasetId + ").");
+      }
+      applyFilters();
+    });
+
+    chkOnlyDeleted.addEventListener('change', function() {
+      if (this.checked) {
+        chkOnlyMemorized.checked = false;
+        labelOnlyMemorized.classList.remove('checked-memorized');
+        labelOnlyDeleted.classList.add('checked-deleted');
+        inputSearch.placeholder = "Search only inside deleted words...";
+        showToast("🗑️ Viewing deleted words (deleted_datas.json) with Restore option!");
+      } else {
+        labelOnlyDeleted.classList.remove('checked-deleted');
+        inputSearch.placeholder = "Search German word, English meaning, sentence...";
+        showToast("Searching active dataset (" + currentDatasetId + ").");
       }
       applyFilters();
     });
@@ -1785,16 +3476,6 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
     inputTo.addEventListener('change', function() {
       inputSearch.value = "";
       applyFilters();
-    });
-
-    document.querySelectorAll('.chip-btn').forEach(function(btn) {
-      btn.addEventListener('click', function() {
-        inputFrom.value = btn.getAttribute('data-from');
-        inputTo.value = btn.getAttribute('data-to');
-        inputSearch.value = "";
-        searchClear.style.display = "none";
-        applyFilters();
-      });
     });
 
     inputSearch.addEventListener('input', function(e) {
@@ -1849,12 +3530,11 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
 
     btnApplyCalendarFilter.addEventListener('click', function() {
       calendarModal.classList.remove('open');
-      activeDateBadge.style.display = 'block';
       applyFilters();
-      showToast("📅 Date filter applied: " + activeDateLabel.textContent);
+      window.scrollTo({ top: tableCard.offsetTop - 80, behavior: 'smooth' });
     });
 
-    function resetDateFilter() {
+    btnResetCalendarFilter.addEventListener('click', function() {
       selectedCalendarDateStr = null;
       activeDateBadge.style.display = 'none';
       calSelectedDateTitle.textContent = "Select a date";
@@ -1862,40 +3542,64 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
       calStatsActions.style.display = 'none';
       renderCalendarGrid();
       applyFilters();
-      showToast("📅 Date filter cleared.");
-    }
-
-    btnResetCalendarFilter.addEventListener('click', resetDateFilter);
-    btnClearDateFilter.addEventListener('click', resetDateFilter);
-
-    document.getElementById('btnReloadLocal').addEventListener('click', async function() {
-      showToast("Reloading local JSON data...");
-      await loadWords();
-      await loadMemorized();
-      applyFilters();
-      renderCalendarGrid();
-      showToast("✅ Loaded " + allWords.length + " words & " + memorizedSlSet.size + " memorized!");
     });
 
-    // JSON Inspector Modal
+    btnClearDateFilter.addEventListener('click', function() {
+      selectedCalendarDateStr = null;
+      activeDateBadge.style.display = 'none';
+      applyFilters();
+      showToast("Date filter cleared.");
+    });
+
+    // Modals
     const modal = document.getElementById('modal');
+    const modalTitle = document.getElementById('modalTitle');
     const modalText = document.getElementById('modalText');
 
-    function openJsonModal() {
+    document.getElementById('btnViewMemorized').addEventListener('click', async function() {
+      modalTitle.textContent = "already_memorized_words.json (Local Drive • BST Time)";
+      modalText.textContent = "Loading local already_memorized_words.json...";
       modal.classList.add('open');
-      modalText.textContent = "Loading local memorized list...";
-      fetch('/api/memorized')
-        .then(res => res.json())
-        .then(data => {
-          modalText.textContent = JSON.stringify(data.words || [], null, 2);
-        })
-        .catch(err => {
-          modalText.textContent = "Error: " + err.message;
-        });
-    }
+      try {
+        const res = await fetch('/api/memorized');
+        const data = await res.json();
+        modalText.textContent = JSON.stringify(data.words, null, 2);
+      } catch (err) {
+        modalText.textContent = "Error loading: " + err.message;
+      }
+    });
 
-    document.getElementById('btnViewMemorized').addEventListener('click', openJsonModal);
-    document.getElementById('btnMemorizedCounter').addEventListener('click', openJsonModal);
+    document.getElementById('btnViewDeleted').addEventListener('click', async function() {
+      modalTitle.textContent = "deleted_datas.json (Local Drive • BST Time)";
+      modalText.textContent = "Loading local deleted_datas.json...";
+      modal.classList.add('open');
+      try {
+        const res = await fetch('/api/deleted');
+        const data = await res.json();
+        modalText.textContent = JSON.stringify(data.words, null, 2);
+      } catch (err) {
+        modalText.textContent = "Error loading: " + err.message;
+      }
+    });
+
+    document.getElementById('btnMemorizedCounter').addEventListener('click', function() {
+      document.getElementById('btnViewMemorized').click();
+    });
+
+    document.getElementById('btnDeletedCounter').addEventListener('click', function() {
+      document.getElementById('btnViewDeleted').click();
+    });
+
+    document.getElementById('btnReloadLocal').addEventListener('click', async function() {
+      showToast("🔄 Reloading all local data and datasets...");
+      await loadDatasets();
+      await loadMemorized();
+      await loadDeleted();
+      await switchDataset(currentDatasetId);
+      renderCalendarGrid();
+      await loadPdfs();
+      showToast("✅ Local data reloaded successfully!");
+    });
 
     document.getElementById('modalClose').addEventListener('click', function() {
       modal.classList.remove('open');
@@ -1903,6 +3607,285 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
 
     modal.addEventListener('click', function(e) {
       if (e.target === modal) modal.classList.remove('open');
+    });
+
+    // ==========================================
+    // PDF Library & Reader State & Handlers
+    // ==========================================
+    let availablePdfs = [];
+    let activePdfId = null;
+    let currentPdfCategoryFilter = 'ALL';
+    let pdfSearchQuery = '';
+
+    const tabVocabView = document.getElementById('tabVocabView');
+    const tabPdfView = document.getElementById('tabPdfView');
+    const vocabSection = document.getElementById('vocabSection');
+    const pdfSection = document.getElementById('pdfSection');
+    const btnNavPdfReader = document.getElementById('btnNavPdfReader');
+    const btnBackToVocab = document.getElementById('btnBackToVocab');
+    const pdfCountBadge = document.getElementById('pdfCountBadge');
+
+    const pdfSearchInput = document.getElementById('pdfSearchInput');
+    const pdfSearchClearBtn = document.getElementById('pdfSearchClearBtn');
+    const pdfCategoryFilterContainer = document.getElementById('pdfCategoryFilterContainer');
+    const pdfMenuItemsContainer = document.getElementById('pdfMenuItemsContainer');
+
+    const pdfReaderPanel = document.getElementById('pdfReaderPanel');
+    const pdfActiveDocIcon = document.getElementById('pdfActiveDocIcon');
+    const pdfActiveDocTitle = document.getElementById('pdfActiveDocTitle');
+    const pdfActiveDocCategory = document.getElementById('pdfActiveDocCategory');
+    const pdfActiveDocSize = document.getElementById('pdfActiveDocSize');
+    const pdfActiveDocFilename = document.getElementById('pdfActiveDocFilename');
+    const btnPdfPopout = document.getElementById('btnPdfPopout');
+    const btnPdfFullscreen = document.getElementById('btnPdfFullscreen');
+    const pdfViewerIframe = document.getElementById('pdfViewerIframe');
+    const pdfEmptyState = document.getElementById('pdfEmptyState');
+
+    function switchMainMode(mode) {
+      if (mode === 'pdf') {
+        tabVocabView.classList.remove('active');
+        tabPdfView.classList.add('active');
+        vocabSection.style.display = 'none';
+        pdfSection.style.display = 'block';
+        if (!activePdfId && availablePdfs.length > 0) {
+          selectPdf(availablePdfs[0].id);
+        }
+        window.scrollTo({ top: pdfSection.offsetTop - 40, behavior: 'smooth' });
+      } else {
+        tabPdfView.classList.remove('active');
+        tabVocabView.classList.add('active');
+        pdfSection.style.display = 'none';
+        vocabSection.style.display = 'block';
+      }
+    }
+
+    async function loadPdfs() {
+      try {
+        const res = await fetch('/api/pdfs');
+        const data = await res.json();
+        availablePdfs = data.pdfs || [];
+        if (pdfCountBadge) {
+          pdfCountBadge.textContent = `${availablePdfs.length} PDF Guides`;
+        }
+        renderPdfCategoryPills(data.categories || []);
+        renderPdfMenu();
+      } catch (err) {
+        showToast("Error loading PDF guides: " + err.message, "error");
+      }
+    }
+
+    function renderPdfCategoryPills(categories) {
+      if (!pdfCategoryFilterContainer) return;
+      pdfCategoryFilterContainer.innerHTML = '';
+      
+      const allBtn = document.createElement('button');
+      allBtn.className = 'pdf-cat-pill' + (currentPdfCategoryFilter === 'ALL' ? ' active' : '');
+      allBtn.textContent = `All (${availablePdfs.length})`;
+      allBtn.addEventListener('click', () => {
+        currentPdfCategoryFilter = 'ALL';
+        updateCategoryPillsActive();
+        renderPdfMenu();
+      });
+      pdfCategoryFilterContainer.appendChild(allBtn);
+
+      categories.forEach(cat => {
+        const count = availablePdfs.filter(p => p.category === cat).length;
+        const btn = document.createElement('button');
+        btn.className = 'pdf-cat-pill' + (currentPdfCategoryFilter === cat ? ' active' : '');
+        btn.textContent = `${cat} (${count})`;
+        btn.dataset.category = cat;
+        btn.addEventListener('click', () => {
+          currentPdfCategoryFilter = cat;
+          updateCategoryPillsActive();
+          renderPdfMenu();
+        });
+        pdfCategoryFilterContainer.appendChild(btn);
+      });
+    }
+
+    function updateCategoryPillsActive() {
+      if (!pdfCategoryFilterContainer) return;
+      const pills = pdfCategoryFilterContainer.querySelectorAll('.pdf-cat-pill');
+      pills.forEach(p => {
+        if (currentPdfCategoryFilter === 'ALL' && !p.dataset.category) {
+          p.classList.add('active');
+        } else if (p.dataset.category === currentPdfCategoryFilter) {
+          p.classList.add('active');
+        } else {
+          p.classList.remove('active');
+        }
+      });
+    }
+
+    function renderPdfMenu() {
+      if (!pdfMenuItemsContainer) return;
+      pdfMenuItemsContainer.innerHTML = '';
+
+      let filtered = availablePdfs;
+      if (currentPdfCategoryFilter !== 'ALL') {
+        filtered = filtered.filter(p => p.category === currentPdfCategoryFilter);
+      }
+      if (pdfSearchQuery) {
+        const q = pdfSearchQuery.toLowerCase();
+        filtered = filtered.filter(p => 
+          (p.title && p.title.toLowerCase().includes(q)) ||
+          (p.id && p.id.toLowerCase().includes(q)) ||
+          (p.badge && p.badge.toLowerCase().includes(q)) ||
+          (p.category && p.category.toLowerCase().includes(q)) ||
+          (p.description && p.description.toLowerCase().includes(q))
+        );
+      }
+
+      if (filtered.length === 0) {
+        pdfMenuItemsContainer.innerHTML = `
+          <div style="text-align: center; padding: 28px 12px; color: #64748b; font-size: 0.85rem;">
+            No PDF guides match "<strong>${escapeHtml(pdfSearchQuery)}</strong>"
+          </div>
+        `;
+        return;
+      }
+
+      // Group by category for visual organization
+      const groups = {};
+      filtered.forEach(p => {
+        const cat = p.category || 'General';
+        if (!groups[cat]) groups[cat] = [];
+        groups[cat].push(p);
+      });
+
+      Object.keys(groups).forEach(cat => {
+        const groupEl = document.createElement('div');
+        groupEl.className = 'pdf-category-group';
+
+        const headerEl = document.createElement('div');
+        headerEl.className = 'pdf-category-header';
+        headerEl.innerHTML = `
+          <span>${escapeHtml(cat)}</span>
+          <span class="pdf-category-count">${groups[cat].length}</span>
+        `;
+        groupEl.appendChild(headerEl);
+
+        groups[cat].forEach(pdf => {
+          const itemBtn = document.createElement('button');
+          itemBtn.className = 'pdf-item-btn' + (pdf.id === activePdfId ? ' active' : '');
+          itemBtn.dataset.pdfId = pdf.id;
+          itemBtn.title = pdf.description || pdf.title;
+          itemBtn.innerHTML = `
+            <div class="pdf-item-top">
+              <span class="pdf-item-icon">${pdf.icon || '📄'}</span>
+              <span class="pdf-item-title">${escapeHtml(pdf.title)}</span>
+            </div>
+            <div class="pdf-item-bottom">
+              ${pdf.badge ? `<span class="pdf-sub-badge">${escapeHtml(pdf.badge)}</span>` : ''}
+              <span class="pdf-sub-size">${pdf.size_formatted}</span>
+            </div>
+          `;
+          itemBtn.addEventListener('click', () => {
+            selectPdf(pdf.id, true);
+          });
+          groupEl.appendChild(itemBtn);
+        });
+
+        pdfMenuItemsContainer.appendChild(groupEl);
+      });
+    }
+
+    function selectPdf(pdfId, autoScroll = false) {
+      const doc = availablePdfs.find(p => p.id === pdfId);
+      if (!doc) return;
+
+      activePdfId = pdfId;
+      localStorage.setItem('last_active_pdf', pdfId);
+
+      // Update Toolbar Info
+      if (pdfActiveDocIcon) pdfActiveDocIcon.textContent = doc.icon || '📄';
+      if (pdfActiveDocTitle) pdfActiveDocTitle.textContent = doc.title;
+      if (pdfActiveDocCategory) pdfActiveDocCategory.textContent = doc.category;
+      if (pdfActiveDocSize) pdfActiveDocSize.textContent = doc.size_formatted;
+      if (pdfActiveDocFilename) pdfActiveDocFilename.textContent = doc.id;
+      if (btnPdfPopout) btnPdfPopout.href = doc.url;
+
+      // Update Viewer frame (with #toolbar=1&navpanes=1 for optimal built-in browser PDF controls)
+      const targetSrc = doc.url + '#toolbar=1&navpanes=1';
+      if (pdfViewerIframe && pdfViewerIframe.src !== targetSrc) {
+        pdfViewerIframe.src = targetSrc;
+      }
+      if (pdfEmptyState) pdfEmptyState.style.display = 'none';
+
+      // Update menu active state
+      if (pdfMenuItemsContainer) {
+        const allItemBtns = pdfMenuItemsContainer.querySelectorAll('.pdf-item-btn');
+        allItemBtns.forEach(btn => {
+          if (btn.dataset.pdfId === pdfId) {
+            btn.classList.add('active');
+          } else {
+            btn.classList.remove('active');
+          }
+        });
+      }
+
+      // Update URL hash without page reload
+      if (window.location.hash !== '#pdf=' + encodeURIComponent(pdfId)) {
+        history.replaceState(null, '', '#pdf=' + encodeURIComponent(pdfId));
+      }
+
+      if (autoScroll && window.innerWidth <= 1024 && pdfReaderPanel) {
+        pdfReaderPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+
+    function togglePdfFullscreen() {
+      if (!pdfReaderPanel) return;
+      const isFs = pdfReaderPanel.classList.toggle('fullscreen-active');
+      if (isFs) {
+        btnPdfFullscreen.innerHTML = "✕ Exit Fullscreen";
+        btnPdfFullscreen.title = "Exit fullscreen reader";
+      } else {
+        btnPdfFullscreen.innerHTML = "⛶ Fullscreen";
+        btnPdfFullscreen.title = "Toggle fullscreen reading view";
+      }
+    }
+
+    // Attach PDF listeners
+    if (tabVocabView) tabVocabView.addEventListener('click', () => switchMainMode('vocab'));
+    if (tabPdfView) tabPdfView.addEventListener('click', () => switchMainMode('pdf'));
+    if (btnNavPdfReader) btnNavPdfReader.addEventListener('click', () => switchMainMode('pdf'));
+    if (btnBackToVocab) btnBackToVocab.addEventListener('click', () => switchMainMode('vocab'));
+
+    if (pdfSearchInput) {
+      pdfSearchInput.addEventListener('input', function(e) {
+        pdfSearchQuery = e.target.value.trim();
+        if (pdfSearchClearBtn) pdfSearchClearBtn.style.display = pdfSearchQuery ? 'block' : 'none';
+        renderPdfMenu();
+      });
+    }
+
+    if (pdfSearchClearBtn) {
+      pdfSearchClearBtn.addEventListener('click', function() {
+        pdfSearchInput.value = '';
+        pdfSearchQuery = '';
+        pdfSearchClearBtn.style.display = 'none';
+        renderPdfMenu();
+        pdfSearchInput.focus();
+      });
+    }
+
+    if (btnPdfFullscreen) {
+      btnPdfFullscreen.addEventListener('click', togglePdfFullscreen);
+    }
+
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && pdfReaderPanel && pdfReaderPanel.classList.contains('fullscreen-active')) {
+        togglePdfFullscreen();
+      }
+    });
+
+    window.addEventListener('hashchange', function() {
+      if (window.location.hash.startsWith('#pdf=')) {
+        const pdfFile = decodeURIComponent(window.location.hash.substring(5));
+        switchMainMode('pdf');
+        selectPdf(pdfFile);
+      }
     });
 
     init();
@@ -1934,9 +3917,66 @@ class LocalAppHandler(BaseHTTPRequestHandler):
             path = parsed.path
             params = urllib.parse.parse_qs(parsed.query)
 
-            # 1. API: Get Words from local german_daily_roots_top1000.json
+            # 1. API: List all available datasets
+            if path == "/api/datasets":
+                datasets = get_available_datasets()
+                self._send_json({"success": True, "datasets": datasets})
+                return
+
+            # 1b. API: List all available PDF reference guides
+            if path == "/api/pdfs":
+                pdf_list = get_available_pdfs()
+                categories = []
+                cat_seen = set()
+                for p in pdf_list:
+                    c = p.get("category", "General")
+                    if c not in cat_seen:
+                        cat_seen.add(c)
+                        categories.append(c)
+                self._send_json({
+                    "success": True,
+                    "total": len(pdf_list),
+                    "categories": categories,
+                    "pdfs": pdf_list
+                })
+                return
+
+            # 1c. Serve PDF file safely with inline disposition for in-page reading
+            if path.startswith("/pdf/"):
+                raw_filename = urllib.parse.unquote(path[5:])
+                filename = os.path.basename(raw_filename)
+                if not filename.lower().endswith(".pdf") or ".." in raw_filename:
+                    self.send_error(403, "Access Forbidden")
+                    return
+                filepath = os.path.join(BASE_DIR, filename)
+                if not os.path.exists(filepath) or not os.path.isfile(filepath):
+                    self.send_error(404, "PDF Document Not Found")
+                    return
+                
+                try:
+                    with open(filepath, "rb") as f:
+                        pdf_bytes = f.read()
+
+                    self.send_response(200)
+                    self.send_header("Content-Type", "application/pdf")
+                    self.send_header("Content-Disposition", f'inline; filename="{filename}"')
+                    self.send_header("Content-Length", str(len(pdf_bytes)))
+                    self.send_header("Accept-Ranges", "bytes")
+                    self.send_header("Cache-Control", "public, max-age=3600")
+                    self.send_header("X-Content-Type-Options", "nosniff")
+                    self.send_header("Access-Control-Allow-Origin", "*")
+                    self.end_headers()
+                    self.wfile.write(pdf_bytes)
+                    return
+                except Exception as e:
+                    self._send_json({"success": False, "error": f"Failed to read PDF: {e}"}, 500)
+                    return
+
+            # 2. API: Get Words from specified dataset (or default)
             if path == "/api/words":
-                words = load_words()
+                dataset_id = params.get("dataset", [DEFAULT_DATASET])[0]
+                words = load_words(dataset_id)
+
                 from_param = params.get("from", [None])[0]
                 to_param = params.get("to", [None])[0]
                 q_param = params.get("q", [""])[0].lower().strip()
@@ -1955,16 +3995,28 @@ class LocalAppHandler(BaseHTTPRequestHandler):
                     t_val = int(to_param) if to_param and to_param.isdigit() else len(words)
                     filtered = [w for w in filtered if f_val <= int(w.get("sl_no", 0)) <= t_val]
 
-                self._send_json({"total": len(words), "count": len(filtered), "words": filtered})
+                self._send_json({
+                    "success": True,
+                    "dataset": dataset_id,
+                    "total": len(words),
+                    "count": len(filtered),
+                    "words": filtered
+                })
                 return
 
-            # 2. API: Get Memorized Words from local already_memorized_words.json
+            # 3. API: Get Memorized Words
             if path == "/api/memorized":
                 memorized = load_memorized()
                 self._send_json({"total": len(memorized), "words": memorized})
                 return
 
-            # 3. Serve Main HTML
+            # 4. API: Get Deleted Words from deleted_datas.json
+            if path == "/api/deleted":
+                deleted_items = load_deleted()
+                self._send_json({"total": len(deleted_items), "words": deleted_items})
+                return
+
+            # 5. Serve Main HTML
             html_bytes = HTML_TEMPLATE.encode("utf-8")
             self.send_response(200)
             self.send_header("Content-Type", "text/html; charset=utf-8")
@@ -1978,16 +4030,31 @@ class LocalAppHandler(BaseHTTPRequestHandler):
     def do_POST(self):
         try:
             parsed = urllib.parse.urlparse(self.path)
-            # 4. API: Save/Remove Memorized Word in local already_memorized_words.json with sl_no & BST timestamp
+            # API: Save/Remove Memorized Word with sl_no & BST timestamp
             if parsed.path == "/api/memorize":
                 length = int(self.headers.get("Content-Length", 0))
                 body = self.rfile.read(length).decode("utf-8")
                 data = json.loads(body)
                 sl_no = data.get("sl_no")
                 word = data.get("word", "")
+                dataset_id = data.get("dataset", DEFAULT_DATASET)
                 action = data.get("action", "add")
 
-                result = toggle_memorized_entry(sl_no=sl_no, word_text=word, action=action)
+                result = toggle_memorized_entry(sl_no=sl_no, word_text=word, dataset_id=dataset_id, action=action)
+                self._send_json(result)
+                return
+
+            # API: Delete/Restore Word from deleted_datas.json with sl_no & BST timestamp
+            if parsed.path == "/api/delete":
+                length = int(self.headers.get("Content-Length", 0))
+                body = self.rfile.read(length).decode("utf-8")
+                data = json.loads(body)
+                sl_no = data.get("sl_no")
+                word = data.get("word", "")
+                dataset_id = data.get("dataset", DEFAULT_DATASET)
+                action = data.get("action", "delete")
+
+                result = delete_word_entry(sl_no=sl_no, word_text=word, dataset_id=dataset_id, action=action)
                 self._send_json(result)
                 return
 
@@ -1997,7 +4064,6 @@ class LocalAppHandler(BaseHTTPRequestHandler):
             self._send_json({"success": False, "error": str(e)}, 500)
 
     def log_message(self, format, *args):
-        # Clean local server log
         pass
 
 def find_available_port(start_port=5000):
@@ -2024,9 +4090,10 @@ def run_server(port=None):
     url = f"http://localhost:{port}"
 
     print("==================================================================")
-    print(" 🇩🇪 German Daily Vocabulary App (Docker & Cloud Ready)")
-    print(f" 📂 Data: {JSON_FILE}")
+    print(" 🇩🇪 German Vocabulary Multi-Dataset Hub (Docker & Cloud Ready)")
+    print(f" 📂 Datasets Available in: {BASE_DIR}")
     print(f" 💾 Memorized (With SL No & BST Time): {MEMORIZED_FILE}")
+    print(f" 🗑️ Deleted Datas (With BST Time): {DELETED_FILE}")
     print(f" 🌐 Running on: http://{host}:{port}")
     print("==================================================================")
 

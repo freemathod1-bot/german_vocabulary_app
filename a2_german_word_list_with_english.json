@@ -1,0 +1,6712 @@
+[
+  {
+    "sl_no": 1,
+    "german": "ab",
+    "english": "from, starting from (time/place), off"
+  },
+  {
+    "sl_no": 2,
+    "german": "abends",
+    "english": "in the evenings"
+  },
+  {
+    "sl_no": 3,
+    "german": "aber",
+    "english": "but, however"
+  },
+  {
+    "sl_no": 4,
+    "german": "die Abfahrt, -en",
+    "english": "departure"
+  },
+  {
+    "sl_no": 5,
+    "german": "abgeben, gibt ab, hat abgegeben",
+    "english": "to hand in, to deliver, to deposit, to give up"
+  },
+  {
+    "sl_no": 6,
+    "german": "abholen, holt ab, hat abgeholt",
+    "english": "to pick up, to collect (someone or something)"
+  },
+  {
+    "sl_no": 7,
+    "german": "das Abitur (Sg.)",
+    "english": "high school diploma / A-levels (university entrance qualification)"
+  },
+  {
+    "sl_no": 8,
+    "german": "abschließen, schließt ab, hat abgeschlossen",
+    "english": "to lock (door); to finish/complete (studies/degree)"
+  },
+  {
+    "sl_no": 9,
+    "german": "acht (8)",
+    "english": "eight (number 8)"
+  },
+  {
+    "sl_no": 10,
+    "german": "Achtung (Sg.)",
+    "english": "attention, watch out, caution"
+  },
+  {
+    "sl_no": 11,
+    "german": "achtzehn (18)",
+    "english": "eighteen (number 18)"
+  },
+  {
+    "sl_no": 12,
+    "german": "achtzig (80)",
+    "english": "eighty (number 80)"
+  },
+  {
+    "sl_no": 13,
+    "german": "die Adresse, -n",
+    "english": "address (plural: addresses)"
+  },
+  {
+    "sl_no": 14,
+    "german": "ändern, ändert, hat geändert",
+    "english": "to change, to alter, to modify"
+  },
+  {
+    "sl_no": 15,
+    "german": "ärgern (sich), ärgert, hat geärgert",
+    "english": "to get annoyed, to be angry, to annoy"
+  },
+  {
+    "sl_no": 16,
+    "german": "die Ahnung, -en",
+    "english": "idea, inkling, clue (keine Ahnung = no idea)"
+  },
+  {
+    "sl_no": 17,
+    "german": "aktiv",
+    "english": "active, energetic"
+  },
+  {
+    "sl_no": 18,
+    "german": "aktuell",
+    "english": "current, topical, up-to-date, latest"
+  },
+  {
+    "sl_no": 19,
+    "german": "all-",
+    "english": "all, every, everything"
+  },
+  {
+    "sl_no": 20,
+    "german": "allein",
+    "english": "alone, by oneself"
+  },
+  {
+    "sl_no": 21,
+    "german": "als",
+    "english": "than (comparison); as, when (time)"
+  },
+  {
+    "sl_no": 22,
+    "german": "also",
+    "english": "so, therefore, well"
+  },
+  {
+    "sl_no": 23,
+    "german": "alt",
+    "english": "old, aged"
+  },
+  {
+    "sl_no": 24,
+    "german": "das Alter (Sg.)",
+    "english": "age"
+  },
+  {
+    "sl_no": 25,
+    "german": "die Ampel, -n",
+    "english": "traffic light"
+  },
+  {
+    "sl_no": 26,
+    "german": "an",
+    "english": "at, on, to (preposition of place/time)"
+  },
+  {
+    "sl_no": 27,
+    "german": "anbieten, bietet an, hat angeboten",
+    "english": "to offer, to provide"
+  },
+  {
+    "sl_no": 28,
+    "german": "ander-",
+    "english": "other, different"
+  },
+  {
+    "sl_no": 29,
+    "german": "anders",
+    "english": "differently, otherwise, different"
+  },
+  {
+    "sl_no": 30,
+    "german": "der Anfang, ¨-e",
+    "english": "beginning, start"
+  },
+  {
+    "sl_no": 31,
+    "german": "anfangen, fängt an, hat angefangen",
+    "english": "to start, to begin"
+  },
+  {
+    "sl_no": 32,
+    "german": "das Angebot, -e",
+    "english": "offer, special offer, sale"
+  },
+  {
+    "sl_no": 33,
+    "german": "der Angestellte, -n / die Angestellte, -n",
+    "english": "employee, clerk (male / female)"
+  },
+  {
+    "sl_no": 34,
+    "german": "die Angst, ¨-e",
+    "english": "fear, anxiety, dread"
+  },
+  {
+    "sl_no": 35,
+    "german": "ankommen, kommt an, ist angekommen",
+    "english": "to arrive"
+  },
+  {
+    "sl_no": 36,
+    "german": "die Ankunft, -¨e",
+    "english": "arrival"
+  },
+  {
+    "sl_no": 37,
+    "german": "anmachen, macht an, hat angemacht",
+    "english": "to turn on, to switch on (light/device)"
+  },
+  {
+    "sl_no": 38,
+    "german": "anmelden (sich), meldet an, hat angemeldet",
+    "english": "to register, to sign up, to log in"
+  },
+  {
+    "sl_no": 39,
+    "german": "die Anmeldung, -en",
+    "english": "registration, application, sign-up"
+  },
+  {
+    "sl_no": 40,
+    "german": "der Anrufbeantworter, -",
+    "english": "answering machine"
+  },
+  {
+    "sl_no": 41,
+    "german": "der Anruf, -e",
+    "english": "phone call"
+  },
+  {
+    "sl_no": 42,
+    "german": "anrufen, ruft an, hat angerufen",
+    "english": "to call, to phone"
+  },
+  {
+    "sl_no": 43,
+    "german": "der Anschluss, ¨-e",
+    "english": "connection (train/bus/phone/utilities)"
+  },
+  {
+    "sl_no": 44,
+    "german": "ansehen, sieht an, hat angesehen",
+    "english": "to look at, to watch, to view"
+  },
+  {
+    "sl_no": 45,
+    "german": "an sein / aus sein",
+    "english": "to be switched on / to be switched off"
+  },
+  {
+    "sl_no": 46,
+    "german": "der Antwortbogen, -",
+    "english": "answer sheet"
+  },
+  {
+    "sl_no": 47,
+    "german": "die Antwort, -en",
+    "english": "answer, reply"
+  },
+  {
+    "sl_no": 48,
+    "german": "antworten, antwortet, hat geantwortet",
+    "english": "to answer, to reply"
+  },
+  {
+    "sl_no": 49,
+    "german": "die Anzeige, -n",
+    "english": "advertisement, notice"
+  },
+  {
+    "sl_no": 50,
+    "german": "der Anzug, ¨-e",
+    "english": "suit (men's suit)"
+  },
+  {
+    "sl_no": 51,
+    "german": "der Apfel, ¨-",
+    "english": "apple"
+  },
+  {
+    "sl_no": 52,
+    "german": "die Apotheke, -n",
+    "english": "pharmacy, chemist's shop"
+  },
+  {
+    "sl_no": 53,
+    "german": "der Apparat, -e",
+    "english": "device, apparatus, appliance, camera"
+  },
+  {
+    "sl_no": 54,
+    "german": "der April",
+    "english": "April"
+  },
+  {
+    "sl_no": 55,
+    "german": "die Arbeit, -en",
+    "english": "work, job"
+  },
+  {
+    "sl_no": 56,
+    "german": "arbeiten, arbeitet, hat gearbeitet",
+    "english": "to work"
+  },
+  {
+    "sl_no": 57,
+    "german": "arbeitslos",
+    "english": "unemployed"
+  },
+  {
+    "sl_no": 58,
+    "german": "der Arbeitstag, -e / Werktag, -e",
+    "english": "working day, workday, business day"
+  },
+  {
+    "sl_no": 59,
+    "german": "arm",
+    "english": "poor, penniless"
+  },
+  {
+    "sl_no": 60,
+    "german": "der Arm, -e",
+    "english": "arm (plural: arms)"
+  },
+  {
+    "sl_no": 61,
+    "german": "der Artikel, -",
+    "english": "article (grammar: der/die/das; press: newspaper article)"
+  },
+  {
+    "sl_no": 62,
+    "german": "auch",
+    "english": "also, too, as well"
+  },
+  {
+    "sl_no": 63,
+    "german": "auf",
+    "english": "on, upon, at, in (preposition); open"
+  },
+  {
+    "sl_no": 64,
+    "german": "aufhören, hört auf, hat aufgehört",
+    "english": "to stop, to end, to quit"
+  },
+  {
+    "sl_no": 65,
+    "german": "auf jeden/ keinen Fall",
+    "english": "in any case, definitely / on no account, under no circumstances"
+  },
+  {
+    "sl_no": 66,
+    "german": "aufmachen, macht auf, hat aufgemacht",
+    "english": "to open (door/window/package)"
+  },
+  {
+    "sl_no": 67,
+    "german": "aufpassen, passt auf, hat aufgepasst",
+    "english": "to pay attention, to watch out, to mind/look after"
+  },
+  {
+    "sl_no": 68,
+    "german": "aufräumen, räumt auf, hat aufgeräumt",
+    "english": "to tidy up, to clean up, to put in order"
+  },
+  {
+    "sl_no": 69,
+    "german": "aufregend",
+    "english": "exciting, thrilling"
+  },
+  {
+    "sl_no": 70,
+    "german": "auf sein",
+    "english": "to be open"
+  },
+  {
+    "sl_no": 71,
+    "german": "aufstehen, steht auf, ist aufgestanden",
+    "english": "to get up, to stand up"
+  },
+  {
+    "sl_no": 72,
+    "german": "der Aufzug, ¨-e",
+    "english": "elevator, lift"
+  },
+  {
+    "sl_no": 73,
+    "german": "das Auge, -n",
+    "english": "eye (plural: eyes)"
+  },
+  {
+    "sl_no": 74,
+    "german": "der August",
+    "english": "August"
+  },
+  {
+    "sl_no": 75,
+    "german": "aus",
+    "english": "from, out of (origin/material); off, over"
+  },
+  {
+    "sl_no": 76,
+    "german": "die Ausbildung, -en",
+    "english": "vocational training, apprenticeship, career training"
+  },
+  {
+    "sl_no": 77,
+    "german": "der Ausflug, ¨-e",
+    "english": "excursion, trip, outing"
+  },
+  {
+    "sl_no": 78,
+    "german": "ausfüllen, füllt aus, hat ausgefüllt",
+    "english": "to fill out, to complete (a form)"
+  },
+  {
+    "sl_no": 79,
+    "german": "der Ausgang, ¨-e",
+    "english": "exit"
+  },
+  {
+    "sl_no": 80,
+    "german": "ausgeben, gibt aus, hat ausgegeben",
+    "english": "to spend (money); to dispense"
+  },
+  {
+    "sl_no": 81,
+    "german": "ausgehen, geht aus, ist ausgegangen",
+    "english": "to go out (socially); to extinguish / go out (light)"
+  },
+  {
+    "sl_no": 82,
+    "german": "die Auskunft, ¨-e",
+    "english": "information, information desk"
+  },
+  {
+    "sl_no": 83,
+    "german": "das Ausland (Sg.)",
+    "english": "abroad, foreign countries"
+  },
+  {
+    "sl_no": 84,
+    "german": "ausmachen, macht aus, hat ausgemacht",
+    "english": "to turn off, to switch off; to agree on"
+  },
+  {
+    "sl_no": 85,
+    "german": "auspacken, packt aus, hat ausgepackt",
+    "english": "to unpack (luggage/boxes)"
+  },
+  {
+    "sl_no": 86,
+    "german": "ausruhen (sich), ruht aus, hat ausgeruht",
+    "english": "to rest, to relax"
+  },
+  {
+    "sl_no": 87,
+    "german": "aussehen, sieht aus, hat ausgesehen",
+    "english": "to look, to appear"
+  },
+  {
+    "sl_no": 88,
+    "german": "außer",
+    "english": "except, besides, apart from"
+  },
+  {
+    "sl_no": 89,
+    "german": "außerdem",
+    "english": "besides, furthermore, in addition, moreover"
+  },
+  {
+    "sl_no": 90,
+    "german": "außerhalb",
+    "english": "outside of, beyond, out of town"
+  },
+  {
+    "sl_no": 91,
+    "german": "aussprechen, spricht aus, hat ausgesprochen",
+    "english": "to pronounce (words); to speak out"
+  },
+  {
+    "sl_no": 92,
+    "german": "aussteigen, steigt aus, ist ausgestiegen",
+    "english": "to get off, to alight (bus/train)"
+  },
+  {
+    "sl_no": 93,
+    "german": "die Ausstellung, -en",
+    "english": "exhibition, exhibit, show"
+  },
+  {
+    "sl_no": 94,
+    "german": "austragen, trägt aus, hat ausgetragen",
+    "english": "to deliver (newspapers/mail)"
+  },
+  {
+    "sl_no": 95,
+    "german": "der Ausweis, -e",
+    "english": "identity card, ID"
+  },
+  {
+    "sl_no": 96,
+    "german": "der Auszubildende, -n / die Auszubildende, -n (Azubi)",
+    "english": "trainee, apprentice (male / female)"
+  },
+  {
+    "sl_no": 97,
+    "german": "die Autobahn, -en",
+    "english": "highway, motorway, autobahn"
+  },
+  {
+    "sl_no": 98,
+    "german": "der Automat, -en",
+    "english": "vending machine, ticket machine, ATM"
+  },
+  {
+    "sl_no": 99,
+    "german": "automatisch",
+    "english": "automatic, automatically"
+  },
+  {
+    "sl_no": 100,
+    "german": "der Autor, -en / die Autorin, -nen",
+    "english": "author, writer (male / female)"
+  },
+  {
+    "sl_no": 101,
+    "german": "das Auto, -s",
+    "english": "car, automobile"
+  },
+  {
+    "sl_no": 102,
+    "german": "das Baby, -s",
+    "english": "baby"
+  },
+  {
+    "sl_no": 103,
+    "german": "der Babysitter, -",
+    "english": "babysitter"
+  },
+  {
+    "sl_no": 104,
+    "german": "backen, bäckt/backt, hat gebacken",
+    "english": "to bake"
+  },
+  {
+    "sl_no": 105,
+    "german": "baden, badet, hat gebadet",
+    "english": "to bathe, to take a bath, to swim"
+  },
+  {
+    "sl_no": 106,
+    "german": "das Bad, ¨-er",
+    "english": "bathroom, bath"
+  },
+  {
+    "sl_no": 107,
+    "german": "der Bäcker, - / die Bäckerin, -nen",
+    "english": "baker (male / female)"
+  },
+  {
+    "sl_no": 108,
+    "german": "die Bäckerei, -en",
+    "english": "bakery"
+  },
+  {
+    "sl_no": 109,
+    "german": "die Bahn, -en",
+    "english": "railway, train, tram; lane, track"
+  },
+  {
+    "sl_no": 110,
+    "german": "der Bahnhof, ¨-e",
+    "english": "train station, railway station"
+  },
+  {
+    "sl_no": 111,
+    "german": "der Bahnsteig, -e",
+    "english": "platform (railway)"
+  },
+  {
+    "sl_no": 112,
+    "german": "bald",
+    "english": "soon"
+  },
+  {
+    "sl_no": 113,
+    "german": "der Balkon, -e",
+    "english": "balcony"
+  },
+  {
+    "sl_no": 114,
+    "german": "der Ball, ¨-e",
+    "english": "ball"
+  },
+  {
+    "sl_no": 115,
+    "german": "die Banane, -n",
+    "english": "banana (plural: bananas)"
+  },
+  {
+    "sl_no": 116,
+    "german": "die Band, -s",
+    "english": "musical band, group"
+  },
+  {
+    "sl_no": 117,
+    "german": "die Bank, ¨-e",
+    "english": "bench (park bench / seat)"
+  },
+  {
+    "sl_no": 118,
+    "german": "die Bank, -en",
+    "english": "bank (financial institution)"
+  },
+  {
+    "sl_no": 119,
+    "german": "bar",
+    "english": "cash (in cash)"
+  },
+  {
+    "sl_no": 120,
+    "german": "der Basketball, ¨-e",
+    "english": "basketball"
+  },
+  {
+    "sl_no": 121,
+    "german": "basteln, bastelt, hat gebastelt",
+    "english": "to do handicrafts, to do crafts, to make things"
+  },
+  {
+    "sl_no": 122,
+    "german": "der Bauch, ¨-e",
+    "english": "belly, stomach, abdomen"
+  },
+  {
+    "sl_no": 123,
+    "german": "bauen, baut, hat gebaut",
+    "english": "to build, to construct"
+  },
+  {
+    "sl_no": 124,
+    "german": "der Baum, ¨-e",
+    "english": "tree (plural: trees)"
+  },
+  {
+    "sl_no": 125,
+    "german": "die Baustelle, -n",
+    "english": "construction site, building site"
+  },
+  {
+    "sl_no": 126,
+    "german": "beantworten, beantwortet, hat beantwortet",
+    "english": "to answer, to reply to (a question/letter)"
+  },
+  {
+    "sl_no": 127,
+    "german": "bedanken (sich), bedankt, hat bedankt",
+    "english": "to thank, to express gratitude"
+  },
+  {
+    "sl_no": 128,
+    "german": "bedeuten, bedeutet, hat bedeutet",
+    "english": "to mean, to signify"
+  },
+  {
+    "sl_no": 129,
+    "german": "beeilen (sich), beeilt, hat beeilt",
+    "english": "to hurry, to rush"
+  },
+  {
+    "sl_no": 130,
+    "german": "beenden, beendet, hat beendet",
+    "english": "to end, to finish, to terminate, to conclude"
+  },
+  {
+    "sl_no": 131,
+    "german": "beginnen, beginnt, hat begonnen",
+    "english": "to begin, to start"
+  },
+  {
+    "sl_no": 132,
+    "german": "begründen, begründet, hat begründet",
+    "english": "to justify, to give reasons for, to substantiate"
+  },
+  {
+    "sl_no": 133,
+    "german": "bei",
+    "english": "at, near, by, with, at the home of"
+  },
+  {
+    "sl_no": 134,
+    "german": "beide",
+    "english": "both"
+  },
+  {
+    "sl_no": 135,
+    "german": "das Bein, -e",
+    "english": "leg (plural: legs)"
+  },
+  {
+    "sl_no": 136,
+    "german": "bekannt",
+    "english": "well-known, famous, familiar"
+  },
+  {
+    "sl_no": 137,
+    "german": "der/die Bekannte, -n",
+    "english": "acquaintance, friend"
+  },
+  {
+    "sl_no": 138,
+    "german": "bekommen, bekommt, hat bekommen",
+    "english": "to get, to receive"
+  },
+  {
+    "sl_no": 139,
+    "german": "beliebt",
+    "english": "popular, well-liked, favorite"
+  },
+  {
+    "sl_no": 140,
+    "german": "benutzen, benutzt, hat benutzt",
+    "english": "to use, to utilize"
+  },
+  {
+    "sl_no": 141,
+    "german": "bequem",
+    "english": "comfortable, convenient"
+  },
+  {
+    "sl_no": 142,
+    "german": "beraten, berät, hat beraten",
+    "english": "to advise, to consult"
+  },
+  {
+    "sl_no": 143,
+    "german": "der Berg, -e",
+    "english": "mountain, hill"
+  },
+  {
+    "sl_no": 144,
+    "german": "berichten, berichtet, hat berichtet",
+    "english": "to report, to narrate"
+  },
+  {
+    "sl_no": 145,
+    "german": "berühmt",
+    "english": "famous, renowned, celebrated"
+  },
+  {
+    "sl_no": 146,
+    "german": "der Beruf, -e",
+    "english": "profession, occupation, job"
+  },
+  {
+    "sl_no": 147,
+    "german": "der Bescheid, -e (bekommen/geben/sagen)",
+    "english": "information, notification, decision; (Bescheid geben/sagen: to let someone know)"
+  },
+  {
+    "sl_no": 148,
+    "german": "beschreiben, beschreibt, hat beschrieben",
+    "english": "to describe, to depict"
+  },
+  {
+    "sl_no": 149,
+    "german": "beschweren (sich), beschwert, hat beschwert",
+    "english": "to complain (about something)"
+  },
+  {
+    "sl_no": 150,
+    "german": "besetzt",
+    "english": "occupied, taken, busy (phone line)"
+  },
+  {
+    "sl_no": 151,
+    "german": "besichtigen, besichtigt, hat besichtigt",
+    "english": "to sightsee, to visit, to tour (city/monument)"
+  },
+  {
+    "sl_no": 152,
+    "german": "besonders",
+    "english": "especially, particularly"
+  },
+  {
+    "sl_no": 153,
+    "german": "bestätigen, bestätigt, hat bestätigt",
+    "english": "to confirm, to acknowledge, to certify"
+  },
+  {
+    "sl_no": 154,
+    "german": "bestehen, besteht, hat bestanden",
+    "english": "to pass (exam); to consist of; to persist"
+  },
+  {
+    "sl_no": 155,
+    "german": "bestellen, bestellt, hat bestellt",
+    "english": "to order (food/goods), to reserve"
+  },
+  {
+    "sl_no": 156,
+    "german": "der Besuch, -e",
+    "english": "visit, company, guests"
+  },
+  {
+    "sl_no": 157,
+    "german": "besuchen, besucht, hat besucht",
+    "english": "to visit, to attend"
+  },
+  {
+    "sl_no": 158,
+    "german": "das Bett, -en",
+    "english": "bed"
+  },
+  {
+    "sl_no": 159,
+    "german": "bewerben (sich), bewirbt, hat beworben",
+    "english": "to apply (for a job/position)"
+  },
+  {
+    "sl_no": 160,
+    "german": "die Bewerbung, -en",
+    "english": "application (for a job/position)"
+  },
+  {
+    "sl_no": 161,
+    "german": "bewölkt",
+    "english": "cloudy, overcast"
+  },
+  {
+    "sl_no": 162,
+    "german": "bezahlen, bezahlt, hat bezahlt",
+    "english": "to pay for"
+  },
+  {
+    "sl_no": 163,
+    "german": "die Bibliothek, -en",
+    "english": "library"
+  },
+  {
+    "sl_no": 164,
+    "german": "das Bier, -e",
+    "english": "beer"
+  },
+  {
+    "sl_no": 165,
+    "german": "das Bild, -er",
+    "english": "picture, painting, image, photo"
+  },
+  {
+    "sl_no": 166,
+    "german": "billig",
+    "english": "cheap, inexpensive"
+  },
+  {
+    "sl_no": 167,
+    "german": "die Biologie",
+    "english": "biology (school subject)"
+  },
+  {
+    "sl_no": 168,
+    "german": "die Birne, -n",
+    "english": "pear; lightbulb"
+  },
+  {
+    "sl_no": 169,
+    "german": "bis",
+    "english": "until, till, up to, as far as"
+  },
+  {
+    "sl_no": 170,
+    "german": "bisschen",
+    "english": "a little, a bit"
+  },
+  {
+    "sl_no": 171,
+    "german": "bitte",
+    "english": "please; you're welcome"
+  },
+  {
+    "sl_no": 172,
+    "german": "die Bitte, -n",
+    "english": "request, plea"
+  },
+  {
+    "sl_no": 173,
+    "german": "bitten, bittet, hat gebeten",
+    "english": "to ask, to request, to beg"
+  },
+  {
+    "sl_no": 174,
+    "german": "bitter",
+    "english": "bitter"
+  },
+  {
+    "sl_no": 175,
+    "german": "das Blatt, ¨-er",
+    "english": "leaf; sheet of paper"
+  },
+  {
+    "sl_no": 176,
+    "german": "bleiben, bleibt, ist geblieben",
+    "english": "to stay, to remain"
+  },
+  {
+    "sl_no": 177,
+    "german": "der Bleistift, -e",
+    "english": "pencil"
+  },
+  {
+    "sl_no": 178,
+    "german": "blöd",
+    "english": "stupid, silly, annoying"
+  },
+  {
+    "sl_no": 179,
+    "german": "blond",
+    "english": "blonde, fair-haired"
+  },
+  {
+    "sl_no": 180,
+    "german": "die Blume, -n",
+    "english": "flower (plural: flowers)"
+  },
+  {
+    "sl_no": 181,
+    "german": "die Bluse, -n",
+    "english": "blouse"
+  },
+  {
+    "sl_no": 182,
+    "german": "böse",
+    "english": "angry, mad; wicked, evil"
+  },
+  {
+    "sl_no": 183,
+    "german": "die Bohne, -n",
+    "english": "bean"
+  },
+  {
+    "sl_no": 184,
+    "german": "braten, brät, hat gebraten",
+    "english": "to roast, to fry, to bake"
+  },
+  {
+    "sl_no": 185,
+    "german": "brauchen, braucht, hat gebraucht",
+    "english": "to need, to require"
+  },
+  {
+    "sl_no": 186,
+    "german": "braun",
+    "english": "brown"
+  },
+  {
+    "sl_no": 187,
+    "german": "der Brief, -e",
+    "english": "letter (plural: letters)"
+  },
+  {
+    "sl_no": 188,
+    "german": "die Briefmarke, -n",
+    "english": "postage stamp"
+  },
+  {
+    "sl_no": 189,
+    "german": "die Brille, -n",
+    "english": "glasses, spectacles"
+  },
+  {
+    "sl_no": 190,
+    "german": "bringen, bringt, hat gebracht",
+    "english": "to bring, to take to"
+  },
+  {
+    "sl_no": 191,
+    "german": "das Brötchen, -",
+    "english": "bread roll, bun"
+  },
+  {
+    "sl_no": 192,
+    "german": "das Brot, -e",
+    "english": "bread, loaf of bread"
+  },
+  {
+    "sl_no": 193,
+    "german": "die Brücke, -n",
+    "english": "bridge"
+  },
+  {
+    "sl_no": 194,
+    "german": "buchen, bucht, hat gebucht",
+    "english": "to book, to reserve"
+  },
+  {
+    "sl_no": 195,
+    "german": "das Buch, ¨-er",
+    "english": "book"
+  },
+  {
+    "sl_no": 196,
+    "german": "der Buchstabe, -n",
+    "english": "letter (of the alphabet)"
+  },
+  {
+    "sl_no": 197,
+    "german": "buchstabieren, buchstabiert, hat buchstabiert",
+    "english": "to spell (letter by letter)"
+  },
+  {
+    "sl_no": 198,
+    "german": "das Büro, -s",
+    "english": "office"
+  },
+  {
+    "sl_no": 199,
+    "german": "bunt",
+    "english": "colorful, multicoloured"
+  },
+  {
+    "sl_no": 200,
+    "german": "der Bus, -se",
+    "english": "bus"
+  },
+  {
+    "sl_no": 201,
+    "german": "die Butter (Sg.)",
+    "english": "butter"
+  },
+  {
+    "sl_no": 202,
+    "german": "ca.",
+    "english": "approximately, about, ca."
+  },
+  {
+    "sl_no": 203,
+    "german": "die Cafeteria, -s",
+    "english": "cafeteria"
+  },
+  {
+    "sl_no": 204,
+    "german": "das Café, -s",
+    "english": "café, coffee shop"
+  },
+  {
+    "sl_no": 205,
+    "german": "chatten, chattet, hat gechattet",
+    "english": "to chat (online)"
+  },
+  {
+    "sl_no": 206,
+    "german": "der Chef, -s / die Chefin, -nen",
+    "english": "boss, manager, head (male / female)"
+  },
+  {
+    "sl_no": 207,
+    "german": "die Chemie",
+    "english": "chemistry (school subject)"
+  },
+  {
+    "sl_no": 208,
+    "german": "der Club, -s / Klub, -s",
+    "english": "club (social/sports/nightclub)"
+  },
+  {
+    "sl_no": 209,
+    "german": "der Computer, -",
+    "english": "computer (plural: computers)"
+  },
+  {
+    "sl_no": 210,
+    "german": "die Cousine, -n",
+    "english": "cousin (female)"
+  },
+  {
+    "sl_no": 211,
+    "german": "der Cousin, -s",
+    "english": "cousin (male)"
+  },
+  {
+    "sl_no": 212,
+    "german": "die Creme, -s/-n",
+    "english": "cream, lotion"
+  },
+  {
+    "sl_no": 213,
+    "german": "da",
+    "english": "there, here; since/because"
+  },
+  {
+    "sl_no": 214,
+    "german": "dabei (sein), ist dabei, war dabei, ist dabei gewesen",
+    "english": "to be present, to take part, to be involved; with it"
+  },
+  {
+    "sl_no": 215,
+    "german": "dafür/dagegen sein, ist dafür/dagegen, war dafür/dagegen, ist dafür/ dagegen gewesen",
+    "english": "to be in favor of it / to be against it"
+  },
+  {
+    "sl_no": 216,
+    "german": "damals",
+    "english": "back then, at that time"
+  },
+  {
+    "sl_no": 217,
+    "german": "die Dame, -n",
+    "english": "lady, woman"
+  },
+  {
+    "sl_no": 218,
+    "german": "daneben",
+    "english": "next to it, alongside"
+  },
+  {
+    "sl_no": 219,
+    "german": "danke",
+    "english": "thank you, thanks"
+  },
+  {
+    "sl_no": 220,
+    "german": "danken, dankt, hat gedankt",
+    "english": "to thank"
+  },
+  {
+    "sl_no": 221,
+    "german": "der Dank (Sg.)",
+    "english": "thanks, gratitude"
+  },
+  {
+    "sl_no": 222,
+    "german": "dann",
+    "english": "then, after that"
+  },
+  {
+    "sl_no": 223,
+    "german": "da(r) (Bsp. darauf, darüber)",
+    "english": "there- / pronominal adverb prefix (e.g. darauf: on it, darüber: about it)"
+  },
+  {
+    "sl_no": 224,
+    "german": "dass",
+    "english": "that (conjunction)"
+  },
+  {
+    "sl_no": 225,
+    "german": "die Datei, -en",
+    "english": "file, computer data file"
+  },
+  {
+    "sl_no": 226,
+    "german": "das Datum, -en",
+    "english": "date (calendar)"
+  },
+  {
+    "sl_no": 227,
+    "german": "dauern, dauert, hat gedauert",
+    "english": "to last, to take (time)"
+  },
+  {
+    "sl_no": 228,
+    "german": "denken, denkt, hat gedacht",
+    "english": "to think"
+  },
+  {
+    "sl_no": 229,
+    "german": "denn",
+    "english": "because, for; (particle in questions)"
+  },
+  {
+    "sl_no": 230,
+    "german": "der/das Blog, -s",
+    "english": "blog, weblog"
+  },
+  {
+    "sl_no": 231,
+    "german": "der/das Comic, -s",
+    "english": "comic, comic strip / book"
+  },
+  {
+    "sl_no": 232,
+    "german": "der/das Laptop, -s",
+    "english": "laptop computer"
+  },
+  {
+    "sl_no": 233,
+    "german": "deshalb",
+    "english": "therefore, that's why, for that reason"
+  },
+  {
+    "sl_no": 234,
+    "german": "deutlich",
+    "english": "clear, distinct, clearly"
+  },
+  {
+    "sl_no": 235,
+    "german": "deutsch",
+    "english": "German (adjective/language)"
+  },
+  {
+    "sl_no": 236,
+    "german": "der/die Deutsche, -n",
+    "english": "German person"
+  },
+  {
+    "sl_no": 237,
+    "german": "Deutschland",
+    "english": "Germany"
+  },
+  {
+    "sl_no": 238,
+    "german": "der Dezember",
+    "english": "December"
+  },
+  {
+    "sl_no": 239,
+    "german": "d.h.",
+    "english": "that is, i.e. (das heißt)"
+  },
+  {
+    "sl_no": 240,
+    "german": "dick",
+    "english": "thick, fat, corpulent"
+  },
+  {
+    "sl_no": 241,
+    "german": "dienstags",
+    "english": "on Tuesdays"
+  },
+  {
+    "sl_no": 242,
+    "german": "das Ding, -e",
+    "english": "thing, object, item"
+  },
+  {
+    "sl_no": 243,
+    "german": "direkt",
+    "english": "direct, directly, straight"
+  },
+  {
+    "sl_no": 244,
+    "german": "der Direktor, -en",
+    "english": "director, school principal, headmaster"
+  },
+  {
+    "sl_no": 245,
+    "german": "die Disco, -s / die Disko, -s",
+    "english": "disco, nightclub"
+  },
+  {
+    "sl_no": 246,
+    "german": "diskutieren, diskutiert, hat diskutiert",
+    "english": "to discuss, to debate"
+  },
+  {
+    "sl_no": 247,
+    "german": "doch",
+    "english": "yes (contradicting negative question); after all, surely"
+  },
+  {
+    "sl_no": 248,
+    "german": "der Doktor, -en / die Doktorin, -nen",
+    "english": "doctor (academic/medical title, male / female)"
+  },
+  {
+    "sl_no": 249,
+    "german": "donnerstags",
+    "english": "on Thursdays"
+  },
+  {
+    "sl_no": 250,
+    "german": "das Doppelzimmer, -",
+    "english": "double room (hotel)"
+  },
+  {
+    "sl_no": 251,
+    "german": "das Dorf, ¨-er",
+    "english": "village"
+  },
+  {
+    "sl_no": 252,
+    "german": "dort, -her, -hin",
+    "english": "there, from there, to there"
+  },
+  {
+    "sl_no": 253,
+    "german": "draußen",
+    "english": "outside, outdoors"
+  },
+  {
+    "sl_no": 254,
+    "german": "drei (3)",
+    "english": "three (number 3)"
+  },
+  {
+    "sl_no": 255,
+    "german": "dreimal",
+    "english": "three times"
+  },
+  {
+    "sl_no": 256,
+    "german": "dreißig (30)",
+    "english": "thirty (number 30)"
+  },
+  {
+    "sl_no": 257,
+    "german": "dreizehn (13)",
+    "english": "thirteen (number 13)"
+  },
+  {
+    "sl_no": 258,
+    "german": "dringend",
+    "english": "urgent, pressing, urgently"
+  },
+  {
+    "sl_no": 259,
+    "german": "drinnen",
+    "english": "inside, indoors"
+  },
+  {
+    "sl_no": 260,
+    "german": "der/die/das dritte",
+    "english": "third (ordinal)"
+  },
+  {
+    "sl_no": 261,
+    "german": "drittens",
+    "english": "thirdly"
+  },
+  {
+    "sl_no": 262,
+    "german": "drucken, druckt, hat gedruckt",
+    "english": "to print"
+  },
+  {
+    "sl_no": 263,
+    "german": "der Drucker, -",
+    "english": "printer"
+  },
+  {
+    "sl_no": 264,
+    "german": "drüben",
+    "english": "over there, across"
+  },
+  {
+    "sl_no": 265,
+    "german": "drücken, drückt, hat gedrückt",
+    "english": "to push, to press (button/door)"
+  },
+  {
+    "sl_no": 266,
+    "german": "dünn",
+    "english": "thin, slim, slender"
+  },
+  {
+    "sl_no": 267,
+    "german": "dürfen, darf, durfte, hat gedurft",
+    "english": "may, to be allowed to, can"
+  },
+  {
+    "sl_no": 268,
+    "german": "dumm",
+    "english": "stupid, silly, dumb"
+  },
+  {
+    "sl_no": 269,
+    "german": "dunkel",
+    "english": "dark, dim"
+  },
+  {
+    "sl_no": 270,
+    "german": "durch",
+    "english": "through; by means of"
+  },
+  {
+    "sl_no": 271,
+    "german": "die Durchsage, -n",
+    "english": "announcement (over loudspeaker)"
+  },
+  {
+    "sl_no": 272,
+    "german": "der Durst (Sing.)",
+    "english": "thirst"
+  },
+  {
+    "sl_no": 273,
+    "german": "die Dusche, -n",
+    "english": "shower"
+  },
+  {
+    "sl_no": 274,
+    "german": "duschen (sich), duscht, hat geduscht",
+    "english": "to shower, to take a shower"
+  },
+  {
+    "sl_no": 275,
+    "german": "das E-Book, -s",
+    "english": "e-book, electronic book"
+  },
+  {
+    "sl_no": 276,
+    "german": "echt",
+    "english": "real, genuine, truly, really"
+  },
+  {
+    "sl_no": 277,
+    "german": "die Ecke, -n",
+    "english": "corner"
+  },
+  {
+    "sl_no": 278,
+    "german": "egal",
+    "english": "all the same, doesn't matter"
+  },
+  {
+    "sl_no": 279,
+    "german": "die Ehefrau, -en/ der Ehemann, ¨-er/ der Ehepartner, -",
+    "english": "wife / husband (spouse)"
+  },
+  {
+    "sl_no": 280,
+    "german": "das Ei, -er",
+    "english": "egg (plural: eggs)"
+  },
+  {
+    "sl_no": 281,
+    "german": "eigen-",
+    "english": "own (adjective)"
+  },
+  {
+    "sl_no": 282,
+    "german": "eigentlich",
+    "english": "actually, in fact, really"
+  },
+  {
+    "sl_no": 283,
+    "german": "eilig",
+    "english": "hurried, hasty, urgent (in a hurry)"
+  },
+  {
+    "sl_no": 284,
+    "german": "einfach",
+    "english": "simple, easy; single (ticket); simply"
+  },
+  {
+    "sl_no": 285,
+    "german": "der Eingang, ¨-e",
+    "english": "entrance, entry"
+  },
+  {
+    "sl_no": 286,
+    "german": "einig-",
+    "english": "some, several, a few (einige)"
+  },
+  {
+    "sl_no": 287,
+    "german": "einkaufen, kauft ein, hat eingekauft",
+    "english": "to shop, to go shopping, to buy"
+  },
+  {
+    "sl_no": 288,
+    "german": "das Einkaufszentrum, -en",
+    "english": "shopping centre, shopping mall"
+  },
+  {
+    "sl_no": 289,
+    "german": "einladen, lädt ein, hat eingeladen",
+    "english": "to invite"
+  },
+  {
+    "sl_no": 290,
+    "german": "die Einladung, -en",
+    "english": "invitation"
+  },
+  {
+    "sl_no": 291,
+    "german": "einmal",
+    "english": "once, one time"
+  },
+  {
+    "sl_no": 292,
+    "german": "einpacken, packt ein, hat eingepackt",
+    "english": "to pack, to wrap up"
+  },
+  {
+    "sl_no": 293,
+    "german": "eins (1)",
+    "english": "one (number 1)"
+  },
+  {
+    "sl_no": 294,
+    "german": "einsteigen, steigt ein, ist eingestiegen",
+    "english": "to board, to get in (train/bus/car)"
+  },
+  {
+    "sl_no": 295,
+    "german": "eintragen (sich), trägt ein, hat eingetragen",
+    "english": "to register, to enter, to sign in"
+  },
+  {
+    "sl_no": 296,
+    "german": "der Eintritt, -e",
+    "english": "admission, admission fee, entrance"
+  },
+  {
+    "sl_no": 297,
+    "german": "einundzwanzig (21)",
+    "english": "twenty-one (number 21)"
+  },
+  {
+    "sl_no": 298,
+    "german": "einverstanden / einverstanden sein, ist einverstanden, war einverstanden, ist einverstanden gewesen",
+    "english": "agreed, in agreement, OK; to agree, to be in agreement"
+  },
+  {
+    "sl_no": 299,
+    "german": "einzel-",
+    "english": "single, individual (einzelne)"
+  },
+  {
+    "sl_no": 300,
+    "german": "einziehen, zieht ein, ist eingezogen",
+    "english": "to move in (to an apartment/house)"
+  },
+  {
+    "sl_no": 301,
+    "german": "das Eis (Sg.)",
+    "english": "ice, ice cream"
+  },
+  {
+    "sl_no": 302,
+    "german": "elf (11)",
+    "english": "eleven (number 11)"
+  },
+  {
+    "sl_no": 303,
+    "german": "die (E-)Mail, -s",
+    "english": "email"
+  },
+  {
+    "sl_no": 304,
+    "german": "der Empfänger, –",
+    "english": "recipient, receiver, addressee"
+  },
+  {
+    "sl_no": 305,
+    "german": "empfehlen, empfiehlt, hat empfohlen",
+    "english": "to recommend"
+  },
+  {
+    "sl_no": 306,
+    "german": "das Ende, -n",
+    "english": "end, finish, conclusion"
+  },
+  {
+    "sl_no": 307,
+    "german": "enden, endet, hat geendet",
+    "english": "to end, to finish, to conclude"
+  },
+  {
+    "sl_no": 308,
+    "german": "endlich",
+    "english": "finally, at last"
+  },
+  {
+    "sl_no": 309,
+    "german": "eng",
+    "english": "narrow, tight, close"
+  },
+  {
+    "sl_no": 310,
+    "german": "der Enkel, -",
+    "english": "grandson, grandchild"
+  },
+  {
+    "sl_no": 311,
+    "german": "die Enkelin, -nen",
+    "english": "granddaughter"
+  },
+  {
+    "sl_no": 312,
+    "german": "entschuldigen (sich), entschuldigt, hat entschuldigt",
+    "english": "to excuse oneself, to apologise"
+  },
+  {
+    "sl_no": 313,
+    "german": "die Entschuldigung, -en",
+    "english": "apology, excuse; sorry / excuse me"
+  },
+  {
+    "sl_no": 314,
+    "german": "das Erdgeschoss, -e",
+    "english": "ground floor, first floor"
+  },
+  {
+    "sl_no": 315,
+    "german": "die Erfahrung, -en",
+    "english": "experience (knowledge gained through practice)"
+  },
+  {
+    "sl_no": 316,
+    "german": "erinnern (sich), erinnert, hat erinnert",
+    "english": "to remember, to remind"
+  },
+  {
+    "sl_no": 317,
+    "german": "erkältet sein, ist erkältet, war erkältet, ist erkältet gewesen",
+    "english": "to have a cold, to be suffering from a cold"
+  },
+  {
+    "sl_no": 318,
+    "german": "erklären, erklärt, hat erklärt",
+    "english": "to explain"
+  },
+  {
+    "sl_no": 319,
+    "german": "erlauben, erlaubt, hat erlaubt",
+    "english": "to allow, to permit"
+  },
+  {
+    "sl_no": 320,
+    "german": "die Erlaubnis (Sg.)",
+    "english": "permission, permit"
+  },
+  {
+    "sl_no": 321,
+    "german": "erlaubt sein, ist erlaubt, war erlaubt, ist erlaubt gewesen",
+    "english": "to be allowed, to be permitted"
+  },
+  {
+    "sl_no": 322,
+    "german": "die Ermäßigung, -en",
+    "english": "discount, concession, reduced price"
+  },
+  {
+    "sl_no": 323,
+    "german": "erreichen, erreicht, hat erreicht",
+    "english": "to reach, to achieve, to get hold of"
+  },
+  {
+    "sl_no": 324,
+    "german": "erst",
+    "english": "first, only, not until"
+  },
+  {
+    "sl_no": 325,
+    "german": "der/die/das erste",
+    "english": "first (ordinal)"
+  },
+  {
+    "sl_no": 326,
+    "german": "erstens",
+    "english": "firstly, first of all"
+  },
+  {
+    "sl_no": 327,
+    "german": "der Erwachsene, -n",
+    "english": "adult, grown-up"
+  },
+  {
+    "sl_no": 328,
+    "german": "erzählen, erzählt, hat erzählt",
+    "english": "to tell, to narrate, to recount"
+  },
+  {
+    "sl_no": 329,
+    "german": "das Essen, -",
+    "english": "food, meal, eating"
+  },
+  {
+    "sl_no": 330,
+    "german": "essen, isst, hat gegessen",
+    "english": "to eat"
+  },
+  {
+    "sl_no": 331,
+    "german": "etwas",
+    "english": "something; somewhat, a little"
+  },
+  {
+    "sl_no": 332,
+    "german": "Europa",
+    "english": "Europe"
+  },
+  {
+    "sl_no": 333,
+    "german": "der Europäer, - / die Europäerin, -nen",
+    "english": "European person (male / female)"
+  },
+  {
+    "sl_no": 334,
+    "german": "europäisch",
+    "english": "European (adjective)"
+  },
+  {
+    "sl_no": 335,
+    "german": "das Fach, ¨-er",
+    "english": "subject, field of study; compartment, shelf"
+  },
+  {
+    "sl_no": 336,
+    "german": "(ab)fahren, fährt (ab), ist (ab)gefahren",
+    "english": "to drive, to ride; (abfahren: to depart, to leave)"
+  },
+  {
+    "sl_no": 337,
+    "german": "der Fahrer, - / die Fahrerin, -nen",
+    "english": "driver (male / female)"
+  },
+  {
+    "sl_no": 338,
+    "german": "die Fahrkarte, -n",
+    "english": "ticket (train, bus, transit)"
+  },
+  {
+    "sl_no": 339,
+    "german": "der Fahrplan, ¨-e",
+    "english": "timetable, schedule (train/bus)"
+  },
+  {
+    "sl_no": 340,
+    "german": "das (Fahr)Rad, ¨-er",
+    "english": "bicycle, bike"
+  },
+  {
+    "sl_no": 341,
+    "german": "fallen, fällt, ist gefallen",
+    "english": "to fall, to drop"
+  },
+  {
+    "sl_no": 342,
+    "german": "falsch",
+    "english": "wrong, incorrect, false"
+  },
+  {
+    "sl_no": 343,
+    "german": "die Familie, -n",
+    "english": "family"
+  },
+  {
+    "sl_no": 344,
+    "german": "der Familienname, -n",
+    "english": "family name, surname, last name"
+  },
+  {
+    "sl_no": 345,
+    "german": "der Fan, -s",
+    "english": "fan, supporter"
+  },
+  {
+    "sl_no": 346,
+    "german": "fantastisch",
+    "english": "fantastic, wonderful, great"
+  },
+  {
+    "sl_no": 347,
+    "german": "die Farbe, -n",
+    "english": "color, paint"
+  },
+  {
+    "sl_no": 348,
+    "german": "fast",
+    "english": "almost, nearly"
+  },
+  {
+    "sl_no": 349,
+    "german": "faul",
+    "english": "lazy; rotten"
+  },
+  {
+    "sl_no": 350,
+    "german": "der Februar",
+    "english": "February"
+  },
+  {
+    "sl_no": 351,
+    "german": "fehlen, fehlt, hat gefehlt",
+    "english": "to be missing, to lack; to be absent"
+  },
+  {
+    "sl_no": 352,
+    "german": "der Fehler, -",
+    "english": "mistake, error, fault"
+  },
+  {
+    "sl_no": 353,
+    "german": "feiern, feiert, hat gefeiert",
+    "english": "to celebrate, to party"
+  },
+  {
+    "sl_no": 354,
+    "german": "die Feier, -n / Feier- (z. B. Feierabend, Feiertag)",
+    "english": "celebration, party; prefix: after-work / holiday (Feierabend, Feiertag)"
+  },
+  {
+    "sl_no": 355,
+    "german": "der Feiertag, -e",
+    "english": "public holiday, official holiday"
+  },
+  {
+    "sl_no": 356,
+    "german": "das Fenster, -",
+    "english": "window"
+  },
+  {
+    "sl_no": 357,
+    "german": "die Ferien (Pl.)",
+    "english": "vacation, school holidays"
+  },
+  {
+    "sl_no": 358,
+    "german": "fernsehen, sieht fern, hat ferngesehen",
+    "english": "to watch television"
+  },
+  {
+    "sl_no": 359,
+    "german": "der Fernseher, -",
+    "english": "television set, TV"
+  },
+  {
+    "sl_no": 360,
+    "german": "fertig sein, ist fertig, war fertig, ist fertig gewesen",
+    "english": "to be ready, to be finished"
+  },
+  {
+    "sl_no": 361,
+    "german": "das Fest, -e",
+    "english": "festival, feast, party, celebration"
+  },
+  {
+    "sl_no": 362,
+    "german": "das Festival, -s",
+    "english": "festival"
+  },
+  {
+    "sl_no": 363,
+    "german": "fett",
+    "english": "fat, greasy, bold (font)"
+  },
+  {
+    "sl_no": 364,
+    "german": "das Fieber (Sg.)",
+    "english": "fever, temperature"
+  },
+  {
+    "sl_no": 365,
+    "german": "der Film, -e",
+    "english": "film, movie"
+  },
+  {
+    "sl_no": 366,
+    "german": "finden, findet, hat gefunden",
+    "english": "to find; to consider, to think"
+  },
+  {
+    "sl_no": 367,
+    "german": "die Firma, -en",
+    "english": "company, firm, business"
+  },
+  {
+    "sl_no": 368,
+    "german": "der Fisch, -e",
+    "english": "fish"
+  },
+  {
+    "sl_no": 369,
+    "german": "fit sein, ist fit, war fit, ist fit gewesen",
+    "english": "to be fit, to be in good shape / healthy"
+  },
+  {
+    "sl_no": 370,
+    "german": "die Flasche, -n",
+    "english": "bottle"
+  },
+  {
+    "sl_no": 371,
+    "german": "das Fleisch (Sg.)",
+    "english": "meat, flesh"
+  },
+  {
+    "sl_no": 372,
+    "german": "fleißig",
+    "english": "hardworking, diligent, industrious"
+  },
+  {
+    "sl_no": 373,
+    "german": "(ab)fliegen, fliegt (ab), ist (ab)geflogen",
+    "english": "to fly; (abfliegen: to depart by plane, to take off)"
+  },
+  {
+    "sl_no": 374,
+    "german": "der Flohmarkt, ¨-e",
+    "english": "flea market"
+  },
+  {
+    "sl_no": 375,
+    "german": "der Flug, ¨-e",
+    "english": "flight"
+  },
+  {
+    "sl_no": 376,
+    "german": "der Flughafen, ¨",
+    "english": "airport"
+  },
+  {
+    "sl_no": 377,
+    "german": "das Flugzeug, -e",
+    "english": "airplane, plane"
+  },
+  {
+    "sl_no": 378,
+    "german": "der Fluss, ¨-e",
+    "english": "river, stream"
+  },
+  {
+    "sl_no": 379,
+    "german": "das Formular, -e",
+    "english": "form, document to fill out"
+  },
+  {
+    "sl_no": 380,
+    "german": "der Fotoapparat, -e",
+    "english": "camera, photo camera"
+  },
+  {
+    "sl_no": 381,
+    "german": "fotografieren, fotografiert, hat fotografiert",
+    "english": "to take photos, to photograph"
+  },
+  {
+    "sl_no": 382,
+    "german": "das Foto, -s",
+    "english": "photo, photograph"
+  },
+  {
+    "sl_no": 383,
+    "german": "die Frage, -n",
+    "english": "question"
+  },
+  {
+    "sl_no": 384,
+    "german": "fragen, fragt, hat gefragt",
+    "english": "to ask (a question)"
+  },
+  {
+    "sl_no": 385,
+    "german": "der Franken, -",
+    "english": "Swiss franc (currency)"
+  },
+  {
+    "sl_no": 386,
+    "german": "die Frau, -en",
+    "english": "woman, wife, Mrs., Ms."
+  },
+  {
+    "sl_no": 387,
+    "german": "frei",
+    "english": "free, vacant, unoccupied, available"
+  },
+  {
+    "sl_no": 388,
+    "german": "freitags",
+    "english": "on Fridays"
+  },
+  {
+    "sl_no": 389,
+    "german": "freiwillig",
+    "english": "voluntary, voluntarily"
+  },
+  {
+    "sl_no": 390,
+    "german": "die Freizeit (Sg.)",
+    "english": "free time, leisure time"
+  },
+  {
+    "sl_no": 391,
+    "german": "fremd",
+    "english": "foreign, strange, unfamiliar"
+  },
+  {
+    "sl_no": 392,
+    "german": "freuen (sich), freut, hat gefreut",
+    "english": "to be pleased/happy, to look forward to"
+  },
+  {
+    "sl_no": 393,
+    "german": "der Freund, -e",
+    "english": "friend (male); boyfriend"
+  },
+  {
+    "sl_no": 394,
+    "german": "die Freundin, -nen",
+    "english": "friend (female); girlfriend"
+  },
+  {
+    "sl_no": 395,
+    "german": "freundlich",
+    "english": "friendly, kind, pleasant"
+  },
+  {
+    "sl_no": 396,
+    "german": "frisch",
+    "english": "fresh, cool"
+  },
+  {
+    "sl_no": 397,
+    "german": "der Friseur, -e / die Friseurin, -nen",
+    "english": "hairdresser, barber (male / female)"
+  },
+  {
+    "sl_no": 398,
+    "german": "froh",
+    "english": "glad, happy, joyful"
+  },
+  {
+    "sl_no": 399,
+    "german": "früh",
+    "english": "early"
+  },
+  {
+    "sl_no": 400,
+    "german": "früher",
+    "english": "earlier, in the past, formerly"
+  },
+  {
+    "sl_no": 401,
+    "german": "der Frühling / das Frühjahr",
+    "english": "spring (season)"
+  },
+  {
+    "sl_no": 402,
+    "german": "frühstücken, frühstückt, hat gefrühstückt",
+    "english": "to eat breakfast"
+  },
+  {
+    "sl_no": 403,
+    "german": "das Frühstück (Sg.)",
+    "english": "breakfast"
+  },
+  {
+    "sl_no": 404,
+    "german": "fühlen (sich), fühlt, hat gefühlt",
+    "english": "to feel"
+  },
+  {
+    "sl_no": 405,
+    "german": "der Führerschein, -e",
+    "english": "driver's license"
+  },
+  {
+    "sl_no": 406,
+    "german": "die Führung, -en",
+    "english": "guided tour; leadership"
+  },
+  {
+    "sl_no": 407,
+    "german": "fünf (5)",
+    "english": "five (number 5)"
+  },
+  {
+    "sl_no": 408,
+    "german": "fünfzehn (15)",
+    "english": "fifteen (number 15)"
+  },
+  {
+    "sl_no": 409,
+    "german": "fünfzig (50)",
+    "english": "fifty (number 50)"
+  },
+  {
+    "sl_no": 410,
+    "german": "für",
+    "english": "for (preposition with accusative)"
+  },
+  {
+    "sl_no": 411,
+    "german": "die Fundsachen (Pl.)",
+    "english": "lost property, lost and found items"
+  },
+  {
+    "sl_no": 412,
+    "german": "furchtbar",
+    "english": "terrible, awful, dreadfully"
+  },
+  {
+    "sl_no": 413,
+    "german": "der Fußball, ¨-e",
+    "english": "football, soccer; football (ball)"
+  },
+  {
+    "sl_no": 414,
+    "german": "der Fuß, ¨-e",
+    "english": "foot"
+  },
+  {
+    "sl_no": 415,
+    "german": "die Gabel, -n",
+    "english": "fork"
+  },
+  {
+    "sl_no": 416,
+    "german": "ganz",
+    "english": "whole, entire, quite, completely"
+  },
+  {
+    "sl_no": 417,
+    "german": "die Garage, -n",
+    "english": "garage"
+  },
+  {
+    "sl_no": 418,
+    "german": "der Garten, ¨",
+    "english": "garden, yard"
+  },
+  {
+    "sl_no": 419,
+    "german": "der Gast, ¨-e",
+    "english": "guest (plural: guests)"
+  },
+  {
+    "sl_no": 420,
+    "german": "geben, gibt, hat gegeben",
+    "english": "to give; (es gibt = there is / there are)"
+  },
+  {
+    "sl_no": 421,
+    "german": "geboren",
+    "english": "born"
+  },
+  {
+    "sl_no": 422,
+    "german": "Geburts- (jahr, ort, tag), -e",
+    "english": "birth- (birth year, birthplace, birthday)"
+  },
+  {
+    "sl_no": 423,
+    "german": "geehrt-",
+    "english": "honored, esteemed, dear (formal letter salutation: Sehr geehrte...)"
+  },
+  {
+    "sl_no": 424,
+    "german": "gefährlich",
+    "english": "dangerous, hazardous"
+  },
+  {
+    "sl_no": 425,
+    "german": "gefallen, gefällt, hat gefallen",
+    "english": "to please, to be pleasing to, to like"
+  },
+  {
+    "sl_no": 426,
+    "german": "gegen",
+    "english": "against; towards; around (time)"
+  },
+  {
+    "sl_no": 427,
+    "german": "das Gegenteil, -e",
+    "english": "opposite, contrary (im Gegenteil = on the contrary)"
+  },
+  {
+    "sl_no": 428,
+    "german": "gegenüber",
+    "english": "opposite, across from, facing"
+  },
+  {
+    "sl_no": 429,
+    "german": "das Gehalt, ¨-er",
+    "english": "salary, pay"
+  },
+  {
+    "sl_no": 430,
+    "german": "gehen, geht, ist gegangen",
+    "english": "to go, to walk; to be possible / fine"
+  },
+  {
+    "sl_no": 431,
+    "german": "gehören, gehört, hat gehört",
+    "english": "to belong to, to be owned by"
+  },
+  {
+    "sl_no": 432,
+    "german": "gelb",
+    "english": "yellow"
+  },
+  {
+    "sl_no": 433,
+    "german": "die Geldbörse, -n",
+    "english": "wallet, purse, coin pouch"
+  },
+  {
+    "sl_no": 434,
+    "german": "das Geld (Sg.)",
+    "english": "money"
+  },
+  {
+    "sl_no": 435,
+    "german": "das Gemüse (Sg.)",
+    "english": "vegetables"
+  },
+  {
+    "sl_no": 436,
+    "german": "genau",
+    "english": "exact, precise, exactly"
+  },
+  {
+    "sl_no": 437,
+    "german": "genug",
+    "english": "enough, sufficient"
+  },
+  {
+    "sl_no": 438,
+    "german": "die Geografie",
+    "english": "geography (school subject)"
+  },
+  {
+    "sl_no": 439,
+    "german": "das Gepäck (Sg.)",
+    "english": "luggage, baggage"
+  },
+  {
+    "sl_no": 440,
+    "german": "gerade",
+    "english": "straight, direct; right now, just"
+  },
+  {
+    "sl_no": 441,
+    "german": "geradeaus",
+    "english": "straight ahead"
+  },
+  {
+    "sl_no": 442,
+    "german": "das Gerät, -e",
+    "english": "device, appliance, gadget, instrument"
+  },
+  {
+    "sl_no": 443,
+    "german": "das Gericht, -e",
+    "english": "dish (food); court of law"
+  },
+  {
+    "sl_no": 444,
+    "german": "gern, lieber, am liebsten",
+    "english": "gladly, with pleasure, like doing"
+  },
+  {
+    "sl_no": 445,
+    "german": "das Geschäft, -e",
+    "english": "shop, store, business"
+  },
+  {
+    "sl_no": 446,
+    "german": "das Geschenk, -e",
+    "english": "present, gift"
+  },
+  {
+    "sl_no": 447,
+    "german": "die Geschichte",
+    "english": "history (school subject)"
+  },
+  {
+    "sl_no": 448,
+    "german": "die Geschichte, -n",
+    "english": "story; history"
+  },
+  {
+    "sl_no": 449,
+    "german": "geschieden",
+    "english": "divorced"
+  },
+  {
+    "sl_no": 450,
+    "german": "das Geschirr (Sg.)",
+    "english": "dishes, crockery, tableware"
+  },
+  {
+    "sl_no": 451,
+    "german": "das Gesicht, -er",
+    "english": "face"
+  },
+  {
+    "sl_no": 452,
+    "german": "das Gespräch, -e",
+    "english": "conversation, discussion, talk"
+  },
+  {
+    "sl_no": 453,
+    "german": "gestern",
+    "english": "yesterday"
+  },
+  {
+    "sl_no": 454,
+    "german": "gesund",
+    "english": "healthy, well, wholesome"
+  },
+  {
+    "sl_no": 455,
+    "german": "die Gesundheit (Sg.)",
+    "english": "health; (Bless you! after sneezing)"
+  },
+  {
+    "sl_no": 456,
+    "german": "das Getränk, -e",
+    "english": "drink, beverage"
+  },
+  {
+    "sl_no": 457,
+    "german": "getrennt",
+    "english": "separated"
+  },
+  {
+    "sl_no": 458,
+    "german": "gewinnen, gewinnt, hat gewonnen",
+    "english": "to win, to gain"
+  },
+  {
+    "sl_no": 459,
+    "german": "das Gewitter, -",
+    "english": "thunderstorm"
+  },
+  {
+    "sl_no": 460,
+    "german": "die Gitarre, -n",
+    "english": "guitar"
+  },
+  {
+    "sl_no": 461,
+    "german": "das Glas, ¨-er",
+    "english": "glass (drinking glass / material)"
+  },
+  {
+    "sl_no": 462,
+    "german": "glauben, glaubt, hat geglaubt",
+    "english": "to believe, to think"
+  },
+  {
+    "sl_no": 463,
+    "german": "gleich",
+    "english": "same, equal; right away, immediately"
+  },
+  {
+    "sl_no": 464,
+    "german": "das Gleis, -e",
+    "english": "track, platform (train)"
+  },
+  {
+    "sl_no": 465,
+    "german": "glücklich",
+    "english": "happy, fortunate, lucky"
+  },
+  {
+    "sl_no": 466,
+    "german": "das Glück (Sg.)",
+    "english": "luck, good fortune, happiness"
+  },
+  {
+    "sl_no": 467,
+    "german": "der Glückwunsch, ¨-e",
+    "english": "congratulation, good wish"
+  },
+  {
+    "sl_no": 468,
+    "german": "Grad Celsius",
+    "english": "degree(s) Celsius"
+  },
+  {
+    "sl_no": 469,
+    "german": "das Gramm, - (g)",
+    "english": "gram"
+  },
+  {
+    "sl_no": 470,
+    "german": "gratulieren, gratuliert, hat gratuliert",
+    "english": "to congratulate"
+  },
+  {
+    "sl_no": 471,
+    "german": "grau",
+    "english": "gray"
+  },
+  {
+    "sl_no": 472,
+    "german": "grillen, grillt, hat gegrillt",
+    "english": "to grill, to barbecue"
+  },
+  {
+    "sl_no": 473,
+    "german": "die Grippe (Sg.)",
+    "english": "flu, influenza"
+  },
+  {
+    "sl_no": 474,
+    "german": "die Größe, -n",
+    "english": "size, height, tallness"
+  },
+  {
+    "sl_no": 475,
+    "german": "groß",
+    "english": "big, large, tall, great"
+  },
+  {
+    "sl_no": 476,
+    "german": "die Großmutter, ¨- (Oma)",
+    "english": "grandmother, grandma"
+  },
+  {
+    "sl_no": 477,
+    "german": "der Großvater, ¨- (Opa)",
+    "english": "grandfather, grandpa"
+  },
+  {
+    "sl_no": 478,
+    "german": "die Gruppe, -n",
+    "english": "group"
+  },
+  {
+    "sl_no": 479,
+    "german": "der Gruß, ¨-e",
+    "english": "greeting, regards"
+  },
+  {
+    "sl_no": 480,
+    "german": "gültig sein, ist gültig, war gültig, ist gültig gewesen",
+    "english": "to be valid (ticket/passport)"
+  },
+  {
+    "sl_no": 481,
+    "german": "günstig",
+    "english": "favorable, reasonably priced, cheap"
+  },
+  {
+    "sl_no": 482,
+    "german": "gut, besser, am besten",
+    "english": "good, well, fine"
+  },
+  {
+    "sl_no": 483,
+    "german": "das Haar, -e",
+    "english": "hair"
+  },
+  {
+    "sl_no": 484,
+    "german": "haben, hat, hatte, hat gehabt",
+    "english": "to have"
+  },
+  {
+    "sl_no": 485,
+    "german": "das Hähnchen, -",
+    "english": "chicken, roast chicken"
+  },
+  {
+    "sl_no": 486,
+    "german": "hängen, hängt, hat gehangen/ gehängt",
+    "english": "to hang, to be hanging / to hang up"
+  },
+  {
+    "sl_no": 487,
+    "german": "hässlich",
+    "english": "ugly, unsightly"
+  },
+  {
+    "sl_no": 488,
+    "german": "die Halle, -n",
+    "english": "hall, indoor venue, concourse"
+  },
+  {
+    "sl_no": 489,
+    "german": "hallo",
+    "english": "hello, hi"
+  },
+  {
+    "sl_no": 490,
+    "german": "der Hals, ¨-e",
+    "english": "neck, throat"
+  },
+  {
+    "sl_no": 491,
+    "german": "halten, hält, hat gehalten",
+    "english": "to hold; to stop (vehicle)"
+  },
+  {
+    "sl_no": 492,
+    "german": "die Haltestelle, -n",
+    "english": "stop, station (bus, tram)"
+  },
+  {
+    "sl_no": 493,
+    "german": "der Hamburger, -",
+    "english": "hamburger, burger; person from Hamburg"
+  },
+  {
+    "sl_no": 494,
+    "german": "die Hand, ¨-e",
+    "english": "hand (plural: hands)"
+  },
+  {
+    "sl_no": 495,
+    "german": "das Handtuch, ¨-er",
+    "english": "towel"
+  },
+  {
+    "sl_no": 496,
+    "german": "der Handwerker, - / die Handwerkerin, -nen",
+    "english": "tradesman, craftsman, artisan (male / female)"
+  },
+  {
+    "sl_no": 497,
+    "german": "das Handy, -s",
+    "english": "mobile phone, cell phone"
+  },
+  {
+    "sl_no": 498,
+    "german": "hart",
+    "english": "hard, tough, severe"
+  },
+  {
+    "sl_no": 499,
+    "german": "die Hauptstadt, ¨-e",
+    "english": "capital city"
+  },
+  {
+    "sl_no": 500,
+    "german": "das Haus, ¨-er",
+    "english": "house, building"
+  },
+  {
+    "sl_no": 501,
+    "german": "der Haushalt, -e",
+    "english": "household, housekeeping; budget"
+  },
+  {
+    "sl_no": 502,
+    "german": "der Hausmann, ¨-er / die Hausfrau, -en",
+    "english": "househusband / housewife, homemaker"
+  },
+  {
+    "sl_no": 503,
+    "german": "das Heft, -e",
+    "english": "exercise book, notebook; magazine issue"
+  },
+  {
+    "sl_no": 504,
+    "german": "die Heimat (Sg.)",
+    "english": "homeland, home country, hometown"
+  },
+  {
+    "sl_no": 505,
+    "german": "heiraten, heiratet, hat geheiratet",
+    "english": "to marry, to get married"
+  },
+  {
+    "sl_no": 506,
+    "german": "heiß",
+    "english": "hot, boiling"
+  },
+  {
+    "sl_no": 507,
+    "german": "heißen, heißt, hat geheißen",
+    "english": "to be called, to be named; to mean"
+  },
+  {
+    "sl_no": 508,
+    "german": "die Heizung, -en",
+    "english": "heating, heater, radiator"
+  },
+  {
+    "sl_no": 509,
+    "german": "helfen, hilft, hat geholfen",
+    "english": "to help, to assist"
+  },
+  {
+    "sl_no": 510,
+    "german": "hell",
+    "english": "bright, light (color/illumination)"
+  },
+  {
+    "sl_no": 511,
+    "german": "das Hemd, -en",
+    "english": "shirt"
+  },
+  {
+    "sl_no": 512,
+    "german": "heraus/raus",
+    "english": "out, out here, outside"
+  },
+  {
+    "sl_no": 513,
+    "german": "der Herbst",
+    "english": "autumn, fall (season)"
+  },
+  {
+    "sl_no": 514,
+    "german": "der Herd, -e",
+    "english": "stove, cooker, range"
+  },
+  {
+    "sl_no": 515,
+    "german": "herein/rein",
+    "english": "in, come in, inside"
+  },
+  {
+    "sl_no": 516,
+    "german": "her/her-/-her",
+    "english": "here, toward here (directional prefix/adverb)"
+  },
+  {
+    "sl_no": 517,
+    "german": "der Herr, -en",
+    "english": "gentleman, Mr., sir"
+  },
+  {
+    "sl_no": 518,
+    "german": "herstellen, stellt her, hat hergestellt",
+    "english": "to produce, to manufacture, to make"
+  },
+  {
+    "sl_no": 519,
+    "german": "herunterladen, lädt herunter, hat heruntergeladen",
+    "english": "to download (files/music from the internet)"
+  },
+  {
+    "sl_no": 520,
+    "german": "herzlich",
+    "english": "warm, cordial, hearty"
+  },
+  {
+    "sl_no": 521,
+    "german": "heute",
+    "english": "today"
+  },
+  {
+    "sl_no": 522,
+    "german": "hier",
+    "english": "here"
+  },
+  {
+    "sl_no": 523,
+    "german": "die Hilfe (Sg.)",
+    "english": "help, assistance, aid"
+  },
+  {
+    "sl_no": 524,
+    "german": "der Himmel (Sg.)",
+    "english": "sky, heaven"
+  },
+  {
+    "sl_no": 525,
+    "german": "hin/hin-/-hin",
+    "english": "there, towards there (directional adverb/prefix)"
+  },
+  {
+    "sl_no": 526,
+    "german": "hinten",
+    "english": "at the back, in the rear, behind"
+  },
+  {
+    "sl_no": 527,
+    "german": "hinter",
+    "english": "behind, in back of"
+  },
+  {
+    "sl_no": 528,
+    "german": "das Hobby, -s",
+    "english": "hobby"
+  },
+  {
+    "sl_no": 529,
+    "german": "hoch",
+    "english": "high, tall, elevated"
+  },
+  {
+    "sl_no": 530,
+    "german": "die Hochzeit, -en",
+    "english": "wedding"
+  },
+  {
+    "sl_no": 531,
+    "german": "hören, hört, hat gehört",
+    "english": "to hear, to listen"
+  },
+  {
+    "sl_no": 532,
+    "german": "hoffen, hofft, hat gehofft",
+    "english": "to hope"
+  },
+  {
+    "sl_no": 533,
+    "german": "hoffentlich",
+    "english": "hopefully"
+  },
+  {
+    "sl_no": 534,
+    "german": "holen, holt, hat geholt",
+    "english": "to get, to fetch"
+  },
+  {
+    "sl_no": 535,
+    "german": "die Homepage, -s",
+    "english": "homepage, website"
+  },
+  {
+    "sl_no": 536,
+    "german": "die Hose, -n",
+    "english": "trousers, pants"
+  },
+  {
+    "sl_no": 537,
+    "german": "das Hotel, -s",
+    "english": "hotel"
+  },
+  {
+    "sl_no": 538,
+    "german": "der Hund, -e",
+    "english": "dog"
+  },
+  {
+    "sl_no": 539,
+    "german": "(ein)hundert (100)",
+    "english": "one hundred (100)"
+  },
+  {
+    "sl_no": 540,
+    "german": "hunderteins (101)",
+    "english": "one hundred and one (101)"
+  },
+  {
+    "sl_no": 541,
+    "german": "der Hunger (Sg.)",
+    "english": "hunger"
+  },
+  {
+    "sl_no": 542,
+    "german": "husten, hustet, hat gehustet",
+    "english": "to cough"
+  },
+  {
+    "sl_no": 543,
+    "german": "ICE",
+    "english": "Intercity Express (high-speed train)"
+  },
+  {
+    "sl_no": 544,
+    "german": "die Idee, -n",
+    "english": "idea"
+  },
+  {
+    "sl_no": 545,
+    "german": "immer",
+    "english": "always, constantly"
+  },
+  {
+    "sl_no": 546,
+    "german": "in",
+    "english": "in, into, inside"
+  },
+  {
+    "sl_no": 547,
+    "german": "die Information, -en",
+    "english": "information, info desk"
+  },
+  {
+    "sl_no": 548,
+    "german": "informieren (sich) (über), informiert, hat informiert",
+    "english": "to inform (oneself about), to inquire about"
+  },
+  {
+    "sl_no": 549,
+    "german": "die Insel, -n",
+    "english": "island, isle"
+  },
+  {
+    "sl_no": 550,
+    "german": "das Instrument, -e",
+    "english": "instrument (musical/scientific)"
+  },
+  {
+    "sl_no": 551,
+    "german": "intelligent",
+    "english": "intelligent, clever, smart"
+  },
+  {
+    "sl_no": 552,
+    "german": "interessant",
+    "english": "interesting"
+  },
+  {
+    "sl_no": 553,
+    "german": "das Interesse, -n",
+    "english": "interest, hobby, concern"
+  },
+  {
+    "sl_no": 554,
+    "german": "interessieren (sich), interessiert, hat interessiert",
+    "english": "to be interested in, to interest"
+  },
+  {
+    "sl_no": 555,
+    "german": "international",
+    "english": "international"
+  },
+  {
+    "sl_no": 556,
+    "german": "das Internet (Sg.)",
+    "english": "internet"
+  },
+  {
+    "sl_no": 557,
+    "german": "das Interview, -s",
+    "english": "interview"
+  },
+  {
+    "sl_no": 558,
+    "german": "ja",
+    "english": "yes"
+  },
+  {
+    "sl_no": 559,
+    "german": "die Jacke, -n",
+    "english": "jacket"
+  },
+  {
+    "sl_no": 560,
+    "german": "die Jahreszeit, -en",
+    "english": "season (of the year)"
+  },
+  {
+    "sl_no": 561,
+    "german": "der Januar",
+    "english": "January"
+  },
+  {
+    "sl_no": 562,
+    "german": "die Jeans (Pl.)",
+    "english": "jeans, denim trousers"
+  },
+  {
+    "sl_no": 563,
+    "german": "jeder, e, s",
+    "english": "every, each, everyone"
+  },
+  {
+    "sl_no": 564,
+    "german": "jemand",
+    "english": "someone, somebody, anyone"
+  },
+  {
+    "sl_no": 565,
+    "german": "jetzt",
+    "english": "now, at present"
+  },
+  {
+    "sl_no": 566,
+    "german": "der Job, -s",
+    "english": "job, work"
+  },
+  {
+    "sl_no": 567,
+    "german": "joggen, joggt, ist/hat gejoggt",
+    "english": "to jog"
+  },
+  {
+    "sl_no": 568,
+    "german": "der Journalist, -en / die Journalistin, -nen",
+    "english": "journalist (male / female)"
+  },
+  {
+    "sl_no": 569,
+    "german": "die Jugendherberge, -n",
+    "english": "youth hostel"
+  },
+  {
+    "sl_no": 570,
+    "german": "der/die Jugendliche, -n",
+    "english": "youth, teenager, adolescent (male / female)"
+  },
+  {
+    "sl_no": 571,
+    "german": "der Juli",
+    "english": "July"
+  },
+  {
+    "sl_no": 572,
+    "german": "jung",
+    "english": "young"
+  },
+  {
+    "sl_no": 573,
+    "german": "der Junge, -n",
+    "english": "boy"
+  },
+  {
+    "sl_no": 574,
+    "german": "der Juni",
+    "english": "June"
+  },
+  {
+    "sl_no": 575,
+    "german": "der Käse (Sg.)",
+    "english": "cheese"
+  },
+  {
+    "sl_no": 576,
+    "german": "der Kaffee, -s",
+    "english": "coffee"
+  },
+  {
+    "sl_no": 577,
+    "german": "der Kalender, -",
+    "english": "calendar, diary"
+  },
+  {
+    "sl_no": 578,
+    "german": "kalt",
+    "english": "cold, chilly"
+  },
+  {
+    "sl_no": 579,
+    "german": "die Kamera, -s",
+    "english": "camera"
+  },
+  {
+    "sl_no": 580,
+    "german": "kaputt",
+    "english": "broken, out of order, broken down"
+  },
+  {
+    "sl_no": 581,
+    "german": "der Karneval / Fasching",
+    "english": "carnival"
+  },
+  {
+    "sl_no": 582,
+    "german": "die Karte, -n",
+    "english": "card, ticket, map, menu, postcard"
+  },
+  {
+    "sl_no": 583,
+    "german": "die Kartoffel, -n",
+    "english": "potato"
+  },
+  {
+    "sl_no": 584,
+    "german": "die Kasse, -n",
+    "english": "checkout, cash desk, cash register, ticket counter"
+  },
+  {
+    "sl_no": 585,
+    "german": "die Katze, -n",
+    "english": "cat"
+  },
+  {
+    "sl_no": 586,
+    "german": "kaufen, kauft, hat gekauft",
+    "english": "to buy, to purchase"
+  },
+  {
+    "sl_no": 587,
+    "german": "das Kaufhaus, -¨er",
+    "english": "department store"
+  },
+  {
+    "sl_no": 588,
+    "german": "der Kaufmann, Kaufleute / die Kauffrau, -en",
+    "english": "merchant, businessperson, trader"
+  },
+  {
+    "sl_no": 589,
+    "german": "kein, e",
+    "english": "no, not any, none"
+  },
+  {
+    "sl_no": 590,
+    "german": "der Keller, -",
+    "english": "cellar, basement"
+  },
+  {
+    "sl_no": 591,
+    "german": "der Kellner, - / die Kellnerin, -nen",
+    "english": "waiter / waitress"
+  },
+  {
+    "sl_no": 592,
+    "german": "kennen, kennt, hat gekannt",
+    "english": "to know, to be familiar with (person/place)"
+  },
+  {
+    "sl_no": 593,
+    "german": "kennenlernen, lernt kennen, hat kennengelernt",
+    "english": "to get to know, to meet (for the first time)"
+  },
+  {
+    "sl_no": 594,
+    "german": "die Kenntnisse (Pl.)",
+    "english": "knowledge, skills"
+  },
+  {
+    "sl_no": 595,
+    "german": "die Kette, -n",
+    "english": "chain, necklace"
+  },
+  {
+    "sl_no": 596,
+    "german": "das Kilogramm, - (kg)",
+    "english": "kilogram"
+  },
+  {
+    "sl_no": 597,
+    "german": "der Kilometer, - (km)",
+    "english": "kilometer"
+  },
+  {
+    "sl_no": 598,
+    "german": "das Kind, -er",
+    "english": "child, kid"
+  },
+  {
+    "sl_no": 599,
+    "german": "der Kindergarten, ¨-",
+    "english": "kindergarten, preschool, nursery"
+  },
+  {
+    "sl_no": 600,
+    "german": "das Kino, -s",
+    "english": "cinema, movie theater"
+  },
+  {
+    "sl_no": 601,
+    "german": "der Kiosk, -e",
+    "english": "kiosk, newsstand"
+  },
+  {
+    "sl_no": 602,
+    "german": "die Kirche, -n",
+    "english": "church"
+  },
+  {
+    "sl_no": 603,
+    "german": "klappen, klappt, hat geklappt",
+    "english": "to work out, to succeed, to fold"
+  },
+  {
+    "sl_no": 604,
+    "german": "klar",
+    "english": "clear, distinct, sure"
+  },
+  {
+    "sl_no": 605,
+    "german": "die Klassenfahrt, -en",
+    "english": "school trip, class excursion"
+  },
+  {
+    "sl_no": 606,
+    "german": "das Klavier, -e",
+    "english": "piano"
+  },
+  {
+    "sl_no": 607,
+    "german": "das Kleid, -er",
+    "english": "dress, garment"
+  },
+  {
+    "sl_no": 608,
+    "german": "die Kleidung (Sg.)",
+    "english": "clothing, clothes"
+  },
+  {
+    "sl_no": 609,
+    "german": "klein",
+    "english": "small, little, short"
+  },
+  {
+    "sl_no": 610,
+    "german": "klug",
+    "english": "clever, smart, intelligent, wise"
+  },
+  {
+    "sl_no": 611,
+    "german": "der Koch, ¨-e / die Köchin, -nen",
+    "english": "cook, chef (male / female)"
+  },
+  {
+    "sl_no": 612,
+    "german": "kochen, kocht, hat gekocht",
+    "english": "to cook, to boil"
+  },
+  {
+    "sl_no": 613,
+    "german": "können, kann, konnte, hat gekonnt",
+    "english": "can, to be able to, may"
+  },
+  {
+    "sl_no": 614,
+    "german": "der Körper, -",
+    "english": "body"
+  },
+  {
+    "sl_no": 615,
+    "german": "der Koffer, -",
+    "english": "suitcase, trunk"
+  },
+  {
+    "sl_no": 616,
+    "german": "der Kollege, -n / die Kollegin, -nen",
+    "english": "colleague, co-worker (male / female)"
+  },
+  {
+    "sl_no": 617,
+    "german": "komisch",
+    "english": "funny, strange, comical, odd"
+  },
+  {
+    "sl_no": 618,
+    "german": "kommen, kommt, ist gekommen",
+    "english": "to come, to arrive"
+  },
+  {
+    "sl_no": 619,
+    "german": "der Kontakt, -e",
+    "english": "contact, touch"
+  },
+  {
+    "sl_no": 620,
+    "german": "das Konto, -en",
+    "english": "bank account"
+  },
+  {
+    "sl_no": 621,
+    "german": "kontrollieren, kontrolliert, hat kontrolliert",
+    "english": "to check, to inspect, to monitor, to control"
+  },
+  {
+    "sl_no": 622,
+    "german": "das Konzert, -e",
+    "english": "concert"
+  },
+  {
+    "sl_no": 623,
+    "german": "der Kopf, ¨-e",
+    "english": "head"
+  },
+  {
+    "sl_no": 624,
+    "german": "die Kosmetik (Sg.)",
+    "english": "cosmetics, make-up"
+  },
+  {
+    "sl_no": 625,
+    "german": "kosten, kostet, hat gekostet",
+    "english": "to cost; to taste, to sample"
+  },
+  {
+    "sl_no": 626,
+    "german": "kostenlos",
+    "english": "free of charge, complimentary"
+  },
+  {
+    "sl_no": 627,
+    "german": "krank",
+    "english": "sick, ill"
+  },
+  {
+    "sl_no": 628,
+    "german": "das Krankenhaus, ¨-er",
+    "english": "hospital"
+  },
+  {
+    "sl_no": 629,
+    "german": "die Krankenkasse, -n",
+    "english": "health insurance fund / company"
+  },
+  {
+    "sl_no": 630,
+    "german": "der Krankenpfleger, - / die Krankenschwester, -n",
+    "english": "male nurse / female nurse"
+  },
+  {
+    "sl_no": 631,
+    "german": "die Krankheit, -en",
+    "english": "illness, disease, sickness"
+  },
+  {
+    "sl_no": 632,
+    "german": "der Kredit, -e",
+    "english": "loan, credit"
+  },
+  {
+    "sl_no": 633,
+    "german": "die Kreuzung, -en",
+    "english": "intersection, crossroads"
+  },
+  {
+    "sl_no": 634,
+    "german": "kriegen, kriegt, hat gekriegt",
+    "english": "to get, to receive, to obtain"
+  },
+  {
+    "sl_no": 635,
+    "german": "der Krimi, -s",
+    "english": "detective story, crime thriller, mystery"
+  },
+  {
+    "sl_no": 636,
+    "german": "der Kuchen, -",
+    "english": "cake"
+  },
+  {
+    "sl_no": 637,
+    "german": "die Küche, -n",
+    "english": "kitchen; cuisine"
+  },
+  {
+    "sl_no": 638,
+    "german": "kühl",
+    "english": "cool, chilly"
+  },
+  {
+    "sl_no": 639,
+    "german": "der Kühlschrank, ¨-e",
+    "english": "refrigerator, fridge"
+  },
+  {
+    "sl_no": 640,
+    "german": "kümmern (sich), kümmert, hat gekümmert",
+    "english": "to take care of, to look after, to attend to"
+  },
+  {
+    "sl_no": 641,
+    "german": "kündigen, kündigt, hat gekündigt",
+    "english": "to terminate, to resign, to cancel, to quit"
+  },
+  {
+    "sl_no": 642,
+    "german": "der Künstler, - / die Künstlerin, -nen",
+    "english": "artist (male / female)"
+  },
+  {
+    "sl_no": 643,
+    "german": "die Kultur, -en",
+    "english": "culture"
+  },
+  {
+    "sl_no": 644,
+    "german": "der Kunde, -n / die Kundin, -nen",
+    "english": "customer, client"
+  },
+  {
+    "sl_no": 645,
+    "german": "die Kunst, ¨-e",
+    "english": "art"
+  },
+  {
+    "sl_no": 646,
+    "german": "die Kunst(erziehung)",
+    "english": "art, art education (school subject)"
+  },
+  {
+    "sl_no": 647,
+    "german": "der Kurs, -e",
+    "english": "course, class"
+  },
+  {
+    "sl_no": 648,
+    "german": "kurz",
+    "english": "short, brief"
+  },
+  {
+    "sl_no": 649,
+    "german": "lachen, lacht, hat gelacht",
+    "english": "to laugh"
+  },
+  {
+    "sl_no": 650,
+    "german": "der Laden, ¨-",
+    "english": "shop, store"
+  },
+  {
+    "sl_no": 651,
+    "german": "die Lampe, -n",
+    "english": "lamp, light"
+  },
+  {
+    "sl_no": 652,
+    "german": "das Land, ¨-er",
+    "english": "country, land, state, countryside"
+  },
+  {
+    "sl_no": 653,
+    "german": "die Landschaft, -en",
+    "english": "landscape, scenery, countryside"
+  },
+  {
+    "sl_no": 654,
+    "german": "lang",
+    "english": "long"
+  },
+  {
+    "sl_no": 655,
+    "german": "lange",
+    "english": "for a long time"
+  },
+  {
+    "sl_no": 656,
+    "german": "langsam",
+    "english": "slow, slowly"
+  },
+  {
+    "sl_no": 657,
+    "german": "langweilig",
+    "english": "boring, dull"
+  },
+  {
+    "sl_no": 658,
+    "german": "lassen, lässt, hat gelassen",
+    "english": "to let, to allow; to leave behind"
+  },
+  {
+    "sl_no": 659,
+    "german": "das Latein",
+    "english": "Latin (language/school subject)"
+  },
+  {
+    "sl_no": 660,
+    "german": "laufen, läuft, ist gelaufen",
+    "english": "to run, to walk"
+  },
+  {
+    "sl_no": 661,
+    "german": "laut",
+    "english": "loud, noisy; according to"
+  },
+  {
+    "sl_no": 662,
+    "german": "das Leben, -",
+    "english": "life"
+  },
+  {
+    "sl_no": 663,
+    "german": "leben, lebt, hat gelebt",
+    "english": "to live, to be alive"
+  },
+  {
+    "sl_no": 664,
+    "german": "die Lebensmittel (Pl.)",
+    "english": "groceries, foodstuffs, food"
+  },
+  {
+    "sl_no": 665,
+    "german": "leer",
+    "english": "empty, vacant"
+  },
+  {
+    "sl_no": 666,
+    "german": "legen, legt, hat gelegt",
+    "english": "to lay, to put down (flat)"
+  },
+  {
+    "sl_no": 667,
+    "german": "der Lehrer, - / die Lehrerin, -nen",
+    "english": "teacher, instructor (male / female)"
+  },
+  {
+    "sl_no": 668,
+    "german": "leicht",
+    "english": "easy, light (weight)"
+  },
+  {
+    "sl_no": 669,
+    "german": "leider",
+    "english": "unfortunately, regrettably"
+  },
+  {
+    "sl_no": 670,
+    "german": "leidtun/leid tun, tut leid, hat leidgetan",
+    "english": "to be sorry, to regret (es tut mir leid = I am sorry)"
+  },
+  {
+    "sl_no": 671,
+    "german": "leihen, leiht, hat geliehen",
+    "english": "to lend, to borrow"
+  },
+  {
+    "sl_no": 672,
+    "german": "leise",
+    "english": "quiet, softly, low"
+  },
+  {
+    "sl_no": 673,
+    "german": "lernen, lernt, hat gelernt",
+    "english": "to learn, to study"
+  },
+  {
+    "sl_no": 674,
+    "german": "lesen, liest, hat gelesen",
+    "english": "to read"
+  },
+  {
+    "sl_no": 675,
+    "german": "letzt-",
+    "english": "last, previous"
+  },
+  {
+    "sl_no": 676,
+    "german": "die Leute (Pl.)",
+    "english": "people"
+  },
+  {
+    "sl_no": 677,
+    "german": "das Licht, -er",
+    "english": "light"
+  },
+  {
+    "sl_no": 678,
+    "german": "lieb-",
+    "english": "dear, lovely, beloved"
+  },
+  {
+    "sl_no": 679,
+    "german": "lieben, liebt, hat geliebt",
+    "english": "to love"
+  },
+  {
+    "sl_no": 680,
+    "german": "Lieblings-",
+    "english": "favorite (prefix)"
+  },
+  {
+    "sl_no": 681,
+    "german": "das Lied, -er",
+    "english": "song"
+  },
+  {
+    "sl_no": 682,
+    "german": "liefern, liefert, hat geliefert",
+    "english": "to deliver, to supply"
+  },
+  {
+    "sl_no": 683,
+    "german": "liegen, liegt, hat/ist gelegen",
+    "english": "to lie, to be situated, to be located"
+  },
+  {
+    "sl_no": 684,
+    "german": "lila",
+    "english": "purple, lilac"
+  },
+  {
+    "sl_no": 685,
+    "german": "der Link, -s",
+    "english": "link, hyperlink, web link"
+  },
+  {
+    "sl_no": 686,
+    "german": "Lkw, -s",
+    "english": "truck, lorry (Lastkraftwagen)"
+  },
+  {
+    "sl_no": 687,
+    "german": "der Löffel, -",
+    "english": "spoon"
+  },
+  {
+    "sl_no": 688,
+    "german": "das Lokal, -e",
+    "english": "restaurant, pub, local venue"
+  },
+  {
+    "sl_no": 689,
+    "german": "die Lüge, -n",
+    "english": "lie, falsehood"
+  },
+  {
+    "sl_no": 690,
+    "german": "lügen, lügt, hat gelogen",
+    "english": "to lie, to tell a lie"
+  },
+  {
+    "sl_no": 691,
+    "german": "lustig",
+    "english": "funny, amusing, cheerful"
+  },
+  {
+    "sl_no": 692,
+    "german": "die Lust (Sg.)",
+    "english": "desire, pleasure, inclination, mood (Lust haben = to feel like)"
+  },
+  {
+    "sl_no": 693,
+    "german": "Luxemburg",
+    "english": "Luxembourg"
+  },
+  {
+    "sl_no": 694,
+    "german": "der Luxemburger, - / die Luxemburgerin, -nen",
+    "english": "Luxembourger (male / female)"
+  },
+  {
+    "sl_no": 695,
+    "german": "luxemburgisch",
+    "english": "Luxembourgish (adjective/language)"
+  },
+  {
+    "sl_no": 696,
+    "german": "machen, macht, hat gemacht",
+    "english": "to do, to make"
+  },
+  {
+    "sl_no": 697,
+    "german": "das Mädchen, -",
+    "english": "girl"
+  },
+  {
+    "sl_no": 698,
+    "german": "männlich",
+    "english": "male, masculine"
+  },
+  {
+    "sl_no": 699,
+    "german": "der März",
+    "english": "March"
+  },
+  {
+    "sl_no": 700,
+    "german": "der Magen, ¨-",
+    "english": "stomach"
+  },
+  {
+    "sl_no": 701,
+    "german": "der Mai",
+    "english": "May"
+  },
+  {
+    "sl_no": 702,
+    "german": "die Mailbox, -en",
+    "english": "voicemail, answering service, inbox"
+  },
+  {
+    "sl_no": 703,
+    "german": "mal / das Mal",
+    "english": "time, once; (modal particle: tell me, just)"
+  },
+  {
+    "sl_no": 704,
+    "german": "malen, malt, hat gemalt",
+    "english": "to paint, to draw"
+  },
+  {
+    "sl_no": 705,
+    "german": "man",
+    "english": "one, you, people (impersonal pronoun)"
+  },
+  {
+    "sl_no": 706,
+    "german": "manch-",
+    "english": "some, many a (manche = some people)"
+  },
+  {
+    "sl_no": 707,
+    "german": "manchmal",
+    "english": "sometimes, occasionally"
+  },
+  {
+    "sl_no": 708,
+    "german": "der Mann, ¨-er",
+    "english": "man, husband"
+  },
+  {
+    "sl_no": 709,
+    "german": "die Mannschaft, -en",
+    "english": "team, crew, squad"
+  },
+  {
+    "sl_no": 710,
+    "german": "der Mantel, ¨-",
+    "english": "coat, overcoat"
+  },
+  {
+    "sl_no": 711,
+    "german": "markieren",
+    "english": "to mark, to highlight"
+  },
+  {
+    "sl_no": 712,
+    "german": "der Markt, ¨-e",
+    "english": "market, marketplace"
+  },
+  {
+    "sl_no": 713,
+    "german": "die Maschine, -n",
+    "english": "machine, engine"
+  },
+  {
+    "sl_no": 714,
+    "german": "die Mathematik / Mathe",
+    "english": "mathematics, math (school subject)"
+  },
+  {
+    "sl_no": 715,
+    "german": "der Mechaniker, - / die Mechanikerin, -nen",
+    "english": "mechanic (male / female)"
+  },
+  {
+    "sl_no": 716,
+    "german": "das Medikament, -e",
+    "english": "medication, medicine, drug"
+  },
+  {
+    "sl_no": 717,
+    "german": "das Meer, -e",
+    "english": "sea, ocean"
+  },
+  {
+    "sl_no": 718,
+    "german": "mehr",
+    "english": "more"
+  },
+  {
+    "sl_no": 719,
+    "german": "meinen, meint, hat gemeint",
+    "english": "to mean, to think, to opine"
+  },
+  {
+    "sl_no": 720,
+    "german": "die Meinung, -en",
+    "english": "opinion, view (meiner Meinung nach = in my opinion)"
+  },
+  {
+    "sl_no": 721,
+    "german": "meist-",
+    "english": "most, mostly"
+  },
+  {
+    "sl_no": 722,
+    "german": "meistens",
+    "english": "mostly, usually, most of the time"
+  },
+  {
+    "sl_no": 723,
+    "german": "die Menge, -n",
+    "english": "quantity, amount, crowd, lot"
+  },
+  {
+    "sl_no": 724,
+    "german": "der Mensch, -en",
+    "english": "human being, person, people"
+  },
+  {
+    "sl_no": 725,
+    "german": "merken, merkt, hat gemerkt",
+    "english": "to notice, to remember, to memorize"
+  },
+  {
+    "sl_no": 726,
+    "german": "die Messe, -n",
+    "english": "trade fair, exhibition; mass (church)"
+  },
+  {
+    "sl_no": 727,
+    "german": "das Messer, -",
+    "english": "knife"
+  },
+  {
+    "sl_no": 728,
+    "german": "die Miete, -n",
+    "english": "rent (payment)"
+  },
+  {
+    "sl_no": 729,
+    "german": "mieten, mietet, hat gemietet",
+    "english": "to rent, to hire"
+  },
+  {
+    "sl_no": 730,
+    "german": "die Milch (Sg.)",
+    "english": "milk"
+  },
+  {
+    "sl_no": 731,
+    "german": "eine Million (1.000.000)",
+    "english": "one million (1,000,000)"
+  },
+  {
+    "sl_no": 732,
+    "german": "mindestens",
+    "english": "at least (minimum quantity)"
+  },
+  {
+    "sl_no": 733,
+    "german": "das Mineralwasser (Sg.)",
+    "english": "mineral water"
+  },
+  {
+    "sl_no": 734,
+    "german": "der Mitarbeiter, -",
+    "english": "employee, staff member, co-worker"
+  },
+  {
+    "sl_no": 735,
+    "german": "mit (+ mitbringen/ -kommen/-machen/Fahren -nehmen/-spielen)",
+    "english": "with, by (means of transportation)"
+  },
+  {
+    "sl_no": 736,
+    "german": "das Mittagessen, -",
+    "english": "lunch, midday meal"
+  },
+  {
+    "sl_no": 737,
+    "german": "mittags",
+    "english": "at noon, at lunchtime"
+  },
+  {
+    "sl_no": 738,
+    "german": "das Mittel, -",
+    "english": "remedy, medicine, means, agent"
+  },
+  {
+    "sl_no": 739,
+    "german": "die Mitte, -n",
+    "english": "middle, center"
+  },
+  {
+    "sl_no": 740,
+    "german": "die Mitternacht",
+    "english": "midnight"
+  },
+  {
+    "sl_no": 741,
+    "german": "mittwochs",
+    "english": "on Wednesdays"
+  },
+  {
+    "sl_no": 742,
+    "german": "das Mobiltelefon, -e",
+    "english": "mobile phone, cellular phone"
+  },
+  {
+    "sl_no": 743,
+    "german": "das Model, -s, -le",
+    "english": "fashion model"
+  },
+  {
+    "sl_no": 744,
+    "german": "die Mode, -n",
+    "english": "fashion, style, mode"
+  },
+  {
+    "sl_no": 745,
+    "german": "modern",
+    "english": "modern, contemporary, trendy"
+  },
+  {
+    "sl_no": 746,
+    "german": "die Möbel (Pl.)",
+    "english": "furniture"
+  },
+  {
+    "sl_no": 747,
+    "german": "möchten, möchte, mochte, hat gemocht",
+    "english": "would like (to)"
+  },
+  {
+    "sl_no": 748,
+    "german": "mögen, mag, mochte, hat gemocht",
+    "english": "to like"
+  },
+  {
+    "sl_no": 749,
+    "german": "möglich",
+    "english": "possible, feasible"
+  },
+  {
+    "sl_no": 750,
+    "german": "der Moment, -e",
+    "english": "moment, instant"
+  },
+  {
+    "sl_no": 751,
+    "german": "montags",
+    "english": "on Mondays"
+  },
+  {
+    "sl_no": 752,
+    "german": "morgen",
+    "english": "tomorrow; in the morning"
+  },
+  {
+    "sl_no": 753,
+    "german": "morgens",
+    "english": "in the mornings, every morning"
+  },
+  {
+    "sl_no": 754,
+    "german": "der Motor, -en",
+    "english": "motor, engine"
+  },
+  {
+    "sl_no": 755,
+    "german": "der Motorroller, -",
+    "english": "motor scooter, scooter"
+  },
+  {
+    "sl_no": 756,
+    "german": "müde",
+    "english": "tired, weary, sleepy"
+  },
+  {
+    "sl_no": 757,
+    "german": "der Müll (Sg.)",
+    "english": "garbage, rubbish, trash, refuse"
+  },
+  {
+    "sl_no": 758,
+    "german": "müssen, muss, musste",
+    "english": "must, to have to"
+  },
+  {
+    "sl_no": 759,
+    "german": "die Mütze, -n",
+    "english": "cap, beanie, knitted hat"
+  },
+  {
+    "sl_no": 760,
+    "german": "der Mund, ¨-er",
+    "english": "mouth"
+  },
+  {
+    "sl_no": 761,
+    "german": "das Museum, -een",
+    "english": "museum"
+  },
+  {
+    "sl_no": 762,
+    "german": "der Musiker, - / die Musikerin, -nen",
+    "english": "musician (male / female)"
+  },
+  {
+    "sl_no": 763,
+    "german": "die Musik (Sg.)",
+    "english": "music"
+  },
+  {
+    "sl_no": 764,
+    "german": "die Mutter, ¨- (Mama)",
+    "english": "mother, mom"
+  },
+  {
+    "sl_no": 765,
+    "german": "nach",
+    "english": "to (destinations), after, according to"
+  },
+  {
+    "sl_no": 766,
+    "german": "die Nachbarin, -nen",
+    "english": "neighbor (female)"
+  },
+  {
+    "sl_no": 767,
+    "german": "der Nachbar, -n",
+    "english": "neighbor (male)"
+  },
+  {
+    "sl_no": 768,
+    "german": "nachmittags",
+    "english": "in the afternoons"
+  },
+  {
+    "sl_no": 769,
+    "german": "die Nachricht, -en",
+    "english": "message, news, piece of news"
+  },
+  {
+    "sl_no": 770,
+    "german": "nachts",
+    "english": "at night, during the night"
+  },
+  {
+    "sl_no": 771,
+    "german": "nächste, -er, -es",
+    "english": "next, nearest"
+  },
+  {
+    "sl_no": 772,
+    "german": "die Nähe (Sg.)",
+    "english": "vicinity, proximity, nearness (in der Nähe = nearby)"
+  },
+  {
+    "sl_no": 773,
+    "german": "der Name, -n",
+    "english": "name, last name"
+  },
+  {
+    "sl_no": 774,
+    "german": "nass",
+    "english": "wet, damp, soaked"
+  },
+  {
+    "sl_no": 775,
+    "german": "natürlich",
+    "english": "of course, naturally, natural"
+  },
+  {
+    "sl_no": 776,
+    "german": "die Natur (Sg.)",
+    "english": "nature"
+  },
+  {
+    "sl_no": 777,
+    "german": "neben",
+    "english": "next to, beside, alongside"
+  },
+  {
+    "sl_no": 778,
+    "german": "nebenan",
+    "english": "next door, neighboring"
+  },
+  {
+    "sl_no": 779,
+    "german": "neblig",
+    "english": "foggy, misty"
+  },
+  {
+    "sl_no": 780,
+    "german": "nehmen, nimmt, hat genommen",
+    "english": "to take"
+  },
+  {
+    "sl_no": 781,
+    "german": "nein",
+    "english": "no"
+  },
+  {
+    "sl_no": 782,
+    "german": "nennen, nennt, hat genannt",
+    "english": "to name, to call, to mention"
+  },
+  {
+    "sl_no": 783,
+    "german": "nervös",
+    "english": "nervous, tense, jittery"
+  },
+  {
+    "sl_no": 784,
+    "german": "nett",
+    "english": "nice, kind, friendly, pleasant"
+  },
+  {
+    "sl_no": 785,
+    "german": "neu",
+    "english": "new"
+  },
+  {
+    "sl_no": 786,
+    "german": "das Neujahr / Silvester",
+    "english": "New Year / New Year's Eve"
+  },
+  {
+    "sl_no": 787,
+    "german": "neun (9)",
+    "english": "nine (number 9)"
+  },
+  {
+    "sl_no": 788,
+    "german": "neunzehn (19)",
+    "english": "nineteen (number 19)"
+  },
+  {
+    "sl_no": 789,
+    "german": "neunzig (90)",
+    "english": "ninety (number 90)"
+  },
+  {
+    "sl_no": 790,
+    "german": "nicht",
+    "english": "not"
+  },
+  {
+    "sl_no": 791,
+    "german": "nichts",
+    "english": "nothing"
+  },
+  {
+    "sl_no": 792,
+    "german": "nie",
+    "english": "never"
+  },
+  {
+    "sl_no": 793,
+    "german": "niemand",
+    "english": "nobody, no one"
+  },
+  {
+    "sl_no": 794,
+    "german": "nirgends",
+    "english": "nowhere, not anywhere"
+  },
+  {
+    "sl_no": 795,
+    "german": "noch",
+    "english": "still, yet, another, more"
+  },
+  {
+    "sl_no": 796,
+    "german": "der Norden",
+    "english": "north"
+  },
+  {
+    "sl_no": 797,
+    "german": "normal",
+    "english": "normal, standard"
+  },
+  {
+    "sl_no": 798,
+    "german": "die Note, -n",
+    "english": "grade, mark (school); musical note"
+  },
+  {
+    "sl_no": 799,
+    "german": "notieren, notiert, hat notiert",
+    "english": "to note down, to write down, to record"
+  },
+  {
+    "sl_no": 800,
+    "german": "die Notiz, -en",
+    "english": "note, memo"
+  },
+  {
+    "sl_no": 801,
+    "german": "notwendig",
+    "english": "necessary, essential, needed"
+  },
+  {
+    "sl_no": 802,
+    "german": "der November",
+    "english": "November"
+  },
+  {
+    "sl_no": 803,
+    "german": "die Nudel, -n",
+    "english": "noodle, pasta"
+  },
+  {
+    "sl_no": 804,
+    "german": "nützlich",
+    "english": "useful, helpful, handy"
+  },
+  {
+    "sl_no": 805,
+    "german": "die Nummer, -n",
+    "english": "number"
+  },
+  {
+    "sl_no": 806,
+    "german": "nur",
+    "english": "only, just"
+  },
+  {
+    "sl_no": 807,
+    "german": "oben",
+    "english": "above, upstairs, on top"
+  },
+  {
+    "sl_no": 808,
+    "german": "das Obst (Sg.)",
+    "english": "fruit"
+  },
+  {
+    "sl_no": 809,
+    "german": "oder",
+    "english": "or"
+  },
+  {
+    "sl_no": 810,
+    "german": "öffnen, öffnet, hat geöffnet",
+    "english": "to open"
+  },
+  {
+    "sl_no": 811,
+    "german": "das Öl, -e",
+    "english": "oil"
+  },
+  {
+    "sl_no": 812,
+    "german": "Österreich",
+    "english": "Austria"
+  },
+  {
+    "sl_no": 813,
+    "german": "der Österreicher, - / die Österreicherin, -nen",
+    "english": "Austrian person (male / female)"
+  },
+  {
+    "sl_no": 814,
+    "german": "österreichisch",
+    "english": "Austrian (adjective)"
+  },
+  {
+    "sl_no": 815,
+    "german": "offen",
+    "english": "open, vacant; frank, candid"
+  },
+  {
+    "sl_no": 816,
+    "german": "oft",
+    "english": "often, frequently"
+  },
+  {
+    "sl_no": 817,
+    "german": "ohne",
+    "english": "without"
+  },
+  {
+    "sl_no": 818,
+    "german": "das Ohr, -en",
+    "english": "ear"
+  },
+  {
+    "sl_no": 819,
+    "german": "der Oktober",
+    "english": "October"
+  },
+  {
+    "sl_no": 820,
+    "german": "der Onkel, -",
+    "english": "uncle"
+  },
+  {
+    "sl_no": 821,
+    "german": "online",
+    "english": "online, on the internet"
+  },
+  {
+    "sl_no": 822,
+    "german": "orange",
+    "english": "orange (color)"
+  },
+  {
+    "sl_no": 823,
+    "german": "die Orange, -n",
+    "english": "orange (fruit)"
+  },
+  {
+    "sl_no": 824,
+    "german": "die Ordnung, -en",
+    "english": "order, orderliness, tidiness; (in Ordnung = in order / OK)"
+  },
+  {
+    "sl_no": 825,
+    "german": "organisieren, organisiert, hat organisiert",
+    "english": "to organize, to arrange"
+  },
+  {
+    "sl_no": 826,
+    "german": "der Ort, -e",
+    "english": "place, location, town, village"
+  },
+  {
+    "sl_no": 827,
+    "german": "der Osten",
+    "english": "east"
+  },
+  {
+    "sl_no": 828,
+    "german": "das Ostern",
+    "english": "Easter"
+  },
+  {
+    "sl_no": 829,
+    "german": "ein paar",
+    "english": "a few, some, several"
+  },
+  {
+    "sl_no": 830,
+    "german": "das Paar, -e",
+    "english": "pair, couple"
+  },
+  {
+    "sl_no": 831,
+    "german": "packen, packt, hat gepackt",
+    "english": "to pack (bags/boxes); to grab, to seize"
+  },
+  {
+    "sl_no": 832,
+    "german": "das Paket, -e",
+    "english": "parcel, package"
+  },
+  {
+    "sl_no": 833,
+    "german": "das Papier, -e",
+    "english": "paper"
+  },
+  {
+    "sl_no": 834,
+    "german": "die Papiere (Pl.)",
+    "english": "identity papers, credentials, documents"
+  },
+  {
+    "sl_no": 835,
+    "german": "das Parfüm, -s",
+    "english": "perfume, fragrance"
+  },
+  {
+    "sl_no": 836,
+    "german": "parken, parkt, hat geparkt",
+    "english": "to park (vehicle)"
+  },
+  {
+    "sl_no": 837,
+    "german": "der Park, -s",
+    "english": "park, public gardens"
+  },
+  {
+    "sl_no": 838,
+    "german": "der Partner, -",
+    "english": "partner (male / female)"
+  },
+  {
+    "sl_no": 839,
+    "german": "die Partnerin, -nen",
+    "english": "partner (female)"
+  },
+  {
+    "sl_no": 840,
+    "german": "die Party, -s",
+    "english": "party, celebration"
+  },
+  {
+    "sl_no": 841,
+    "german": "der Pass, ¨-e",
+    "english": "passport"
+  },
+  {
+    "sl_no": 842,
+    "german": "passen, passt, hat gepasst",
+    "english": "to fit (clothes/size); to suit, to match (time/style)"
+  },
+  {
+    "sl_no": 843,
+    "german": "passieren, passiert, ist passiert",
+    "english": "to happen, to occur, to take place"
+  },
+  {
+    "sl_no": 844,
+    "german": "das Passwort, ¨-er",
+    "english": "password"
+  },
+  {
+    "sl_no": 845,
+    "german": "die Pause, -n",
+    "english": "break, recess, pause, intermission"
+  },
+  {
+    "sl_no": 846,
+    "german": "PC, -s",
+    "english": "personal computer, PC"
+  },
+  {
+    "sl_no": 847,
+    "german": "die Person, -en",
+    "english": "person"
+  },
+  {
+    "sl_no": 848,
+    "german": "das Pferd, -e",
+    "english": "horse"
+  },
+  {
+    "sl_no": 849,
+    "german": "die Pflanze, -n",
+    "english": "plant"
+  },
+  {
+    "sl_no": 850,
+    "german": "die Physik",
+    "english": "physics (school subject)"
+  },
+  {
+    "sl_no": 851,
+    "german": "die Pizza, -s/-en",
+    "english": "pizza"
+  },
+  {
+    "sl_no": 852,
+    "german": "das Plakat, -e",
+    "english": "poster, placard, bill"
+  },
+  {
+    "sl_no": 853,
+    "german": "der Plan, ¨-e",
+    "english": "plan, schedule, map"
+  },
+  {
+    "sl_no": 854,
+    "german": "planen, plant, hat geplant",
+    "english": "to plan, to intend"
+  },
+  {
+    "sl_no": 855,
+    "german": "der Platz, ¨-e",
+    "english": "place, seat, square, space"
+  },
+  {
+    "sl_no": 856,
+    "german": "plötzlich",
+    "english": "suddenly, all at once"
+  },
+  {
+    "sl_no": 857,
+    "german": "die Polizei (Sg.)",
+    "english": "police"
+  },
+  {
+    "sl_no": 858,
+    "german": "der Polizist, -en / die Polizistin, -nen",
+    "english": "police officer (male / female)"
+  },
+  {
+    "sl_no": 859,
+    "german": "die Pommes frites (Pl.)",
+    "english": "French fries, chips"
+  },
+  {
+    "sl_no": 860,
+    "german": "die Portion, -en",
+    "english": "portion, serving"
+  },
+  {
+    "sl_no": 861,
+    "german": "das Poster, -",
+    "english": "poster"
+  },
+  {
+    "sl_no": 862,
+    "german": "die Postkarte, -n",
+    "english": "postcard"
+  },
+  {
+    "sl_no": 863,
+    "german": "die Postleitzahl, -en",
+    "english": "postal code, ZIP code"
+  },
+  {
+    "sl_no": 864,
+    "german": "die Post (Sg.)",
+    "english": "post office; mail, post"
+  },
+  {
+    "sl_no": 865,
+    "german": "das Praktikum, -a",
+    "english": "internship, practical training"
+  },
+  {
+    "sl_no": 866,
+    "german": "praktisch",
+    "english": "practical, convenient, practically"
+  },
+  {
+    "sl_no": 867,
+    "german": "die Praxis, -en",
+    "english": "medical practice, doctor's surgery; practice"
+  },
+  {
+    "sl_no": 868,
+    "german": "der Preis, -e",
+    "english": "price; prize, award"
+  },
+  {
+    "sl_no": 869,
+    "german": "preiswert",
+    "english": "good value for money, reasonable, inexpensive"
+  },
+  {
+    "sl_no": 870,
+    "german": "privat",
+    "english": "private, personal"
+  },
+  {
+    "sl_no": 871,
+    "german": "pro",
+    "english": "per, each (e.g. pro Person = per person)"
+  },
+  {
+    "sl_no": 872,
+    "german": "probieren, probiert, hat probiert",
+    "english": "to try, to taste, to sample, to test"
+  },
+  {
+    "sl_no": 873,
+    "german": "das Problem, -e",
+    "english": "problem, issue"
+  },
+  {
+    "sl_no": 874,
+    "german": "das Produkt, -e",
+    "english": "product, produce"
+  },
+  {
+    "sl_no": 875,
+    "german": "das Programm, -e",
+    "english": "programme, schedule, guide"
+  },
+  {
+    "sl_no": 876,
+    "german": "das Projekt, -e",
+    "english": "project"
+  },
+  {
+    "sl_no": 877,
+    "german": "der Prospekt, -e",
+    "english": "brochure, leaflet, flyer"
+  },
+  {
+    "sl_no": 878,
+    "german": "prüfen, prüft, hat geprüft",
+    "english": "to test, to examine, to check"
+  },
+  {
+    "sl_no": 879,
+    "german": "der Prüfer, - / die Prüferin, -nen",
+    "english": "examiner (male / female)"
+  },
+  {
+    "sl_no": 880,
+    "german": "die Prüfung, -en",
+    "english": "exam, examination, test"
+  },
+  {
+    "sl_no": 881,
+    "german": "pünktlich",
+    "english": "punctual, on time"
+  },
+  {
+    "sl_no": 882,
+    "german": "der Pullover, -",
+    "english": "pullover, sweater, jumper"
+  },
+  {
+    "sl_no": 883,
+    "german": "der Punkt, -e",
+    "english": "point, dot, score, period"
+  },
+  {
+    "sl_no": 884,
+    "german": "putzen, putzt, hat geputzt",
+    "english": "to clean, to brush (teeth), to polish"
+  },
+  {
+    "sl_no": 885,
+    "german": "die Qualität, -en",
+    "english": "quality"
+  },
+  {
+    "sl_no": 886,
+    "german": "das Quiz (Sg.)",
+    "english": "quiz"
+  },
+  {
+    "sl_no": 887,
+    "german": "das Radio, -s",
+    "english": "radio"
+  },
+  {
+    "sl_no": 888,
+    "german": "das Rätsel, -",
+    "english": "riddle, puzzle, mystery"
+  },
+  {
+    "sl_no": 889,
+    "german": "der Rappen, -",
+    "english": "rappen (Swiss cent/currency)"
+  },
+  {
+    "sl_no": 890,
+    "german": "raten, rät, hat geraten",
+    "english": "to advise, to recommend; to guess"
+  },
+  {
+    "sl_no": 891,
+    "german": "das Rathaus, ¨-er",
+    "english": "town hall, city hall"
+  },
+  {
+    "sl_no": 892,
+    "german": "rauchen, raucht, hat geraucht",
+    "english": "to smoke"
+  },
+  {
+    "sl_no": 893,
+    "german": "der Raum, ¨-e",
+    "english": "room, space, chamber"
+  },
+  {
+    "sl_no": 894,
+    "german": "rechnen, rechnet, hat gerechnet",
+    "english": "to calculate, to count, to reckon"
+  },
+  {
+    "sl_no": 895,
+    "german": "die Rechnung, -en",
+    "english": "bill, invoice, calculation"
+  },
+  {
+    "sl_no": 896,
+    "german": "recht haben, hat recht, hatte recht, hat recht gehabt",
+    "english": "to be right, to be correct"
+  },
+  {
+    "sl_no": 897,
+    "german": "rechts",
+    "english": "right, to the right, on the right"
+  },
+  {
+    "sl_no": 898,
+    "german": "reden, redet, hat geredet",
+    "english": "to talk, to speak"
+  },
+  {
+    "sl_no": 899,
+    "german": "der Regen (Sg.)",
+    "english": "rain"
+  },
+  {
+    "sl_no": 900,
+    "german": "regnen, regnet, hat geregnet",
+    "english": "to rain"
+  },
+  {
+    "sl_no": 901,
+    "german": "reich",
+    "english": "rich, wealthy"
+  },
+  {
+    "sl_no": 902,
+    "german": "der Reifen, -",
+    "english": "tire, tyre; hoop"
+  },
+  {
+    "sl_no": 903,
+    "german": "die Reihe, -n",
+    "english": "row, line, turn (an der Reihe sein = to be one's turn)"
+  },
+  {
+    "sl_no": 904,
+    "german": "die Reinigung, -en",
+    "english": "dry cleaner's, cleaning"
+  },
+  {
+    "sl_no": 905,
+    "german": "das Reisebüro, -s",
+    "english": "travel agency"
+  },
+  {
+    "sl_no": 906,
+    "german": "der Reiseführer, -",
+    "english": "travel guide, tour guide (person/book)"
+  },
+  {
+    "sl_no": 907,
+    "german": "die Reise, -n",
+    "english": "trip, journey, travel"
+  },
+  {
+    "sl_no": 908,
+    "german": "reisen, reist, ist gereist",
+    "english": "to travel, to journey"
+  },
+  {
+    "sl_no": 909,
+    "german": "der Reis (Sg.)",
+    "english": "rice"
+  },
+  {
+    "sl_no": 910,
+    "german": "reiten, reitet, ist geritten",
+    "english": "to ride (a horse), to go horseback riding"
+  },
+  {
+    "sl_no": 911,
+    "german": "die Religion",
+    "english": "religion, religious education (school subject)"
+  },
+  {
+    "sl_no": 912,
+    "german": "renovieren, renoviert, hat renoviert",
+    "english": "to renovate, to redecorate"
+  },
+  {
+    "sl_no": 913,
+    "german": "der Rentner, - / die Rentnerin, -nen",
+    "english": "retiree, pensioner (male / female)"
+  },
+  {
+    "sl_no": 914,
+    "german": "die Reparatur, -en",
+    "english": "repair, mending"
+  },
+  {
+    "sl_no": 915,
+    "german": "reparieren, repariert, hat repariert",
+    "english": "to repair, to fix, to mend"
+  },
+  {
+    "sl_no": 916,
+    "german": "reservieren, reserviert, reservierte, hat reserviert",
+    "english": "to reserve, to book"
+  },
+  {
+    "sl_no": 917,
+    "german": "das Restaurant, -s",
+    "english": "restaurant"
+  },
+  {
+    "sl_no": 918,
+    "german": "der Rest, -e",
+    "english": "rest, remainder, leftover"
+  },
+  {
+    "sl_no": 919,
+    "german": "das Rezept, -e",
+    "english": "prescription (medical); recipe (cooking)"
+  },
+  {
+    "sl_no": 920,
+    "german": "die Rezeption, en",
+    "english": "reception desk, front desk"
+  },
+  {
+    "sl_no": 921,
+    "german": "richtig",
+    "english": "right, correct, proper"
+  },
+  {
+    "sl_no": 922,
+    "german": "riechen, riecht, hat gerochen",
+    "english": "to smell"
+  },
+  {
+    "sl_no": 923,
+    "german": "das Rind",
+    "english": "cattle, cow, beef"
+  },
+  {
+    "sl_no": 924,
+    "german": "der Ring, -e",
+    "english": "ring (jewelry / circle)"
+  },
+  {
+    "sl_no": 925,
+    "german": "der Rock, ¨-e",
+    "english": "skirt"
+  },
+  {
+    "sl_no": 926,
+    "german": "romantisch",
+    "english": "romantic"
+  },
+  {
+    "sl_no": 927,
+    "german": "rosa",
+    "english": "pink, rose"
+  },
+  {
+    "sl_no": 928,
+    "german": "die Rose, -n",
+    "english": "rose"
+  },
+  {
+    "sl_no": 929,
+    "german": "der Rucksack, ¨-e",
+    "english": "backpack, rucksack"
+  },
+  {
+    "sl_no": 930,
+    "german": "der Rücken, -",
+    "english": "back (anatomy)"
+  },
+  {
+    "sl_no": 931,
+    "german": "rufen, ruft, hat gerufen",
+    "english": "to call, to shout, to summon"
+  },
+  {
+    "sl_no": 932,
+    "german": "die Ruhe (Sg.)",
+    "english": "peace, quiet, calm, silence"
+  },
+  {
+    "sl_no": 933,
+    "german": "ruhig",
+    "english": "quiet, calm, peaceful"
+  },
+  {
+    "sl_no": 934,
+    "german": "rund",
+    "english": "round, circular; around, approximately"
+  },
+  {
+    "sl_no": 935,
+    "german": "der Rundgang, ¨-e",
+    "english": "tour, walk around, circuit"
+  },
+  {
+    "sl_no": 936,
+    "german": "die Sache, -n",
+    "english": "thing, matter, item, belongings"
+  },
+  {
+    "sl_no": 937,
+    "german": "der Sänger, - / die Sängerin, -nen",
+    "english": "singer (male / female)"
+  },
+  {
+    "sl_no": 938,
+    "german": "der Saft, ¨-e",
+    "english": "juice"
+  },
+  {
+    "sl_no": 939,
+    "german": "sagen, sagt, hat gesagt",
+    "english": "to say, to tell"
+  },
+  {
+    "sl_no": 940,
+    "german": "der Salat, -e",
+    "english": "salad; lettuce"
+  },
+  {
+    "sl_no": 941,
+    "german": "das Salz, -e",
+    "english": "salt"
+  },
+  {
+    "sl_no": 942,
+    "german": "sammeln, sammelt, hat gesammelt",
+    "english": "to collect, to gather"
+  },
+  {
+    "sl_no": 943,
+    "german": "samstags",
+    "english": "on Saturdays"
+  },
+  {
+    "sl_no": 944,
+    "german": "der Satz, ¨-e",
+    "english": "sentence, clause; set"
+  },
+  {
+    "sl_no": 945,
+    "german": "sauber",
+    "english": "clean, tidy, neat"
+  },
+  {
+    "sl_no": 946,
+    "german": "sauer",
+    "english": "sour, acidic; angry, pissed off"
+  },
+  {
+    "sl_no": 947,
+    "german": "schade",
+    "english": "pity, shame (Schade! = What a pity!)"
+  },
+  {
+    "sl_no": 948,
+    "german": "schädlich",
+    "english": "harmful, damaging, injurious"
+  },
+  {
+    "sl_no": 949,
+    "german": "schaffen, schafft, hat geschafft",
+    "english": "to manage, to accomplish, to create"
+  },
+  {
+    "sl_no": 950,
+    "german": "der Schalter, -",
+    "english": "counter, ticket window; switch"
+  },
+  {
+    "sl_no": 951,
+    "german": "scharf",
+    "english": "sharp (knife); spicy, hot (food)"
+  },
+  {
+    "sl_no": 952,
+    "german": "der Schauspieler, - / die Schauspielerin, -nen",
+    "english": "actor / actress"
+  },
+  {
+    "sl_no": 953,
+    "german": "scheinen, scheint, hat geschienen",
+    "english": "to shine (sun); to seem, to appear"
+  },
+  {
+    "sl_no": 954,
+    "german": "schenken, schenkt, hat geschenkt",
+    "english": "to give (as a present), to gift"
+  },
+  {
+    "sl_no": 955,
+    "german": "die Schere, -n",
+    "english": "scissors, shears"
+  },
+  {
+    "sl_no": 956,
+    "german": "schicken, schickt, hat geschickt",
+    "english": "to send, to dispatch"
+  },
+  {
+    "sl_no": 957,
+    "german": "das Schiff, -e",
+    "english": "ship, boat, vessel"
+  },
+  {
+    "sl_no": 958,
+    "german": "das Schild, -er",
+    "english": "sign, signboard, notice, label"
+  },
+  {
+    "sl_no": 959,
+    "german": "schimpfen, schimpft, hat geschimpft",
+    "english": "to scold, to swear, to rant, to complain loudly"
+  },
+  {
+    "sl_no": 960,
+    "german": "der Schirm",
+    "english": "umbrella; screen"
+  },
+  {
+    "sl_no": 961,
+    "german": "schlafen, schläft, hat geschlafen",
+    "english": "to sleep"
+  },
+  {
+    "sl_no": 962,
+    "german": "das Schlafzimmer, -",
+    "english": "bedroom"
+  },
+  {
+    "sl_no": 963,
+    "german": "schlecht",
+    "english": "bad, poor, unwell"
+  },
+  {
+    "sl_no": 964,
+    "german": "schließen, schließt, hat geschlossen",
+    "english": "to close, to shut, to lock"
+  },
+  {
+    "sl_no": 965,
+    "german": "schlimm",
+    "english": "bad, terrible, serious, severe"
+  },
+  {
+    "sl_no": 966,
+    "german": "das Schloss, ¨-er",
+    "english": "castle, palace; lock"
+  },
+  {
+    "sl_no": 967,
+    "german": "der Schlüssel, -",
+    "english": "key"
+  },
+  {
+    "sl_no": 968,
+    "german": "der Schluss, ¨-e",
+    "english": "end, conclusion, finish"
+  },
+  {
+    "sl_no": 969,
+    "german": "schmecken, schmeckt, hat geschmeckt",
+    "english": "to taste"
+  },
+  {
+    "sl_no": 970,
+    "german": "der Schmerz, -en",
+    "english": "pain, ache, sorrow"
+  },
+  {
+    "sl_no": 971,
+    "german": "schmutzig",
+    "english": "dirty, filthy, grubby"
+  },
+  {
+    "sl_no": 972,
+    "german": "der Schnee (Sg.)",
+    "english": "snow"
+  },
+  {
+    "sl_no": 973,
+    "german": "schneiden (sich), schneidet, hat geschnitten",
+    "english": "to cut, to slice"
+  },
+  {
+    "sl_no": 974,
+    "german": "schneien, schneit, hat geschneit",
+    "english": "to snow"
+  },
+  {
+    "sl_no": 975,
+    "german": "schnell",
+    "english": "fast, quick, rapidly"
+  },
+  {
+    "sl_no": 976,
+    "german": "schön",
+    "english": "beautiful, handsome, nice, lovely"
+  },
+  {
+    "sl_no": 977,
+    "german": "die Schokolade (Sg.)",
+    "english": "chocolate"
+  },
+  {
+    "sl_no": 978,
+    "german": "schon",
+    "english": "already, yet"
+  },
+  {
+    "sl_no": 979,
+    "german": "der Schrank, ¨-e",
+    "english": "cupboard, cabinet, wardrobe, closet"
+  },
+  {
+    "sl_no": 980,
+    "german": "schrecklich",
+    "english": "terrible, horrible, dreadful"
+  },
+  {
+    "sl_no": 981,
+    "german": "schreiben, schreibt, hat geschrieben",
+    "english": "to write"
+  },
+  {
+    "sl_no": 982,
+    "german": "schriftlich",
+    "english": "in writing, written"
+  },
+  {
+    "sl_no": 983,
+    "german": "der Schüler, - / die Schülerin, -nen",
+    "english": "school pupil, student (male / female)"
+  },
+  {
+    "sl_no": 984,
+    "german": "der Schuh, -e",
+    "english": "shoe"
+  },
+  {
+    "sl_no": 985,
+    "german": "die Schule, -n",
+    "english": "school"
+  },
+  {
+    "sl_no": 986,
+    "german": "schwach",
+    "english": "weak, feeble, faint"
+  },
+  {
+    "sl_no": 987,
+    "german": "schwanger",
+    "english": "pregnant"
+  },
+  {
+    "sl_no": 988,
+    "german": "schwarz",
+    "english": "black"
+  },
+  {
+    "sl_no": 989,
+    "german": "das Schwein, -e",
+    "english": "pig, swine; pork"
+  },
+  {
+    "sl_no": 990,
+    "german": "die Schweiz",
+    "english": "Switzerland"
+  },
+  {
+    "sl_no": 991,
+    "german": "der Schweizer, - / die Schweizerin, -nen",
+    "english": "Swiss person (male / female)"
+  },
+  {
+    "sl_no": 992,
+    "german": "schweizerisch",
+    "english": "Swiss (adjective)"
+  },
+  {
+    "sl_no": 993,
+    "german": "schwer",
+    "english": "heavy; difficult, hard"
+  },
+  {
+    "sl_no": 994,
+    "german": "schwierig",
+    "english": "difficult, hard, complicated"
+  },
+  {
+    "sl_no": 995,
+    "german": "das Schwimmbad, ¨-er",
+    "english": "swimming pool"
+  },
+  {
+    "sl_no": 996,
+    "german": "schwimmen, schwimmt, ist geschwommen",
+    "english": "to swim"
+  },
+  {
+    "sl_no": 997,
+    "german": "sechs (6)",
+    "english": "six (number 6)"
+  },
+  {
+    "sl_no": 998,
+    "german": "sechzehn (16)",
+    "english": "sixteen (number 16)"
+  },
+  {
+    "sl_no": 999,
+    "german": "sechzig (60)",
+    "english": "sixty (number 60)"
+  },
+  {
+    "sl_no": 1000,
+    "german": "der See, -n",
+    "english": "lake"
+  },
+  {
+    "sl_no": 1001,
+    "german": "die See (Sg)",
+    "english": "sea, ocean (e.g. North Sea, Baltic Sea)"
+  },
+  {
+    "sl_no": 1002,
+    "german": "sehen, sieht, hat gesehen",
+    "english": "to see, to look, to watch"
+  },
+  {
+    "sl_no": 1003,
+    "german": "die Sehenswürdigkeit, -en",
+    "english": "sight, tourist attraction"
+  },
+  {
+    "sl_no": 1004,
+    "german": "sehr",
+    "english": "very, very much"
+  },
+  {
+    "sl_no": 1005,
+    "german": "die Seife, -n",
+    "english": "soap"
+  },
+  {
+    "sl_no": 1006,
+    "german": "sein, ist, war, ist gewesen",
+    "english": "to be; his/its"
+  },
+  {
+    "sl_no": 1007,
+    "german": "seit",
+    "english": "since, for (period of time)"
+  },
+  {
+    "sl_no": 1008,
+    "german": "die Seite, -n",
+    "english": "page; side"
+  },
+  {
+    "sl_no": 1009,
+    "german": "das Sekretariat, -e",
+    "english": "administrative office, school office, registry"
+  },
+  {
+    "sl_no": 1010,
+    "german": "selbst",
+    "english": "myself, yourself, oneself (self); even"
+  },
+  {
+    "sl_no": 1011,
+    "german": "die Sendung, -en",
+    "english": "broadcast, TV/radio program; consignment, parcel"
+  },
+  {
+    "sl_no": 1012,
+    "german": "der September",
+    "english": "September"
+  },
+  {
+    "sl_no": 1013,
+    "german": "der Service (Sg.)",
+    "english": "service, customer care"
+  },
+  {
+    "sl_no": 1014,
+    "german": "setzen (sich), setzt, hat gesetzt",
+    "english": "to sit down, to take a seat, to place"
+  },
+  {
+    "sl_no": 1015,
+    "german": "sicher",
+    "english": "sure, safe, secure, certainly"
+  },
+  {
+    "sl_no": 1016,
+    "german": "sich umziehen, zieht sich um, zog sich um, hat sich umgezogen",
+    "english": "to change clothes"
+  },
+  {
+    "sl_no": 1017,
+    "german": "sieben (7)",
+    "english": "seven (number 7)"
+  },
+  {
+    "sl_no": 1018,
+    "german": "siebzehn (17)",
+    "english": "seventeen (number 17)"
+  },
+  {
+    "sl_no": 1019,
+    "german": "siebzig (70)",
+    "english": "seventy (number 70)"
+  },
+  {
+    "sl_no": 1020,
+    "german": "singen, singt, hat gesungen",
+    "english": "to sing"
+  },
+  {
+    "sl_no": 1021,
+    "german": "die Situation, -en",
+    "english": "situation, circumstances"
+  },
+  {
+    "sl_no": 1022,
+    "german": "sitzen, sitzt, hat/ist gesessen",
+    "english": "to sit, to be seated"
+  },
+  {
+    "sl_no": 1023,
+    "german": "der Ski, -, -er",
+    "english": "ski"
+  },
+  {
+    "sl_no": 1024,
+    "german": "SMS",
+    "english": "text message, SMS"
+  },
+  {
+    "sl_no": 1025,
+    "german": "so",
+    "english": "so, thus, like this, that way"
+  },
+  {
+    "sl_no": 1026,
+    "german": "das Sofa, -s",
+    "english": "sofa, couch"
+  },
+  {
+    "sl_no": 1027,
+    "german": "sofort",
+    "english": "immediately, right away, at once"
+  },
+  {
+    "sl_no": 1028,
+    "german": "sogar",
+    "english": "even, in fact"
+  },
+  {
+    "sl_no": 1029,
+    "german": "sollen, soll, sollte",
+    "english": "should, shall, ought to, to be supposed to"
+  },
+  {
+    "sl_no": 1030,
+    "german": "der Sommer",
+    "english": "summer (season)"
+  },
+  {
+    "sl_no": 1031,
+    "german": "die Sonne, -n",
+    "english": "sun"
+  },
+  {
+    "sl_no": 1032,
+    "german": "sonnig",
+    "english": "sunny"
+  },
+  {
+    "sl_no": 1033,
+    "german": "sonntags",
+    "english": "on Sundays"
+  },
+  {
+    "sl_no": 1034,
+    "german": "sonst",
+    "english": "otherwise, else, besides"
+  },
+  {
+    "sl_no": 1035,
+    "german": "die Sozialkunde",
+    "english": "social studies, civics (school subject)"
+  },
+  {
+    "sl_no": 1036,
+    "german": "spät",
+    "english": "late"
+  },
+  {
+    "sl_no": 1037,
+    "german": "später",
+    "english": "later, afterwards"
+  },
+  {
+    "sl_no": 1038,
+    "german": "spannend",
+    "english": "exciting, thrilling, suspenseful"
+  },
+  {
+    "sl_no": 1039,
+    "german": "sparen, spart, hat gespart",
+    "english": "to save (money/energy)"
+  },
+  {
+    "sl_no": 1040,
+    "german": "der Spaß (Sg.)",
+    "english": "fun, enjoyment, pleasure"
+  },
+  {
+    "sl_no": 1041,
+    "german": "spazieren gehen, geht spazieren, ist spazieren gegangen",
+    "english": "to go for a walk, to stroll"
+  },
+  {
+    "sl_no": 1042,
+    "german": "der Spaziergang, ¨-e",
+    "english": "walk, stroll"
+  },
+  {
+    "sl_no": 1043,
+    "german": "speichern, speichert, hat gespeichert",
+    "english": "to save, to store (data/computer file)"
+  },
+  {
+    "sl_no": 1044,
+    "german": "die Speisekarte, -n",
+    "english": "menu, bill of fare"
+  },
+  {
+    "sl_no": 1045,
+    "german": "das Spiel, -e",
+    "english": "game, match"
+  },
+  {
+    "sl_no": 1046,
+    "german": "spielen, spielt, hat gespielt",
+    "english": "to play (game/music), to act"
+  },
+  {
+    "sl_no": 1047,
+    "german": "sportlich",
+    "english": "athletic, sporty"
+  },
+  {
+    "sl_no": 1048,
+    "german": "der Sportplatz, ¨-e",
+    "english": "sports ground, playing field, sports field"
+  },
+  {
+    "sl_no": 1049,
+    "german": "der Sport (Sg.)",
+    "english": "sport, sports, physical exercise"
+  },
+  {
+    "sl_no": 1050,
+    "german": "die Sprache, -n",
+    "english": "language"
+  },
+  {
+    "sl_no": 1051,
+    "german": "sprechen, spricht, hat gesprochen",
+    "english": "to speak, to talk"
+  },
+  {
+    "sl_no": 1052,
+    "german": "die Sprechstunde, -n",
+    "english": "consultation hour, office hours (doctor/teacher)"
+  },
+  {
+    "sl_no": 1053,
+    "german": "die Stadt, ¨-e",
+    "english": "city, town"
+  },
+  {
+    "sl_no": 1054,
+    "german": "der Stadtplan, ¨-e",
+    "english": "city map, town plan"
+  },
+  {
+    "sl_no": 1055,
+    "german": "stark",
+    "english": "strong, heavy, intense"
+  },
+  {
+    "sl_no": 1056,
+    "german": "der Star, -s",
+    "english": "star, celebrity"
+  },
+  {
+    "sl_no": 1057,
+    "german": "stattfinden, findet statt, hat stattgefunden",
+    "english": "to take place, to happen, to occur"
+  },
+  {
+    "sl_no": 1058,
+    "german": "stehen, steht, hat/ist gestanden",
+    "english": "to stand, to be located; to be written"
+  },
+  {
+    "sl_no": 1059,
+    "german": "die Stelle, -n",
+    "english": "job, post, position; spot, place"
+  },
+  {
+    "sl_no": 1060,
+    "german": "stellen, stellt, hat gestellt",
+    "english": "to put, to place, to set upright"
+  },
+  {
+    "sl_no": 1061,
+    "german": "sterben, stirbt, ist gestorben",
+    "english": "to die, to pass away"
+  },
+  {
+    "sl_no": 1062,
+    "german": "der Stiefel, -",
+    "english": "boot"
+  },
+  {
+    "sl_no": 1063,
+    "german": "der Stift, -e",
+    "english": "pen, pencil, marker"
+  },
+  {
+    "sl_no": 1064,
+    "german": "das Stipendium, -en",
+    "english": "scholarship, grant, fellowship"
+  },
+  {
+    "sl_no": 1065,
+    "german": "der Stock, ¨-e",
+    "english": "floor, story (of a building); stick"
+  },
+  {
+    "sl_no": 1066,
+    "german": "das Stockwerk, -e",
+    "english": "floor, story, level"
+  },
+  {
+    "sl_no": 1067,
+    "german": "stören, stört, hat gestört",
+    "english": "to disturb, to bother, to interrupt"
+  },
+  {
+    "sl_no": 1068,
+    "german": "der Strand, ¨-e",
+    "english": "beach, seaside"
+  },
+  {
+    "sl_no": 1069,
+    "german": "die Straße, -n",
+    "english": "street, road"
+  },
+  {
+    "sl_no": 1070,
+    "german": "die Straßenbahn, -en",
+    "english": "tram, streetcar"
+  },
+  {
+    "sl_no": 1071,
+    "german": "streiten (sich), streitet, hat gestritten",
+    "english": "to argue, to quarrel, to fight"
+  },
+  {
+    "sl_no": 1072,
+    "german": "streng",
+    "english": "strict, severe, stern"
+  },
+  {
+    "sl_no": 1073,
+    "german": "stressig",
+    "english": "stressful"
+  },
+  {
+    "sl_no": 1074,
+    "german": "der Stress (Sg.)",
+    "english": "stress, pressure"
+  },
+  {
+    "sl_no": 1075,
+    "german": "der Student, -en / die Studentin, -nen",
+    "english": "university student (male / female)"
+  },
+  {
+    "sl_no": 1076,
+    "german": "studieren, studiert, hat studiert",
+    "english": "to study (at university)"
+  },
+  {
+    "sl_no": 1077,
+    "german": "das Studium (Sg.)",
+    "english": "university studies, degree program"
+  },
+  {
+    "sl_no": 1078,
+    "german": "das Stück, -e",
+    "english": "piece, slice, item, play (theatre)"
+  },
+  {
+    "sl_no": 1079,
+    "german": "der Stuhl, ¨-e",
+    "english": "chair, stool"
+  },
+  {
+    "sl_no": 1080,
+    "german": "der Stundenplan, ¨-e",
+    "english": "timetable, class schedule"
+  },
+  {
+    "sl_no": 1081,
+    "german": "suchen, sucht, hat gesucht",
+    "english": "to look for, to search, to seek"
+  },
+  {
+    "sl_no": 1082,
+    "german": "der Süden",
+    "english": "south"
+  },
+  {
+    "sl_no": 1083,
+    "german": "süß",
+    "english": "sweet; cute"
+  },
+  {
+    "sl_no": 1084,
+    "german": "die Süßigkeiten (Pl.)",
+    "english": "sweets, candies, confectionery"
+  },
+  {
+    "sl_no": 1085,
+    "german": "super",
+    "english": "super, great, fantastic"
+  },
+  {
+    "sl_no": 1086,
+    "german": "der Supermarkt, ¨-e",
+    "english": "supermarket"
+  },
+  {
+    "sl_no": 1087,
+    "german": "die Suppe, -n",
+    "english": "soup"
+  },
+  {
+    "sl_no": 1088,
+    "german": "surfen, surft, hat/ist gesurft",
+    "english": "to surf (waves / internet)"
+  },
+  {
+    "sl_no": 1089,
+    "german": "sympathisch",
+    "english": "likable, pleasant, congenial"
+  },
+  {
+    "sl_no": 1090,
+    "german": "das Tablet, -s",
+    "english": "tablet (computer)"
+  },
+  {
+    "sl_no": 1091,
+    "german": "die Tablette, -n",
+    "english": "tablet, pill"
+  },
+  {
+    "sl_no": 1092,
+    "german": "täglich",
+    "english": "daily, every day"
+  },
+  {
+    "sl_no": 1093,
+    "german": "die Tafel, -n (z. B. Infotafel)",
+    "english": "board, blackboard, notice board, information panel"
+  },
+  {
+    "sl_no": 1094,
+    "german": "tagsüber",
+    "english": "during the day"
+  },
+  {
+    "sl_no": 1095,
+    "german": "die Tante, -n",
+    "english": "aunt"
+  },
+  {
+    "sl_no": 1096,
+    "german": "tanzen, tanzt, hat getanzt",
+    "english": "to dance"
+  },
+  {
+    "sl_no": 1097,
+    "german": "die Tasche, -n",
+    "english": "bag, pocket, purse"
+  },
+  {
+    "sl_no": 1098,
+    "german": "das Taschengeld (Sg.)",
+    "english": "pocket money, allowance"
+  },
+  {
+    "sl_no": 1099,
+    "german": "die Tasse, -n",
+    "english": "cup, mug"
+  },
+  {
+    "sl_no": 1100,
+    "german": "(aus)tauschen, tauscht (aus), hat (aus)getauscht",
+    "english": "to exchange, to swap, to replace"
+  },
+  {
+    "sl_no": 1101,
+    "german": "(ein)tausend (1.000)",
+    "english": "one thousand (1,000)"
+  },
+  {
+    "sl_no": 1102,
+    "german": "das Taxi, -s",
+    "english": "taxi, cab"
+  },
+  {
+    "sl_no": 1103,
+    "german": "das Team, -s",
+    "english": "team"
+  },
+  {
+    "sl_no": 1104,
+    "german": "der Techniker, - / die Technikerin, -nen",
+    "english": "technician (male / female)"
+  },
+  {
+    "sl_no": 1105,
+    "german": "der Tee, -s",
+    "english": "tea"
+  },
+  {
+    "sl_no": 1106,
+    "german": "teilen, teilt, hat geteilt",
+    "english": "to share, to divide, to split"
+  },
+  {
+    "sl_no": 1107,
+    "german": "teilnehmen, nimmt teil, hat teilgenommen",
+    "english": "to participate, to take part, to attend"
+  },
+  {
+    "sl_no": 1108,
+    "german": "das Telefon, -e",
+    "english": "telephone, phone"
+  },
+  {
+    "sl_no": 1109,
+    "german": "telefonieren, telefoniert, hat telefoniert",
+    "english": "to make a phone call, to talk on the phone"
+  },
+  {
+    "sl_no": 1110,
+    "german": "der Teller, -",
+    "english": "plate, dish"
+  },
+  {
+    "sl_no": 1111,
+    "german": "das Tennis (Sg.)",
+    "english": "tennis"
+  },
+  {
+    "sl_no": 1112,
+    "german": "der Termin, -e",
+    "english": "appointment, date, schedule"
+  },
+  {
+    "sl_no": 1113,
+    "german": "teuer",
+    "english": "expensive, costly"
+  },
+  {
+    "sl_no": 1114,
+    "german": "der Text, -e",
+    "english": "text"
+  },
+  {
+    "sl_no": 1115,
+    "german": "das Theater, -",
+    "english": "theater, playhouse"
+  },
+  {
+    "sl_no": 1116,
+    "german": "das Thema, -en",
+    "english": "topic, theme, subject"
+  },
+  {
+    "sl_no": 1117,
+    "german": "das Ticket, -s",
+    "english": "ticket"
+  },
+  {
+    "sl_no": 1118,
+    "german": "tief",
+    "english": "deep, low"
+  },
+  {
+    "sl_no": 1119,
+    "german": "das Tier, -e",
+    "english": "animal, beast"
+  },
+  {
+    "sl_no": 1120,
+    "german": "der Tipp, -s",
+    "english": "tip, hint, piece of advice"
+  },
+  {
+    "sl_no": 1121,
+    "german": "der Tisch, -e",
+    "english": "table, desk"
+  },
+  {
+    "sl_no": 1122,
+    "german": "der Titel, -",
+    "english": "title, heading"
+  },
+  {
+    "sl_no": 1123,
+    "german": "die Toilette, -n",
+    "english": "toilet, restroom, bathroom"
+  },
+  {
+    "sl_no": 1124,
+    "german": "toll",
+    "english": "great, awesome, fantastic"
+  },
+  {
+    "sl_no": 1125,
+    "german": "die Tomate, -n",
+    "english": "tomato"
+  },
+  {
+    "sl_no": 1126,
+    "german": "der Topf, ¨-e",
+    "english": "pot, saucepan, cooking pot"
+  },
+  {
+    "sl_no": 1127,
+    "german": "die Torte, -n",
+    "english": "gateau, tart, layer cake"
+  },
+  {
+    "sl_no": 1128,
+    "german": "tot",
+    "english": "dead, deceased"
+  },
+  {
+    "sl_no": 1129,
+    "german": "total",
+    "english": "total, complete, totally"
+  },
+  {
+    "sl_no": 1130,
+    "german": "die Tour, -en",
+    "english": "tour, trip, excursion"
+  },
+  {
+    "sl_no": 1131,
+    "german": "der Tourist, -en / die Touristin, -nen",
+    "english": "tourist (male / female)"
+  },
+  {
+    "sl_no": 1132,
+    "german": "träumen, träumt, hat geträumt",
+    "english": "to dream"
+  },
+  {
+    "sl_no": 1133,
+    "german": "tragen, trägt, hat getragen",
+    "english": "to carry, to wear (clothes/glasses)"
+  },
+  {
+    "sl_no": 1134,
+    "german": "trainieren, trainiert, hat trainiert",
+    "english": "to train, to practice, to work out"
+  },
+  {
+    "sl_no": 1135,
+    "german": "das Training, -s",
+    "english": "training, workout, practice"
+  },
+  {
+    "sl_no": 1136,
+    "german": "der Traum, ¨-e",
+    "english": "dream"
+  },
+  {
+    "sl_no": 1137,
+    "german": "traurig",
+    "english": "sad, mournful, sorrowful"
+  },
+  {
+    "sl_no": 1138,
+    "german": "treffen (sich), trifft, hat getroffen",
+    "english": "to meet, to hit"
+  },
+  {
+    "sl_no": 1139,
+    "german": "die Treppe, -n",
+    "english": "stairs, staircase, flight of steps"
+  },
+  {
+    "sl_no": 1140,
+    "german": "trinken, trinkt, hat getrunken",
+    "english": "to drink"
+  },
+  {
+    "sl_no": 1141,
+    "german": "trocken",
+    "english": "dry; arid"
+  },
+  {
+    "sl_no": 1142,
+    "german": "tschüs",
+    "english": "bye, goodbye (informal)"
+  },
+  {
+    "sl_no": 1143,
+    "german": "das T-Shirt, -s",
+    "english": "T-shirt"
+  },
+  {
+    "sl_no": 1144,
+    "german": "die Tür, -en",
+    "english": "door"
+  },
+  {
+    "sl_no": 1145,
+    "german": "tun, tut, hat getan",
+    "english": "to do, to act, to perform"
+  },
+  {
+    "sl_no": 1146,
+    "german": "typisch",
+    "english": "typical, characteristic"
+  },
+  {
+    "sl_no": 1147,
+    "german": "üben, übt, hat geübt",
+    "english": "to practice, to exercise, to rehearse"
+  },
+  {
+    "sl_no": 1148,
+    "german": "über",
+    "english": "over, above; across; about (a topic)"
+  },
+  {
+    "sl_no": 1149,
+    "german": "überall",
+    "english": "everywhere, all over"
+  },
+  {
+    "sl_no": 1150,
+    "german": "übermorgen",
+    "english": "the day after tomorrow"
+  },
+  {
+    "sl_no": 1151,
+    "german": "übernachten, übernachtet, hat übernachtet",
+    "english": "to stay overnight, to spend the night"
+  },
+  {
+    "sl_no": 1152,
+    "german": "übersetzen, übersetzt, hat übersetzt",
+    "english": "to translate"
+  },
+  {
+    "sl_no": 1153,
+    "german": "die Übersetzung, -en",
+    "english": "translation"
+  },
+  {
+    "sl_no": 1154,
+    "german": "überweisen, überweist, hat überwiesen",
+    "english": "to transfer (money), to remit"
+  },
+  {
+    "sl_no": 1155,
+    "german": "die Uhr, -en",
+    "english": "clock, watch; o'clock"
+  },
+  {
+    "sl_no": 1156,
+    "german": "um",
+    "english": "at (time); around, round; in order to"
+  },
+  {
+    "sl_no": 1157,
+    "german": "umsteigen, steigt um, ist umgestiegen",
+    "english": "to change trains/buses, to transfer"
+  },
+  {
+    "sl_no": 1158,
+    "german": "umziehen, zieht um, ist umgezogen",
+    "english": "to move (change residence); (sich umziehen: to change clothes)"
+  },
+  {
+    "sl_no": 1159,
+    "german": "der Umzug, ¨-e",
+    "english": "relocation, move (house); parade"
+  },
+  {
+    "sl_no": 1160,
+    "german": "unbedingt",
+    "english": "absolute, unconditional, definitely, by all means"
+  },
+  {
+    "sl_no": 1161,
+    "german": "und",
+    "english": "and"
+  },
+  {
+    "sl_no": 1162,
+    "german": "der Unfall, ¨-e",
+    "english": "accident, crash"
+  },
+  {
+    "sl_no": 1163,
+    "german": "die Universität, -en",
+    "english": "university"
+  },
+  {
+    "sl_no": 1164,
+    "german": "unten",
+    "english": "down, downstairs, below, at the bottom"
+  },
+  {
+    "sl_no": 1165,
+    "german": "unter",
+    "english": "under, below, beneath, among"
+  },
+  {
+    "sl_no": 1166,
+    "german": "unterhalten (sich), unterhält, hat unterhalten",
+    "english": "to converse, to chat; to entertain"
+  },
+  {
+    "sl_no": 1167,
+    "german": "die Unterkunft, ¨-e",
+    "english": "accommodation, lodging, shelter"
+  },
+  {
+    "sl_no": 1168,
+    "german": "unternehmen, unternimmt, hat unternommen",
+    "english": "to undertake, to do (an activity/trip)"
+  },
+  {
+    "sl_no": 1169,
+    "german": "der Unterricht (Sg.)",
+    "english": "classes, lessons, instruction, teaching"
+  },
+  {
+    "sl_no": 1170,
+    "german": "der Unterschied, -e",
+    "english": "difference, distinction"
+  },
+  {
+    "sl_no": 1171,
+    "german": "unterschreiben, unterschreibt, hat unterschrieben",
+    "english": "to sign (a document)"
+  },
+  {
+    "sl_no": 1172,
+    "german": "die Unterschrift, -en",
+    "english": "signature"
+  },
+  {
+    "sl_no": 1173,
+    "german": "untersuchen, untersucht, hat untersucht",
+    "english": "to examine (medical/scientific), to investigate"
+  },
+  {
+    "sl_no": 1174,
+    "german": "unterwegs sein, ist unterwegs, war unterwegs, ist unterwegs gewesen",
+    "english": "to be on the way, to be on the road / out and about"
+  },
+  {
+    "sl_no": 1175,
+    "german": "der Urlaub, -e",
+    "english": "vacation, holiday, annual leave"
+  },
+  {
+    "sl_no": 1176,
+    "german": "usw.",
+    "english": "etc., and so on (und so weiter)"
+  },
+  {
+    "sl_no": 1177,
+    "german": "der Vater, ¨- (Papa)",
+    "english": "father, dad"
+  },
+  {
+    "sl_no": 1178,
+    "german": "verabredet sein, ist verabredet, war verabredet, ist verabredet gewesen",
+    "english": "to have an appointment / date, to be arranged to meet"
+  },
+  {
+    "sl_no": 1179,
+    "german": "die Veranstaltung, -en",
+    "english": "event, function, organized activity"
+  },
+  {
+    "sl_no": 1180,
+    "german": "verbieten / verboten sein",
+    "english": "to forbid, to prohibit / to be forbidden"
+  },
+  {
+    "sl_no": 1181,
+    "german": "verdienen, verdient, hat verdient",
+    "english": "to earn (money); to deserve"
+  },
+  {
+    "sl_no": 1182,
+    "german": "vereinbaren, vereinbart, hat vereinbart",
+    "english": "to arrange, to agree upon (an appointment)"
+  },
+  {
+    "sl_no": 1183,
+    "german": "der Verein, -e",
+    "english": "club, association, society"
+  },
+  {
+    "sl_no": 1184,
+    "german": "vergessen, vergisst, hat vergessen",
+    "english": "to forget"
+  },
+  {
+    "sl_no": 1185,
+    "german": "vergleichen, vergleicht, hat verglichen",
+    "english": "to compare"
+  },
+  {
+    "sl_no": 1186,
+    "german": "der Verkäufer, - / die Verkäuferin, -nen",
+    "english": "salesperson, shop assistant (male / female)"
+  },
+  {
+    "sl_no": 1187,
+    "german": "verkaufen, verkauft, hat verkauft",
+    "english": "to sell"
+  },
+  {
+    "sl_no": 1188,
+    "german": "der Verkehr (Sg.)",
+    "english": "traffic, transport"
+  },
+  {
+    "sl_no": 1189,
+    "german": "das Verkehrsmittel, -",
+    "english": "means of transport, public transit"
+  },
+  {
+    "sl_no": 1190,
+    "german": "verletzen (sich), verletzt, hat verletzt",
+    "english": "to injure oneself, to hurt"
+  },
+  {
+    "sl_no": 1191,
+    "german": "verlieben (sich), verliebt, hat verliebt",
+    "english": "to fall in love"
+  },
+  {
+    "sl_no": 1192,
+    "german": "verlieren, verliert, hat verloren",
+    "english": "to lose (game/keys/money)"
+  },
+  {
+    "sl_no": 1193,
+    "german": "vermieten, vermietet, hat vermietet",
+    "english": "to rent out, to lease out, to let"
+  },
+  {
+    "sl_no": 1194,
+    "german": "der Vermieter, - / die Vermieterin, -nen",
+    "english": "landlord / landlady, lessor"
+  },
+  {
+    "sl_no": 1195,
+    "german": "verpassen, verpasst, hat verpasst",
+    "english": "to miss (bus/train/opportunity)"
+  },
+  {
+    "sl_no": 1196,
+    "german": "verreisen, verreist, ist verreist",
+    "english": "to go on a trip, to be away traveling"
+  },
+  {
+    "sl_no": 1197,
+    "german": "verschieben, verschiebt, hat verschoben",
+    "english": "to postpone, to defer, to reschedule"
+  },
+  {
+    "sl_no": 1198,
+    "german": "verschieden",
+    "english": "different, various, distinct"
+  },
+  {
+    "sl_no": 1199,
+    "german": "die Verspätung, -en",
+    "english": "delay, lateness"
+  },
+  {
+    "sl_no": 1200,
+    "german": "verstehen, versteht, hat verstanden",
+    "english": "to understand, to comprehend"
+  },
+  {
+    "sl_no": 1201,
+    "german": "versuchen, versucht, hat versucht",
+    "english": "to try, to attempt"
+  },
+  {
+    "sl_no": 1202,
+    "german": "der Vertrag, ¨-e",
+    "english": "contract, agreement, treaty"
+  },
+  {
+    "sl_no": 1203,
+    "german": "viel, e",
+    "english": "much, a lot, lots of"
+  },
+  {
+    "sl_no": 1204,
+    "german": "vielleicht",
+    "english": "maybe, perhaps, possibly"
+  },
+  {
+    "sl_no": 1205,
+    "german": "vier (4)",
+    "english": "four (number 4)"
+  },
+  {
+    "sl_no": 1206,
+    "german": "viermal",
+    "english": "four times"
+  },
+  {
+    "sl_no": 1207,
+    "german": "der/die/das vierte",
+    "english": "fourth (ordinal)"
+  },
+  {
+    "sl_no": 1208,
+    "german": "viertens",
+    "english": "fourthly"
+  },
+  {
+    "sl_no": 1209,
+    "german": "vierzehn (14)",
+    "english": "fourteen (number 14)"
+  },
+  {
+    "sl_no": 1210,
+    "german": "vierzig (40)",
+    "english": "forty (number 40)"
+  },
+  {
+    "sl_no": 1211,
+    "german": "der Vogel, ¨-",
+    "english": "bird"
+  },
+  {
+    "sl_no": 1212,
+    "german": "voll",
+    "english": "full, crowded"
+  },
+  {
+    "sl_no": 1213,
+    "german": "der Volleyball, ¨-e",
+    "english": "volleyball"
+  },
+  {
+    "sl_no": 1214,
+    "german": "von",
+    "english": "from, of, by"
+  },
+  {
+    "sl_no": 1215,
+    "german": "vor",
+    "english": "before, ago (time); in front of (place)"
+  },
+  {
+    "sl_no": 1216,
+    "german": "vorbei",
+    "english": "past, by; over, finished"
+  },
+  {
+    "sl_no": 1217,
+    "german": "vorbereiten, bereitet vor, hat vorbereitet",
+    "english": "to prepare, to get ready"
+  },
+  {
+    "sl_no": 1218,
+    "german": "vorgestern",
+    "english": "the day before yesterday"
+  },
+  {
+    "sl_no": 1219,
+    "german": "vorher",
+    "english": "before, beforehand, previously"
+  },
+  {
+    "sl_no": 1220,
+    "german": "vormittags",
+    "english": "in the late mornings"
+  },
+  {
+    "sl_no": 1221,
+    "german": "der Vorname, -n",
+    "english": "first name, given name, forename"
+  },
+  {
+    "sl_no": 1222,
+    "german": "vorn(e)",
+    "english": "at the front, ahead, forward"
+  },
+  {
+    "sl_no": 1223,
+    "german": "der Vorschlag, ¨-e (haben/machen)",
+    "english": "suggestion, proposal (to have / make a suggestion)"
+  },
+  {
+    "sl_no": 1224,
+    "german": "vorsichtig",
+    "english": "cautious, careful, gently"
+  },
+  {
+    "sl_no": 1225,
+    "german": "vorstellen (sich), stellt vor, hat vorgestellt",
+    "english": "to introduce oneself; to imagine"
+  },
+  {
+    "sl_no": 1226,
+    "german": "vorwärts",
+    "english": "forward, forwards, ahead"
+  },
+  {
+    "sl_no": 1227,
+    "german": "wach",
+    "english": "awake, alert"
+  },
+  {
+    "sl_no": 1228,
+    "german": "wählen, wählt, hat gewählt",
+    "english": "to choose, to select, to dial (phone), to vote"
+  },
+  {
+    "sl_no": 1229,
+    "german": "die Wäsche, -n",
+    "english": "laundry, washing; linen"
+  },
+  {
+    "sl_no": 1230,
+    "german": "der Wagen, –",
+    "english": "car, automobile; carriage, railway wagon"
+  },
+  {
+    "sl_no": 1231,
+    "german": "wahr",
+    "english": "true, real"
+  },
+  {
+    "sl_no": 1232,
+    "german": "wahrscheinlich",
+    "english": "probably, likely"
+  },
+  {
+    "sl_no": 1233,
+    "german": "der Wald, ¨-er",
+    "english": "forest, woods"
+  },
+  {
+    "sl_no": 1234,
+    "german": "wandern, wandert, ist gewandert",
+    "english": "to hike, to trek, to ramble"
+  },
+  {
+    "sl_no": 1235,
+    "german": "wann",
+    "english": "when (question word)"
+  },
+  {
+    "sl_no": 1236,
+    "german": "warm",
+    "english": "warm, hot"
+  },
+  {
+    "sl_no": 1237,
+    "german": "warten, wartet, hat gewartet",
+    "english": "to wait"
+  },
+  {
+    "sl_no": 1238,
+    "german": "warum",
+    "english": "why"
+  },
+  {
+    "sl_no": 1239,
+    "german": "was",
+    "english": "what"
+  },
+  {
+    "sl_no": 1240,
+    "german": "waschen (sich), wäscht, hat gewaschen",
+    "english": "to wash (oneself/clothes/hands)"
+  },
+  {
+    "sl_no": 1241,
+    "german": "das Wasser (Sg.)",
+    "english": "water"
+  },
+  {
+    "sl_no": 1242,
+    "german": "WC, -s",
+    "english": "toilet, restroom, WC"
+  },
+  {
+    "sl_no": 1243,
+    "german": "die Webseite, -n",
+    "english": "website, webpage"
+  },
+  {
+    "sl_no": 1244,
+    "german": "wechseln, wechselt, hat gewechselt",
+    "english": "to change (clothes/money), to exchange, to switch"
+  },
+  {
+    "sl_no": 1245,
+    "german": "wecken, weckt, hat geweckt",
+    "english": "to wake up, to awaken (someone)"
+  },
+  {
+    "sl_no": 1246,
+    "german": "der Weg, -e",
+    "english": "way, path, route, road"
+  },
+  {
+    "sl_no": 1247,
+    "german": "wegen",
+    "english": "because of, on account of, due to"
+  },
+  {
+    "sl_no": 1248,
+    "german": "weg sein",
+    "english": "to be gone, to be away"
+  },
+  {
+    "sl_no": 1249,
+    "german": "weg/weg- (wegbringen/ -fahren/-gehen/ -laufen/-machen/ -nehmen/-werfen)",
+    "english": "away, gone; prefix: bring/drive/go/run/clear/take/throw away"
+  },
+  {
+    "sl_no": 1250,
+    "german": "wehtun, tut weh, hat wehgetan",
+    "english": "to hurt, to ache, to cause pain"
+  },
+  {
+    "sl_no": 1251,
+    "german": "weiblich",
+    "english": "female, feminine"
+  },
+  {
+    "sl_no": 1252,
+    "german": "weich",
+    "english": "soft, smooth, tender"
+  },
+  {
+    "sl_no": 1253,
+    "german": "das Weihnachten",
+    "english": "Christmas"
+  },
+  {
+    "sl_no": 1254,
+    "german": "weil",
+    "english": "because"
+  },
+  {
+    "sl_no": 1255,
+    "german": "der Wein, -e",
+    "english": "wine"
+  },
+  {
+    "sl_no": 1256,
+    "german": "weinen, weint, hat geweint",
+    "english": "to cry, to weep"
+  },
+  {
+    "sl_no": 1257,
+    "german": "weiß",
+    "english": "white"
+  },
+  {
+    "sl_no": 1258,
+    "german": "weit",
+    "english": "far, distant, wide"
+  },
+  {
+    "sl_no": 1259,
+    "german": "weiter / weiter- (z. B. weitermachen/-helfen)",
+    "english": "further, on, continue (e.g. weitermachen: continue doing, weiterhelfen: help further)"
+  },
+  {
+    "sl_no": 1260,
+    "german": "welcher, -e, -s",
+    "english": "which, which one"
+  },
+  {
+    "sl_no": 1261,
+    "german": "die Welt, -en",
+    "english": "world"
+  },
+  {
+    "sl_no": 1262,
+    "german": "wenig, -e",
+    "english": "little, few, not much"
+  },
+  {
+    "sl_no": 1263,
+    "german": "wenigstens",
+    "english": "at least (minimum)"
+  },
+  {
+    "sl_no": 1264,
+    "german": "wenn",
+    "english": "if, when, whenever"
+  },
+  {
+    "sl_no": 1265,
+    "german": "werden, wird, ist geworden",
+    "english": "to become, to get, to will (auxiliary)"
+  },
+  {
+    "sl_no": 1266,
+    "german": "die Werkstatt, ¨-en",
+    "english": "workshop, garage, repair shop"
+  },
+  {
+    "sl_no": 1267,
+    "german": "wer (wen, wem)",
+    "english": "who"
+  },
+  {
+    "sl_no": 1268,
+    "german": "der Westen",
+    "english": "west"
+  },
+  {
+    "sl_no": 1269,
+    "german": "der Wettbewerb, -e",
+    "english": "competition, contest"
+  },
+  {
+    "sl_no": 1270,
+    "german": "das Wetter (Sg.)",
+    "english": "weather"
+  },
+  {
+    "sl_no": 1271,
+    "german": "wichtig",
+    "english": "important, significant, essential"
+  },
+  {
+    "sl_no": 1272,
+    "german": "wie",
+    "english": "how; as, like"
+  },
+  {
+    "sl_no": 1273,
+    "german": "wieder",
+    "english": "again, once more, back"
+  },
+  {
+    "sl_no": 1274,
+    "german": "das Wiederhören, -",
+    "english": "goodbye (on phone - Auf Wiederhören!)"
+  },
+  {
+    "sl_no": 1275,
+    "german": "wiederholen, wiederholt, hat wiederholt",
+    "english": "to repeat, to review"
+  },
+  {
+    "sl_no": 1276,
+    "german": "das Wiedersehen, -",
+    "english": "goodbye, farewell (Auf Wiedersehen!)"
+  },
+  {
+    "sl_no": 1277,
+    "german": "wie viel, -e",
+    "english": "how much, how many"
+  },
+  {
+    "sl_no": 1278,
+    "german": "willkommen",
+    "english": "welcome"
+  },
+  {
+    "sl_no": 1279,
+    "german": "der Wind, -e",
+    "english": "wind, breeze"
+  },
+  {
+    "sl_no": 1280,
+    "german": "windig",
+    "english": "windy, breezy"
+  },
+  {
+    "sl_no": 1281,
+    "german": "der Winter",
+    "english": "winter (season)"
+  },
+  {
+    "sl_no": 1282,
+    "german": "wirklich",
+    "english": "really, truly, actual"
+  },
+  {
+    "sl_no": 1283,
+    "german": "wissen, weiß, hat gewusst",
+    "english": "to know (a fact/information)"
+  },
+  {
+    "sl_no": 1284,
+    "german": "der Witz, -e",
+    "english": "joke"
+  },
+  {
+    "sl_no": 1285,
+    "german": "witzig",
+    "english": "witty, funny, humorous"
+  },
+  {
+    "sl_no": 1286,
+    "german": "wo",
+    "english": "where"
+  },
+  {
+    "sl_no": 1287,
+    "german": "das Wörterbuch, ¨-er",
+    "english": "dictionary"
+  },
+  {
+    "sl_no": 1288,
+    "german": "woher",
+    "english": "where from, whence"
+  },
+  {
+    "sl_no": 1289,
+    "german": "wohin",
+    "english": "where to, whither"
+  },
+  {
+    "sl_no": 1290,
+    "german": "wohnen, wohnt, hat gewohnt",
+    "english": "to live, to reside, to dwell"
+  },
+  {
+    "sl_no": 1291,
+    "german": "die Wohnung, -en",
+    "english": "apartment, flat, home"
+  },
+  {
+    "sl_no": 1292,
+    "german": "das Wohnzimmer, -",
+    "english": "living room, sitting room"
+  },
+  {
+    "sl_no": 1293,
+    "german": "die Wolke, -n",
+    "english": "cloud"
+  },
+  {
+    "sl_no": 1294,
+    "german": "wollen, will, wollte, hat gewollt (hat wollen als Modalverb)",
+    "english": "to want, to intend to"
+  },
+  {
+    "sl_no": 1295,
+    "german": "der Workshop, -s",
+    "english": "workshop (educational/training seminar)"
+  },
+  {
+    "sl_no": 1296,
+    "german": "das Wort, ¨-er",
+    "english": "word (vocabulary items / individual words)"
+  },
+  {
+    "sl_no": 1297,
+    "german": "wünschen",
+    "english": "to wish, to desire"
+  },
+  {
+    "sl_no": 1298,
+    "german": "wunderbar",
+    "english": "wonderful, marvellous, great"
+  },
+  {
+    "sl_no": 1299,
+    "german": "der Wunsch, ¨-e",
+    "english": "wish, desire, request"
+  },
+  {
+    "sl_no": 1300,
+    "german": "die Wurst, ¨-e",
+    "english": "sausage, cold cut"
+  },
+  {
+    "sl_no": 1301,
+    "german": "die Zahl, -en",
+    "english": "number, numeral, figure"
+  },
+  {
+    "sl_no": 1302,
+    "german": "zahlen, zahlt, hat gezahlt",
+    "english": "to pay"
+  },
+  {
+    "sl_no": 1303,
+    "german": "der Zahn, ¨-e",
+    "english": "tooth"
+  },
+  {
+    "sl_no": 1304,
+    "german": "z.B.",
+    "english": "for example, e.g. (zum Beispiel)"
+  },
+  {
+    "sl_no": 1305,
+    "german": "zehn (10)",
+    "english": "ten (number 10)"
+  },
+  {
+    "sl_no": 1306,
+    "german": "zeichnen, zeichnet, hat gezeichnet",
+    "english": "to draw, to sketch"
+  },
+  {
+    "sl_no": 1307,
+    "german": "zeigen, zeigt, hat gezeigt",
+    "english": "to show, to point out, to demonstrate"
+  },
+  {
+    "sl_no": 1308,
+    "german": "die Zeit, -en",
+    "english": "time"
+  },
+  {
+    "sl_no": 1309,
+    "german": "die Zeitschrift, -en",
+    "english": "magazine, periodical, journal"
+  },
+  {
+    "sl_no": 1310,
+    "german": "die Zeitung, -en",
+    "english": "newspaper"
+  },
+  {
+    "sl_no": 1311,
+    "german": "das Zelt, -e",
+    "english": "tent"
+  },
+  {
+    "sl_no": 1312,
+    "german": "der Zentimeter, - (cm)",
+    "english": "centimeter"
+  },
+  {
+    "sl_no": 1313,
+    "german": "das Zentrum, -en",
+    "english": "center, downtown, centre"
+  },
+  {
+    "sl_no": 1314,
+    "german": "der Zettel, -",
+    "english": "piece of paper, note, slip of paper"
+  },
+  {
+    "sl_no": 1315,
+    "german": "das Zeugnis, -se",
+    "english": "certificate, report card, testimonial, credential"
+  },
+  {
+    "sl_no": 1316,
+    "german": "(an-)/(aus)ziehen, zieht (an/aus), hat/ist (an/aus)gezogen",
+    "english": "to put on / take off (clothes), to get dressed / undressed; to move in / out"
+  },
+  {
+    "sl_no": 1317,
+    "german": "das Ziel, -e",
+    "english": "destination, goal, aim, target"
+  },
+  {
+    "sl_no": 1318,
+    "german": "das Zimmer, -",
+    "english": "room"
+  },
+  {
+    "sl_no": 1319,
+    "german": "der Zirkus, -se",
+    "english": "circus"
+  },
+  {
+    "sl_no": 1320,
+    "german": "die Zitrone, -n",
+    "english": "lemon"
+  },
+  {
+    "sl_no": 1321,
+    "german": "der Zoo, -s",
+    "english": "zoo"
+  },
+  {
+    "sl_no": 1322,
+    "german": "zu",
+    "english": "to, toward, at; closed; too (excessively)"
+  },
+  {
+    "sl_no": 1323,
+    "german": "der Zucker (Sg.)",
+    "english": "sugar"
+  },
+  {
+    "sl_no": 1324,
+    "german": "zuerst",
+    "english": "first, at first, first of all"
+  },
+  {
+    "sl_no": 1325,
+    "german": "zufrieden",
+    "english": "satisfied, content, pleased"
+  },
+  {
+    "sl_no": 1326,
+    "german": "der Zug, ¨-e",
+    "english": "train"
+  },
+  {
+    "sl_no": 1327,
+    "german": "zuhören, hört zu, hat zugehört",
+    "english": "to listen to, to pay attention"
+  },
+  {
+    "sl_no": 1328,
+    "german": "zuletzt",
+    "english": "last, lastly, in the end, at last"
+  },
+  {
+    "sl_no": 1329,
+    "german": "zumachen, macht zu, hat zugemacht",
+    "english": "to close, to shut (door/window)"
+  },
+  {
+    "sl_no": 1330,
+    "german": "zum Beispiel",
+    "english": "for example, e.g."
+  },
+  {
+    "sl_no": 1331,
+    "german": "zurück",
+    "english": "back, return"
+  },
+  {
+    "sl_no": 1332,
+    "german": "zurück- (fahren, geben, gehen, kommen, laufen)",
+    "english": "back, return (drive / give / go / come / walk back)"
+  },
+  {
+    "sl_no": 1333,
+    "german": "zusammen",
+    "english": "together; in total"
+  },
+  {
+    "sl_no": 1334,
+    "german": "zu sein",
+    "english": "to be closed, to be shut"
+  },
+  {
+    "sl_no": 1335,
+    "german": "zwanzig (20)",
+    "english": "twenty (number 20)"
+  },
+  {
+    "sl_no": 1336,
+    "german": "zwei (2)",
+    "english": "two (number 2)"
+  },
+  {
+    "sl_no": 1337,
+    "german": "zweihundert (200)",
+    "english": "two hundred (200)"
+  },
+  {
+    "sl_no": 1338,
+    "german": "zweimal",
+    "english": "twice, two times"
+  },
+  {
+    "sl_no": 1339,
+    "german": "der/die/das zweite",
+    "english": "second (ordinal)"
+  },
+  {
+    "sl_no": 1340,
+    "german": "zweitens",
+    "english": "secondly"
+  },
+  {
+    "sl_no": 1341,
+    "german": "zwischen",
+    "english": "between, among"
+  },
+  {
+    "sl_no": 1342,
+    "german": "zwölf (12)",
+    "english": "twelve (number 12)"
+  }
+]
