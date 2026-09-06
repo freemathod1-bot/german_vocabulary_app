@@ -3078,14 +3078,16 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
             </div>
           `;
         } else {
+          const deleteBtnHtml = isMem ? `
+              <button class="delete-btn" data-sl="${w.sl_no}" data-word="${encodeURIComponent(w.german)}" title="Delete word and save to deleted_datas.json">
+                🗑️ Delete
+              </button>` : '';
+
           actionsHtml = `
             <div class="action-btn-group">
               <button class="memorize-btn ${memClass}" data-sl="${w.sl_no}" data-word="${encodeURIComponent(w.german)}" title="Toggle Memorized (saves to already_memorized_words.json)">
                 ${btnText}
-              </button>
-              <button class="delete-btn" data-sl="${w.sl_no}" data-word="${encodeURIComponent(w.german)}" title="Delete word and save to deleted_datas.json">
-                🗑️ Delete
-              </button>
+              </button>${deleteBtnHtml}
             </div>
           `;
         }
