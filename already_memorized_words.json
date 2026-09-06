@@ -22,14 +22,5 @@
     "german_sen": "Kannst du mir bitte helfen?",
     "english_sen": "Can you please help me?",
     "memorized_at": "5:25 PM Samstag 5 September 2026"
-  },
-  {
-    "sl_no": 1,
-    "german": "ab",
-    "english": "from, starting from (time/place), off",
-    "german_sen": "",
-    "english_sen": "",
-    "dataset": "a1_german_word_list_with_english.json",
-    "memorized_at": "11:20 AM Sonntag 6 September 2026"
   }
 ]
