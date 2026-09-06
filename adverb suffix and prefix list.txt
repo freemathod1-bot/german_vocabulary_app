@@ -1,0 +1,7 @@
+ADVERB SUFFIXES (MODAL, MANNER & EXTENT): -weise, -maßen, -dings, -wegs, -lei
+ADVERB SUFFIXES (TEMPORAL, FREQUENCY & SEQUENCE): -s, -ens, -lich
+ADVERB SUFFIXES (DIRECTIONAL & LOCATIVE): -wärts, -halb, -halben, -hin, -her, -an, -ab
+
+ADVERBIAL PREFIXES (PRONOMINAL ADVERBS): da- (dar-), wo- (wor-), hier-
+ADVERBIAL PREFIXES (DIRECTIONAL & SPATIAL): hin-, her-, dr-
+ADVERBIAL PREFIXES (INDEFINITE & INTENSIFYING): irgend-, über-, aller-

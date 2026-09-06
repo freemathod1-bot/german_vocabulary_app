@@ -1,0 +1,5 @@
+VERB SUFFIXES: -ieren, -eln, -ern, -igen, -isieren, -ifizieren
+
+VERB PREFIXES (UNTRENNBAR / INSEPARABLE): be-, ent-, emp-, er-, ge-, ver-, zer-, miss-, hinter-, de-, des-, dis-, re-
+VERB PREFIXES (TRENNBAR / SEPARABLE): ab-, an-, auf-, aus-, bei-, ein-, fern-, fest-, fort-, her-, hin-, los-, mit-, nach-, vor-, weg-, weiter-, zu-, zurück-, zusammen-
+VERB PREFIXES (VARIABLE / DUAL): durch-, über-, unter-, um-, wieder-, wider-, voll-

@@ -1,0 +1,49 @@
+=== NOUNS ===
+DIE SUFFIX: -heit, -keit, -schaft, -ung, -ei, -ion, -tion, -sion, -tät, -ität, -anz, -enz, -ik, -sis, -ur, -age, -ade, -üre, -itis, -thek
+DIE SUFFIX (WEAK/LEAKY — CHECK EXCEPTIONS): -e, -ie, -in
+
+DER SUFFIX: -ant, -eur, -iker, -ismus, -ist, -ling, -or, -ich, -ig, -ner, -ast, -loge, -soph
+DER SUFFIX (WEAK/LEAKY — CHECK EXCEPTIONS): -er, -ent, -at, -us
+
+DAS SUFFIX: -chen, -lein, -ment, -ium, -um, -eau, -ett, -ing
+DAS SUFFIX (WEAK/LEAKY — CHECK EXCEPTIONS): -tum, -nis, -ma, -o
+
+MIXED / UNRELIABLE SUFFIX: -a, -al, -an, -ar, -är, -el, -en, -et, -ier, -iv, -it, -on, -sal, -t
+
+NOUN PREFIX (PREDOMINANTLY DAS / NEUTER): Ge-
+NOUN PREFIXES (NO FIXED GENDER — INHERIT GENDER OF BASE NOUN): Ur-, Un-, Miss-, Erz-, Vize-, Ex-, Haupt-, Grund-, Ober-, Unter-, Neben-, Vor-, Nach-, Mit-, Gegen-, Zwischen-, Hinter-, Wieder-, Über-, Ein-, Aus-, Auf-, Ab-, An-, Zu-
+
+=== ADJECTIVES ===
+ADJECTIVE SUFFIX (NATIVE): -ig, -lich, -isch, -bar, -sam, -haft, -los, -voll, -reich, -arm, -wert, -mäßig, -en, -ern, -er
+ADJECTIVE SUFFIX (FOREIGN / BORROWED): -al, -ell, -iv, -abel, -ibel, -ös, -ant, -ent, -är, -oid, -phil, -phob
+
+ADJECTIVE PREFIXES (NEGATING / PRIVATIVE): un-, in-, im-, il-, ir-, a-, an-, des-, dis-, non-
+ADJECTIVE PREFIXES (INTENSIFYING / ELATIVE): ur-, hoch-, hyper-, super-, ultra-, mega-, erz-, blitz-, brand-, stein-, stock-, tod-, hunde-, quietsch-, bitter-, bettel-, pudel-
+ADJECTIVE PREFIXES (DEGREE & RELATION): halb-, voll-, all-, pseudo-, quasi-
+
+=== VERBS ===
+VERB SUFFIXES: - -ifizieren,-isieren, ieren,-eln, -ern, -igen,=6
+
+VERB PREFIXES (UNTRENNBAR / INSEPARABLE): be-, ent-, emp-, er-, ge-, ver-, zer-, miss-, hinter-, de-, des-, dis-, re-
+VERB PREFIXES (TRENNBAR / SEPARABLE): ab-, an-, auf-, aus-, bei-, ein-, fern-, fest-, fort-, her-, hin-, los-, mit-, nach-, vor-, weg-, weiter-, zu-, zurück-, zusammen-
+VERB PREFIXES (VARIABLE / DUAL): durch-, über-, unter-, um-, wieder-, wider-, voll-
+
+=== ADVERBS ===
+ADVERB SUFFIXES (MODAL, MANNER & EXTENT): -weise, -maßen, -dings, -wegs, -lei
+ADVERB SUFFIXES (TEMPORAL, FREQUENCY & SEQUENCE):  -ens,-s, -lich
+ADVERB SUFFIXES (DIRECTIONAL & LOCATIVE): -wärts, -halb, -halben, -hin, -her, -an, -ab
+
+ADVERBIAL PREFIXES (PRONOMINAL ADVERBS): da- (dar-), wo- (wor-), hier-
+ADVERBIAL PREFIXES (DIRECTIONAL & SPATIAL): hin-, her-, dr-
+ADVERBIAL PREFIXES (INDEFINITE & INTENSIFYING): irgend-, über-, aller-
+
+
+
+Noun die suffix :-thek,-ade,-age,-sis,ik,itis, [ität,tät], [ur,-üre], [anz,enz],    heit, -keit, -schaft, -ung,-tion, -sion,-ei, -ion, =20
+DAS noun SUFFIX: -chen, -lein,-ing, -ment, -ium, -um,-ett,  -eau, [-tum, -nis, -ma, -o  weak ]
+
+
+DER noun SUFFIX: -ant, -eur,-or, -iker, -ismus, -ist, -ling,-ich,-loge, -soph -ig, -ner, -ast, =13
+
+
+NOUN PREFIXES (NO FIXED GENDER — INHERIT GENDER OF BASE NOUN):Ex-, Haupt-, Ur-, Un-, Miss-, Erz-,Vize-,  [ Grund-,Über-, Ober-, Unter-,Hinter-, Neben-, Vor-, Nach-, Mit-,Wieder-, Gegen-, Zwischen-,]  [ Ab-, Ein-,An-,Auf-, Aus-, Zu-] over 25 

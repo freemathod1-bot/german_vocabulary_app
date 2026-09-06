@@ -1,0 +1,6 @@
+ADJECTIVE SUFFIX (NATIVE): -ig, -lich, -isch, -bar, -sam, -haft, -los, -voll, -reich, -arm, -wert, -mäßig, -en, -ern, -er
+ADJECTIVE SUFFIX (FOREIGN / BORROWED): -al, -ell, -iv, -abel, -ibel, -ös, -ant, -ent, -är, -oid, -phil, -phob
+
+ADJECTIVE PREFIXES (NEGATING / PRIVATIVE): un-, in-, im-, il-, ir-, a-, an-, des-, dis-, non-
+ADJECTIVE PREFIXES (INTENSIFYING / ELATIVE): ur-, hoch-, hyper-, super-, ultra-, mega-, erz-, blitz-, brand-, stein-, stock-, tod-, hunde-, quietsch-, bitter-, bettel-, pudel-
+ADJECTIVE PREFIXES (DEGREE & RELATION): halb-, voll-, all-, pseudo-, quasi-

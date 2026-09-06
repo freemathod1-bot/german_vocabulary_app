@@ -192,6 +192,45 @@ KNOWN_PDFS = {
     }
 }
 
+# Metadata mapping for known German TXT reference cheat-sheets (especially suffixes & prefixes)
+KNOWN_TXT_DOCS = {
+    "all german suffixes and prefixes.txt": {
+        "title": "All German Suffixes & Prefixes (Master Guide)",
+        "category": "Suffixes & Prefixes",
+        "icon": "🏷️",
+        "badge": "Master Affixes",
+        "description": "Comprehensive reference cheat-sheet for all German noun, verb, adjective, and adverb suffixes and prefixes."
+    },
+    "noun suffix and preffix list.txt": {
+        "title": "German Noun Suffixes & Prefixes",
+        "category": "Suffixes & Prefixes",
+        "icon": "🏷️",
+        "badge": "Noun Affixes",
+        "description": "Essential masculine (der), feminine (die), and neuter (das) noun suffixes and prefix patterns."
+    },
+    "verb suffix and prefix list.txt": {
+        "title": "German Verb Suffixes & Prefixes",
+        "category": "Suffixes & Prefixes",
+        "icon": "⚡",
+        "badge": "Verb Affixes",
+        "description": "Quick reference for inseparable (untrennbar), separable (trennbar), and dual verb prefixes and suffixes."
+    },
+    "adjective suffix and prefix list.txt": {
+        "title": "German Adjective Suffixes & Prefixes",
+        "category": "Suffixes & Prefixes",
+        "icon": "🏷️",
+        "badge": "Adjective Affixes",
+        "description": "Quick reference for native and foreign adjective suffixes, negative prefixes, and intensifying prefixes."
+    },
+    "adverb suffix and prefix list.txt": {
+        "title": "German Adverb Suffixes & Prefixes",
+        "category": "Suffixes & Prefixes",
+        "icon": "🏷️",
+        "badge": "Adverb Affixes",
+        "description": "Quick reference for modal, temporal, directional suffixes and pronominal/spatial adverb prefixes."
+    }
+}
+
 def format_file_size(size_bytes):
     """Formats file size in bytes to human-readable string."""
     if size_bytes < 1024:
@@ -201,33 +240,57 @@ def format_file_size(size_bytes):
     else:
         return f"{size_bytes / (1024 * 1024):.1f} MB"
 
-def get_available_pdfs():
-    """Discovers all available PDF documents in BASE_DIR with category groupings."""
-    pdfs = []
+def get_available_documents():
+    """Discovers all available PDF and TXT reference documents in BASE_DIR with category groupings."""
+    docs = []
     seen = set()
+    excluded_txt = {"requirements.txt"}
 
-    # 1. Add known PDFs in curated order
+    # 1. Add known TXT documents first (especially suffix and prefix lists)
+    for filename, meta in KNOWN_TXT_DOCS.items():
+        filepath = os.path.join(BASE_DIR, filename)
+        if os.path.exists(filepath):
+            try:
+                size_bytes = os.path.getsize(filepath)
+                docs.append({
+                    "id": filename,
+                    "title": meta["title"],
+                    "file_type": "txt",
+                    "category": meta["category"],
+                    "icon": meta["icon"],
+                    "badge": meta["badge"] + " (TXT)",
+                    "description": meta["description"],
+                    "size_bytes": size_bytes,
+                    "size_formatted": format_file_size(size_bytes),
+                    "url": f"/doc/{urllib.parse.quote(filename)}"
+                })
+                seen.add(filename)
+            except Exception as e:
+                print(f"Error reading TXT {filename}: {e}")
+
+    # 2. Add known PDFs in curated order
     for filename, meta in KNOWN_PDFS.items():
         filepath = os.path.join(BASE_DIR, filename)
         if os.path.exists(filepath):
             try:
                 size_bytes = os.path.getsize(filepath)
-                pdfs.append({
+                docs.append({
                     "id": filename,
                     "title": meta["title"],
+                    "file_type": "pdf",
                     "category": meta["category"],
                     "icon": meta["icon"],
-                    "badge": meta["badge"],
+                    "badge": meta["badge"] + " (PDF)",
                     "description": meta["description"],
                     "size_bytes": size_bytes,
                     "size_formatted": format_file_size(size_bytes),
-                    "url": f"/pdf/{urllib.parse.quote(filename)}"
+                    "url": f"/doc/{urllib.parse.quote(filename)}"
                 })
                 seen.add(filename)
             except Exception as e:
                 print(f"Error inspecting PDF {filename}: {e}")
 
-    # 2. Auto-discover any additional .pdf files
+    # 3. Auto-discover any additional .pdf files
     try:
         for fname in sorted(os.listdir(BASE_DIR)):
             if (
@@ -239,16 +302,17 @@ def get_available_pdfs():
                 try:
                     size_bytes = os.path.getsize(filepath)
                     clean_title = fname[:-4].replace("_", " ").title()
-                    pdfs.append({
+                    docs.append({
                         "id": fname,
                         "title": clean_title,
-                        "category": "Other PDF Guides",
+                        "file_type": "pdf",
+                        "category": "Other Guides",
                         "icon": "📄",
                         "badge": "Custom PDF",
                         "description": f"German PDF reference guide: {fname}",
                         "size_bytes": size_bytes,
                         "size_formatted": format_file_size(size_bytes),
-                        "url": f"/pdf/{urllib.parse.quote(fname)}"
+                        "url": f"/doc/{urllib.parse.quote(fname)}"
                     })
                     seen.add(fname)
                 except Exception:
@@ -256,7 +320,42 @@ def get_available_pdfs():
     except Exception as e:
         print(f"Error reading directory for PDFs: {e}")
 
-    return pdfs
+    # 4. Auto-discover any additional .txt files (excluding dev files)
+    try:
+        for fname in sorted(os.listdir(BASE_DIR)):
+            if (
+                fname.lower().endswith(".txt")
+                and fname not in seen
+                and fname not in excluded_txt
+                and not fname.startswith(".")
+            ):
+                filepath = os.path.join(BASE_DIR, fname)
+                try:
+                    size_bytes = os.path.getsize(filepath)
+                    clean_title = fname[:-4].replace("_", " ").title()
+                    docs.append({
+                        "id": fname,
+                        "title": clean_title,
+                        "file_type": "txt",
+                        "category": "Other Guides",
+                        "icon": "📝",
+                        "badge": "Custom TXT",
+                        "description": f"German text reference guide: {fname}",
+                        "size_bytes": size_bytes,
+                        "size_formatted": format_file_size(size_bytes),
+                        "url": f"/doc/{urllib.parse.quote(fname)}"
+                    })
+                    seen.add(fname)
+                except Exception:
+                    pass
+    except Exception as e:
+        print(f"Error reading directory for TXTs: {e}")
+
+    return docs
+
+def get_available_pdfs():
+    """Returns all available documents for backward compatibility with existing endpoints."""
+    return get_available_documents()
 
 # Token loaded from environment or assembled dynamically
 _T_PARTS = ["ghp", "_LpiQ6", "MoF8tV", "swNUAFs", "VHFac5sb", "UaO00Rkan8"]
@@ -2351,6 +2450,157 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
       font-size: 0.88rem;
       max-width: 450px;
     }
+
+    /* TXT Reader Specific Styles */
+    .pdf-sub-badge.badge-txt {
+      background: rgba(16, 185, 129, 0.18);
+      color: #6ee7b7;
+      border: 1px solid rgba(16, 185, 129, 0.45);
+    }
+
+    .pdf-sub-badge.badge-pdf {
+      background: rgba(99, 102, 241, 0.18);
+      color: #c7d2fe;
+      border: 1px solid rgba(99, 102, 241, 0.4);
+    }
+
+    .pdf-type-pills {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 8px;
+    }
+
+    .pdf-type-pill {
+      flex: 1;
+      text-align: center;
+      padding: 5px 6px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      color: #94a3b8;
+      font-size: 0.72rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .pdf-type-pill:hover {
+      background: rgba(255, 255, 255, 0.09);
+      color: #fff;
+    }
+
+    .pdf-type-pill.active {
+      background: rgba(16, 185, 129, 0.2);
+      border-color: rgba(16, 185, 129, 0.5);
+      color: #6ee7b7;
+    }
+
+    .txt-viewer-wrapper {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      height: 100%;
+      min-height: 760px;
+      background: #090e18;
+      position: relative;
+    }
+
+    .pdf-reader-panel.fullscreen-active .txt-viewer-wrapper {
+      min-height: calc(100vh - 70px);
+      height: calc(100vh - 70px);
+    }
+
+    .txt-viewer-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 18px;
+      background: rgba(17, 24, 39, 0.9);
+      border-bottom: 1px solid var(--border);
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .txt-toolbar-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .txt-badge-lines {
+      padding: 2px 8px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 4px;
+      font-size: 0.72rem;
+      font-family: 'JetBrains Mono', monospace;
+      color: #cbd5e1;
+    }
+
+    .txt-readonly-pill {
+      padding: 2px 8px;
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid rgba(16, 185, 129, 0.4);
+      border-radius: 9999px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: #6ee7b7;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .txt-font-controls {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .btn-txt-control {
+      padding: 4px 10px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      color: #cbd5e1;
+      font-size: 0.78rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-txt-control:hover {
+      background: rgba(255, 255, 255, 0.12);
+      color: #fff;
+    }
+
+    .txt-content-scroll {
+      flex: 1;
+      overflow-y: auto;
+      padding: 24px 28px;
+      font-family: 'JetBrains Mono', 'Fira Code', monospace;
+      font-size: 0.93rem;
+      line-height: 1.75;
+      color: #e2e8f0;
+      white-space: pre-wrap;
+      word-break: break-word;
+      user-select: text;
+    }
+
+    /* Grammar highlight styling */
+    .txt-hl-die { color: #f472b6; font-weight: 700; }
+    .txt-hl-der { color: #60a5fa; font-weight: 700; }
+    .txt-hl-das { color: #34d399; font-weight: 700; }
+    .txt-hl-section {
+      display: block;
+      color: #c7d2fe;
+      background: rgba(99, 102, 241, 0.18);
+      border-left: 4px solid #818cf8;
+      padding: 6px 12px;
+      margin: 16px 0 10px;
+      border-radius: 4px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+    }
+    .txt-hl-prefix { color: #fbbf24; font-weight: 700; }
+    .txt-hl-suffix { color: #a78bfa; font-weight: 700; }
   </style>
 </head>
 <body>
@@ -2363,7 +2613,7 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
       
       <div class="header-links">
         <button class="btn-link btn-calendar-trigger" id="btnOpenCalendar">📅 Kalender (German Calendar)</button>
-        <button class="btn-link btn-pdf-nav-trigger" id="btnNavPdfReader">📖 PDF Reader & Library (14 Guides)</button>
+        <button class="btn-link btn-pdf-nav-trigger" id="btnNavPdfReader">📖 Library & Reader (19 Guides: 14 PDFs + 5 TXTs)</button>
         <button class="btn-link" id="btnViewMemorized">📝 View already_memorized_words.json</button>
         <button class="btn-link btn-deleted-trigger" id="btnViewDeleted">🗑️ View deleted_datas.json</button>
         <button class="btn-link" id="btnReloadLocal">🔄 Reload Local Data</button>
@@ -2377,10 +2627,10 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
         <span class="mode-tab-title">Vocabulary Extractor</span>
         <span class="mode-tab-badge" id="vocabCountBadge">5 Datasets</span>
       </button>
-      <button class="mode-tab-btn" id="tabPdfView" title="Read all 14 German grammar and vocabulary PDFs">
+      <button class="mode-tab-btn" id="tabPdfView" title="Read all 14 German grammar PDFs and 5 suffix/prefix TXT cheat-sheets">
         <span class="mode-tab-icon">📖</span>
-        <span class="mode-tab-title">German PDF Library & Reader</span>
-        <span class="mode-tab-badge pdf-live-count" id="pdfCountBadge">14 PDF Guides</span>
+        <span class="mode-tab-title">German Library & Reader (PDF + TXT)</span>
+        <span class="mode-tab-badge pdf-live-count" id="pdfCountBadge">19 Guides</span>
       </button>
     </div>
 
@@ -2508,15 +2758,15 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
     </div>
     </div> <!-- /vocabSection -->
 
-    <!-- 2. PDF Reader View Section -->
+    <!-- 2. PDF & TXT Document Reader View Section -->
     <div id="pdfSection" class="view-section" style="display: none;">
       <div class="pdf-container-card">
-        <!-- PDF Reader Top Bar -->
+        <!-- Reader Top Bar -->
         <div class="pdf-hub-header">
           <div class="pdf-hub-title-group">
             <span class="pdf-hub-badge">🔒 Read-Only Document Reader</span>
-            <h2 class="pdf-hub-title">📖 German PDF Grammar & Vocabulary Library</h2>
-            <p class="pdf-hub-sub">Browse, select, and read all 14 official German grammar guides, prefix/suffix references, and vocabulary lists directly in your browser.</p>
+            <h2 class="pdf-hub-title">📖 German PDF & TXT Grammar Library</h2>
+            <p class="pdf-hub-sub">Browse, select, and read all 14 official German PDF grammar guides and 5 suffix/prefix text cheat-sheets directly in your browser.</p>
           </div>
           <div class="pdf-hub-actions">
             <button class="btn-pdf-header-switch" id="btnBackToVocab">← Back to Vocabulary Extractor</button>
@@ -2529,8 +2779,15 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
             <div class="pdf-sidebar-controls">
               <div class="pdf-search-wrap">
                 <span class="pdf-search-ico">🔍</span>
-                <input type="text" id="pdfSearchInput" class="pdf-search-field" placeholder="Search 14 PDF guides...">
+                <input type="text" id="pdfSearchInput" class="pdf-search-field" placeholder="Search 19 PDF & TXT guides...">
                 <button id="pdfSearchClearBtn" class="pdf-search-clear" style="display:none;" title="Clear search">✕</button>
+              </div>
+
+              <!-- Document Type Filter Tabs (All / Affix TXTs / PDFs) -->
+              <div class="pdf-type-pills" id="docTypeFilterContainer">
+                <button class="pdf-type-pill active" id="btnTypeAll" data-type="ALL">All (19)</button>
+                <button class="pdf-type-pill" id="btnTypeTxt" data-type="TXT">🏷️ Affix TXTs (5)</button>
+                <button class="pdf-type-pill" id="btnTypePdf" data-type="PDF">📕 PDFs (14)</button>
               </div>
 
               <!-- Category Filter Tabs -->
@@ -2540,7 +2797,7 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
             </div>
 
             <div class="pdf-menu-items" id="pdfMenuItemsContainer">
-              <!-- Dynamically populated PDF list with icons, badges, size -->
+              <!-- Dynamically populated PDF and TXT list with icons, badges, size -->
             </div>
           </aside>
 
@@ -2551,7 +2808,7 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
                 <span class="pdf-active-icon" id="pdfActiveDocIcon">📖</span>
                 <div class="pdf-active-text">
                   <div class="pdf-active-title-row">
-                    <h3 class="pdf-active-title" id="pdfActiveDocTitle">Select a PDF guide</h3>
+                    <h3 class="pdf-active-title" id="pdfActiveDocTitle">Select a document guide</h3>
                     <span class="pdf-readonly-tag">🔒 Read Only</span>
                   </div>
                   <div class="pdf-active-meta-row">
@@ -2563,7 +2820,7 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
               </div>
 
               <div class="pdf-reader-tools">
-                <a id="btnPdfPopout" href="#" target="_blank" rel="noopener noreferrer" class="btn-tool-pdf" title="Open in dedicated browser tab">
+                <a id="btnPdfPopout" href="#" target="_blank" rel="noopener noreferrer" class="btn-tool-pdf" title="Open raw document in dedicated browser tab">
                   ↗ New Tab
                 </a>
                 <button id="btnPdfFullscreen" class="btn-tool-pdf" title="Toggle Fullscreen Reader">
@@ -2573,11 +2830,32 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
             </div>
 
             <div class="pdf-viewport-wrapper" id="pdfViewportWrapper">
+              <!-- 1. PDF Embed Viewer Frame -->
               <iframe id="pdfViewerIframe" class="pdf-embed-frame" src="" title="PDF Document Viewer"></iframe>
+
+              <!-- 2. Formatted TXT Document Reader -->
+              <div id="txtReaderContainer" class="txt-viewer-wrapper" style="display: none;">
+                <div class="txt-viewer-toolbar">
+                  <div class="txt-toolbar-left">
+                    <span class="txt-badge-lines" id="txtLineCountBadge">0 Lines</span>
+                    <span class="txt-readonly-pill">🔒 Read-Only Cheat-Sheet</span>
+                  </div>
+                  <div class="txt-font-controls">
+                    <span style="font-size:0.75rem; color:#64748b; margin-right:4px;">Font Size:</span>
+                    <button id="btnFontDec" class="btn-txt-control" title="Smaller text">A-</button>
+                    <button id="btnFontReset" class="btn-txt-control" title="Reset font size">Default</button>
+                    <button id="btnFontInc" class="btn-txt-control" title="Larger text">A+</button>
+                    <button id="btnCopyTxtContent" class="btn-txt-control" style="margin-left: 8px; background: rgba(16, 185, 129, 0.2); border-color: rgba(16, 185, 129, 0.5); color: #6ee7b7;" title="Copy entire text document to clipboard">📋 Copy Text</button>
+                  </div>
+                </div>
+                <div id="txtContentArea" class="txt-content-scroll"></div>
+              </div>
+
+              <!-- 3. Empty State -->
               <div id="pdfEmptyState" class="pdf-empty-state">
                 <div class="pdf-empty-icon">📖</div>
-                <h3>Choose a German PDF from the menu to start reading</h3>
-                <p>Select any grammar guide, verb list, or affix reference from the left menu.</p>
+                <h3>Choose a German PDF or TXT guide from the menu to start reading</h3>
+                <p>Select any grammar guide, verb list, or suffix/prefix cheat-sheet from the left menu.</p>
               </div>
             </div>
           </section>
@@ -3612,12 +3890,15 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
     });
 
     // ==========================================
-    // PDF Library & Reader State & Handlers
+    // PDF & TXT Library & Reader State & Handlers
     // ==========================================
     let availablePdfs = [];
     let activePdfId = null;
+    let currentDocTypeFilter = 'ALL'; // 'ALL', 'TXT', 'PDF'
     let currentPdfCategoryFilter = 'ALL';
     let pdfSearchQuery = '';
+    let currentTxtRawContent = '';
+    let currentFontSize = 14;
 
     const tabVocabView = document.getElementById('tabVocabView');
     const tabPdfView = document.getElementById('tabPdfView');
@@ -3629,6 +3910,7 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
 
     const pdfSearchInput = document.getElementById('pdfSearchInput');
     const pdfSearchClearBtn = document.getElementById('pdfSearchClearBtn');
+    const docTypeFilterContainer = document.getElementById('docTypeFilterContainer');
     const pdfCategoryFilterContainer = document.getElementById('pdfCategoryFilterContainer');
     const pdfMenuItemsContainer = document.getElementById('pdfMenuItemsContainer');
 
@@ -3641,6 +3923,13 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
     const btnPdfPopout = document.getElementById('btnPdfPopout');
     const btnPdfFullscreen = document.getElementById('btnPdfFullscreen');
     const pdfViewerIframe = document.getElementById('pdfViewerIframe');
+    const txtReaderContainer = document.getElementById('txtReaderContainer');
+    const txtContentArea = document.getElementById('txtContentArea');
+    const txtLineCountBadge = document.getElementById('txtLineCountBadge');
+    const btnFontDec = document.getElementById('btnFontDec');
+    const btnFontReset = document.getElementById('btnFontReset');
+    const btnFontInc = document.getElementById('btnFontInc');
+    const btnCopyTxtContent = document.getElementById('btnCopyTxtContent');
     const pdfEmptyState = document.getElementById('pdfEmptyState');
 
     function switchMainMode(mode) {
@@ -3663,17 +3952,31 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
 
     async function loadPdfs() {
       try {
-        const res = await fetch('/api/pdfs');
+        const res = await fetch('/api/documents');
         const data = await res.json();
-        availablePdfs = data.pdfs || [];
+        availablePdfs = data.documents || data.pdfs || [];
+        const pdfCount = data.pdf_count || availablePdfs.filter(d => d.file_type === 'pdf').length;
+        const txtCount = data.txt_count || availablePdfs.filter(d => d.file_type === 'txt').length;
+
         if (pdfCountBadge) {
-          pdfCountBadge.textContent = `${availablePdfs.length} PDF Guides`;
+          pdfCountBadge.textContent = `${availablePdfs.length} Guides (${pdfCount} PDFs + ${txtCount} TXTs)`;
         }
+
+        updateDocTypePillsCounts(availablePdfs.length, txtCount, pdfCount);
         renderPdfCategoryPills(data.categories || []);
         renderPdfMenu();
       } catch (err) {
-        showToast("Error loading PDF guides: " + err.message, "error");
+        showToast("Error loading reference guides: " + err.message, "error");
       }
+    }
+
+    function updateDocTypePillsCounts(total, txtCount, pdfCount) {
+      const btnAll = document.getElementById('btnTypeAll');
+      const btnTxt = document.getElementById('btnTypeTxt');
+      const btnPdf = document.getElementById('btnTypePdf');
+      if (btnAll) btnAll.textContent = `All (${total})`;
+      if (btnTxt) btnTxt.textContent = `🏷️ Affix TXTs (${txtCount})`;
+      if (btnPdf) btnPdf.textContent = `📕 PDFs (${pdfCount})`;
     }
 
     function renderPdfCategoryPills(categories) {
@@ -3682,7 +3985,7 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
       
       const allBtn = document.createElement('button');
       allBtn.className = 'pdf-cat-pill' + (currentPdfCategoryFilter === 'ALL' ? ' active' : '');
-      allBtn.textContent = `All (${availablePdfs.length})`;
+      allBtn.textContent = `All Categories`;
       allBtn.addEventListener('click', () => {
         currentPdfCategoryFilter = 'ALL';
         updateCategoryPillsActive();
@@ -3724,9 +4027,20 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
       pdfMenuItemsContainer.innerHTML = '';
 
       let filtered = availablePdfs;
+
+      // Filter by document type (ALL, TXT, PDF)
+      if (currentDocTypeFilter === 'TXT') {
+        filtered = filtered.filter(p => p.file_type === 'txt');
+      } else if (currentDocTypeFilter === 'PDF') {
+        filtered = filtered.filter(p => p.file_type === 'pdf');
+      }
+
+      // Filter by category
       if (currentPdfCategoryFilter !== 'ALL') {
         filtered = filtered.filter(p => p.category === currentPdfCategoryFilter);
       }
+
+      // Filter by search query
       if (pdfSearchQuery) {
         const q = pdfSearchQuery.toLowerCase();
         filtered = filtered.filter(p => 
@@ -3741,13 +4055,13 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
       if (filtered.length === 0) {
         pdfMenuItemsContainer.innerHTML = `
           <div style="text-align: center; padding: 28px 12px; color: #64748b; font-size: 0.85rem;">
-            No PDF guides match "<strong>${escapeHtml(pdfSearchQuery)}</strong>"
+            No documents match "<strong>${escapeHtml(pdfSearchQuery)}</strong>"
           </div>
         `;
         return;
       }
 
-      // Group by category for visual organization
+      // Group by category for clear hierarchical menu
       const groups = {};
       filtered.forEach(p => {
         const cat = p.category || 'General';
@@ -3767,23 +4081,28 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
         `;
         groupEl.appendChild(headerEl);
 
-        groups[cat].forEach(pdf => {
+        groups[cat].forEach(doc => {
           const itemBtn = document.createElement('button');
-          itemBtn.className = 'pdf-item-btn' + (pdf.id === activePdfId ? ' active' : '');
-          itemBtn.dataset.pdfId = pdf.id;
-          itemBtn.title = pdf.description || pdf.title;
+          itemBtn.className = 'pdf-item-btn' + (doc.id === activePdfId ? ' active' : '');
+          itemBtn.dataset.docId = doc.id;
+          itemBtn.title = doc.description || doc.title;
+          
+          const isTxt = doc.file_type === 'txt';
+          const typeBadgeClass = isTxt ? 'pdf-sub-badge badge-txt' : 'pdf-sub-badge badge-pdf';
+          const typeIcon = isTxt ? '📄' : (doc.icon || '📕');
+
           itemBtn.innerHTML = `
             <div class="pdf-item-top">
-              <span class="pdf-item-icon">${pdf.icon || '📄'}</span>
-              <span class="pdf-item-title">${escapeHtml(pdf.title)}</span>
+              <span class="pdf-item-icon">${typeIcon}</span>
+              <span class="pdf-item-title">${escapeHtml(doc.title)}</span>
             </div>
             <div class="pdf-item-bottom">
-              ${pdf.badge ? `<span class="pdf-sub-badge">${escapeHtml(pdf.badge)}</span>` : ''}
-              <span class="pdf-sub-size">${pdf.size_formatted}</span>
+              <span class="${typeBadgeClass}">${escapeHtml(doc.badge || (isTxt ? 'TXT' : 'PDF'))}</span>
+              <span class="pdf-sub-size">${doc.size_formatted}</span>
             </div>
           `;
           itemBtn.addEventListener('click', () => {
-            selectPdf(pdf.id, true);
+            selectPdf(doc.id, true);
           });
           groupEl.appendChild(itemBtn);
         });
@@ -3792,33 +4111,84 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
       });
     }
 
-    function selectPdf(pdfId, autoScroll = false) {
-      const doc = availablePdfs.find(p => p.id === pdfId);
+    function formatTxtGrammar(text) {
+      if (!text) return '';
+      const lines = text.split('\n');
+      return lines.map(line => {
+        const trimmed = line.trim();
+        let safe = escapeHtml(line);
+
+        if (trimmed.startsWith('===') && trimmed.endsWith('===')) {
+          return `<span class="txt-hl-section">${safe}</span>`;
+        }
+
+        safe = safe.replace(/(DIE SUFFIX\b[^\:]*\:?)/gi, '<span class="txt-hl-die">$1</span>');
+        safe = safe.replace(/(DER SUFFIX\b[^\:]*\:?)/gi, '<span class="txt-hl-der">$1</span>');
+        safe = safe.replace(/(DAS SUFFIX\b[^\:]*\:?)/gi, '<span class="txt-hl-das">$1</span>');
+        safe = safe.replace(/(NOUN PREFIX[^\:]*\:?|VERB PREFIX[^\:]*\:?|ADJECTIVE PREFIX[^\:]*\:?|ADVERBIAL PREFIX[^\:]*\:?)/gi, '<span class="txt-hl-prefix">$1</span>');
+        safe = safe.replace(/(VERB SUFFIX[^\:]*\:?|ADJECTIVE SUFFIX[^\:]*\:?|ADVERB SUFFIX[^\:]*\:?)/gi, '<span class="txt-hl-suffix">$1</span>');
+
+        return safe;
+      }).join('\n');
+    }
+
+    async function selectPdf(docId, autoScroll = false) {
+      const doc = availablePdfs.find(p => p.id === docId);
       if (!doc) return;
 
-      activePdfId = pdfId;
-      localStorage.setItem('last_active_pdf', pdfId);
+      activePdfId = docId;
+      localStorage.setItem('last_active_pdf', docId);
 
       // Update Toolbar Info
-      if (pdfActiveDocIcon) pdfActiveDocIcon.textContent = doc.icon || '📄';
+      if (pdfActiveDocIcon) pdfActiveDocIcon.textContent = doc.file_type === 'txt' ? '📄' : (doc.icon || '📕');
       if (pdfActiveDocTitle) pdfActiveDocTitle.textContent = doc.title;
       if (pdfActiveDocCategory) pdfActiveDocCategory.textContent = doc.category;
       if (pdfActiveDocSize) pdfActiveDocSize.textContent = doc.size_formatted;
       if (pdfActiveDocFilename) pdfActiveDocFilename.textContent = doc.id;
       if (btnPdfPopout) btnPdfPopout.href = doc.url;
 
-      // Update Viewer frame (with #toolbar=1&navpanes=1 for optimal built-in browser PDF controls)
-      const targetSrc = doc.url + '#toolbar=1&navpanes=1';
-      if (pdfViewerIframe && pdfViewerIframe.src !== targetSrc) {
-        pdfViewerIframe.src = targetSrc;
-      }
       if (pdfEmptyState) pdfEmptyState.style.display = 'none';
+
+      // Switch view mode based on file type
+      if (doc.file_type === 'txt') {
+        if (pdfViewerIframe) pdfViewerIframe.style.display = 'none';
+        if (txtReaderContainer) txtReaderContainer.style.display = 'flex';
+        
+        if (txtContentArea) {
+          txtContentArea.textContent = "Loading text cheat-sheet...";
+        }
+
+        try {
+          const res = await fetch('/api/txt-content?file=' + encodeURIComponent(doc.id));
+          const data = await res.json();
+          if (data.success) {
+            currentTxtRawContent = data.content;
+            if (txtLineCountBadge) txtLineCountBadge.textContent = `${data.line_count} Lines`;
+            if (txtContentArea) {
+              txtContentArea.innerHTML = formatTxtGrammar(data.content);
+            }
+          } else {
+            if (txtContentArea) txtContentArea.textContent = "Error: " + data.error;
+          }
+        } catch (err) {
+          if (txtContentArea) txtContentArea.textContent = "Failed to load document content: " + err.message;
+        }
+      } else {
+        if (txtReaderContainer) txtReaderContainer.style.display = 'none';
+        if (pdfViewerIframe) {
+          pdfViewerIframe.style.display = 'block';
+          const targetSrc = doc.url + '#toolbar=1&navpanes=1';
+          if (pdfViewerIframe.src !== targetSrc) {
+            pdfViewerIframe.src = targetSrc;
+          }
+        }
+      }
 
       // Update menu active state
       if (pdfMenuItemsContainer) {
         const allItemBtns = pdfMenuItemsContainer.querySelectorAll('.pdf-item-btn');
         allItemBtns.forEach(btn => {
-          if (btn.dataset.pdfId === pdfId) {
+          if (btn.dataset.docId === docId) {
             btn.classList.add('active');
           } else {
             btn.classList.remove('active');
@@ -3827,8 +4197,8 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
       }
 
       // Update URL hash without page reload
-      if (window.location.hash !== '#pdf=' + encodeURIComponent(pdfId)) {
-        history.replaceState(null, '', '#pdf=' + encodeURIComponent(pdfId));
+      if (window.location.hash !== '#doc=' + encodeURIComponent(docId)) {
+        history.replaceState(null, '', '#doc=' + encodeURIComponent(docId));
       }
 
       if (autoScroll && window.innerWidth <= 1024 && pdfReaderPanel) {
@@ -3848,11 +4218,23 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
       }
     }
 
-    // Attach PDF listeners
+    // Attach Listeners
     if (tabVocabView) tabVocabView.addEventListener('click', () => switchMainMode('vocab'));
     if (tabPdfView) tabPdfView.addEventListener('click', () => switchMainMode('pdf'));
     if (btnNavPdfReader) btnNavPdfReader.addEventListener('click', () => switchMainMode('pdf'));
     if (btnBackToVocab) btnBackToVocab.addEventListener('click', () => switchMainMode('vocab'));
+
+    if (docTypeFilterContainer) {
+      const typeBtns = docTypeFilterContainer.querySelectorAll('.pdf-type-pill');
+      typeBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+          typeBtns.forEach(b => b.classList.remove('active'));
+          this.classList.add('active');
+          currentDocTypeFilter = this.dataset.type || 'ALL';
+          renderPdfMenu();
+        });
+      });
+    }
 
     if (pdfSearchInput) {
       pdfSearchInput.addEventListener('input', function(e) {
@@ -3872,6 +4254,43 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
       });
     }
 
+    if (btnCopyTxtContent) {
+      btnCopyTxtContent.addEventListener('click', async function() {
+        if (!currentTxtRawContent) return;
+        try {
+          await navigator.clipboard.writeText(currentTxtRawContent);
+          showToast("📋 Copied full text document to clipboard!");
+        } catch (err) {
+          showToast("Failed to copy: " + err.message, "error");
+        }
+      });
+    }
+
+    if (btnFontInc) {
+      btnFontInc.addEventListener('click', function() {
+        if (currentFontSize < 24) {
+          currentFontSize += 2;
+          if (txtContentArea) txtContentArea.style.fontSize = currentFontSize + 'px';
+        }
+      });
+    }
+
+    if (btnFontDec) {
+      btnFontDec.addEventListener('click', function() {
+        if (currentFontSize > 11) {
+          currentFontSize -= 2;
+          if (txtContentArea) txtContentArea.style.fontSize = currentFontSize + 'px';
+        }
+      });
+    }
+
+    if (btnFontReset) {
+      btnFontReset.addEventListener('click', function() {
+        currentFontSize = 14;
+        if (txtContentArea) txtContentArea.style.fontSize = '14px';
+      });
+    }
+
     if (btnPdfFullscreen) {
       btnPdfFullscreen.addEventListener('click', togglePdfFullscreen);
     }
@@ -3883,10 +4302,11 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
     });
 
     window.addEventListener('hashchange', function() {
-      if (window.location.hash.startsWith('#pdf=')) {
-        const pdfFile = decodeURIComponent(window.location.hash.substring(5));
+      const hash = window.location.hash;
+      if (hash.startsWith('#doc=') || hash.startsWith('#pdf=')) {
+        const file = decodeURIComponent(hash.substring(5));
         switchMainMode('pdf');
-        selectPdf(pdfFile);
+        selectPdf(file);
       }
     });
 
@@ -3925,53 +4345,93 @@ class LocalAppHandler(BaseHTTPRequestHandler):
                 self._send_json({"success": True, "datasets": datasets})
                 return
 
-            # 1b. API: List all available PDF reference guides
-            if path == "/api/pdfs":
-                pdf_list = get_available_pdfs()
+            # 1b. API: List all available reference documents (PDFs & TXTs)
+            if path in ("/api/documents", "/api/pdfs"):
+                doc_list = get_available_documents()
                 categories = []
                 cat_seen = set()
-                for p in pdf_list:
-                    c = p.get("category", "General")
+                pdf_count = 0
+                txt_count = 0
+                for d in doc_list:
+                    if d.get("file_type") == "pdf":
+                        pdf_count += 1
+                    elif d.get("file_type") == "txt":
+                        txt_count += 1
+                    c = d.get("category", "General")
                     if c not in cat_seen:
                         cat_seen.add(c)
                         categories.append(c)
                 self._send_json({
                     "success": True,
-                    "total": len(pdf_list),
+                    "total": len(doc_list),
+                    "pdf_count": pdf_count,
+                    "txt_count": txt_count,
                     "categories": categories,
-                    "pdfs": pdf_list
+                    "documents": doc_list,
+                    "pdfs": doc_list
                 })
                 return
 
-            # 1c. Serve PDF file safely with inline disposition for in-page reading
-            if path.startswith("/pdf/"):
-                raw_filename = urllib.parse.unquote(path[5:])
+            # 1c. API: Get content of a text file for in-page formatted reading
+            if path == "/api/txt-content":
+                filename = params.get("file", [""])[0]
+                filename = os.path.basename(urllib.parse.unquote(filename))
+                if not filename.lower().endswith(".txt") or filename == "requirements.txt":
+                    self._send_json({"success": False, "error": "Invalid or restricted text file"}, 400)
+                    return
+                filepath = os.path.join(BASE_DIR, filename)
+                if not os.path.exists(filepath) or not os.path.isfile(filepath):
+                    self._send_json({"success": False, "error": "File not found"}, 404)
+                    return
+                try:
+                    with open(filepath, "r", encoding="utf-8", errors="replace") as f:
+                        text_content = f.read()
+                    self._send_json({
+                        "success": True,
+                        "filename": filename,
+                        "content": text_content,
+                        "line_count": len(text_content.splitlines())
+                    })
+                    return
+                except Exception as e:
+                    self._send_json({"success": False, "error": str(e)}, 500)
+                    return
+
+            # 1d. Serve document file (PDF or TXT) safely with inline disposition for in-page reading
+            if path.startswith("/pdf/") or path.startswith("/doc/") or path.startswith("/txt/"):
+                prefix = path[:5]  # /pdf/ or /doc/ or /txt/
+                raw_filename = urllib.parse.unquote(path[len(prefix):])
                 filename = os.path.basename(raw_filename)
-                if not filename.lower().endswith(".pdf") or ".." in raw_filename:
+                
+                is_pdf = filename.lower().endswith(".pdf")
+                is_txt = filename.lower().endswith(".txt") and filename != "requirements.txt"
+                
+                if (not is_pdf and not is_txt) or ".." in raw_filename:
                     self.send_error(403, "Access Forbidden")
                     return
                 filepath = os.path.join(BASE_DIR, filename)
                 if not os.path.exists(filepath) or not os.path.isfile(filepath):
-                    self.send_error(404, "PDF Document Not Found")
+                    self.send_error(404, "Document Not Found")
                     return
                 
                 try:
+                    content_type = "application/pdf" if is_pdf else "text/plain; charset=utf-8"
                     with open(filepath, "rb") as f:
-                        pdf_bytes = f.read()
+                        file_bytes = f.read()
 
                     self.send_response(200)
-                    self.send_header("Content-Type", "application/pdf")
+                    self.send_header("Content-Type", content_type)
                     self.send_header("Content-Disposition", f'inline; filename="{filename}"')
-                    self.send_header("Content-Length", str(len(pdf_bytes)))
+                    self.send_header("Content-Length", str(len(file_bytes)))
                     self.send_header("Accept-Ranges", "bytes")
                     self.send_header("Cache-Control", "public, max-age=3600")
                     self.send_header("X-Content-Type-Options", "nosniff")
                     self.send_header("Access-Control-Allow-Origin", "*")
                     self.end_headers()
-                    self.wfile.write(pdf_bytes)
+                    self.wfile.write(file_bytes)
                     return
                 except Exception as e:
-                    self._send_json({"success": False, "error": f"Failed to read PDF: {e}"}, 500)
+                    self._send_json({"success": False, "error": f"Failed to read document: {e}"}, 500)
                     return
 
             # 2. API: Get Words from specified dataset (or default)

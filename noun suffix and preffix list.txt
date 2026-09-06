@@ -1,0 +1,13 @@
+DIE SUFFIX: -heit, -keit, -schaft, -ung, -ei, -ion, -tion, -sion, -tät, -ität, -anz, -enz, -ik, -sis, -ur, -age, -ade, -üre, -itis, -thek
+DIE SUFFIX (WEAK/LEAKY — CHECK EXCEPTIONS): -e, -ie, -in
+
+DER SUFFIX: -ant, -eur, -iker, -ismus, -ist, -ling, -or, -ich, -ig, -ner, -ast, -loge, -soph
+DER SUFFIX (WEAK/LEAKY — CHECK EXCEPTIONS): -er, -ent, -at, -us
+
+DAS SUFFIX: -chen, -lein, -ment, -ium, -um, -eau, -ett, -ing
+DAS SUFFIX (WEAK/LEAKY — CHECK EXCEPTIONS): -tum, -nis, -ma, -o
+
+MIXED / UNRELIABLE SUFFIX: -a, -al, -an, -ar, -är, -el, -en, -et, -ier, -iv, -it, -on, -sal, -t
+
+NOUN PREFIX (PREDOMINANTLY DAS / NEUTER): Ge-
+NOUN PREFIXES (NO FIXED GENDER — INHERIT GENDER OF BASE NOUN): Ur-, Un-, Miss-, Erz-, Vize-, Ex-, Haupt-, Grund-, Ober-, Unter-, Neben-, Vor-, Nach-, Mit-, Gegen-, Zwischen-, Hinter-, Wieder-, Über-, Ein-, Aus-, Auf-, Ab-, An-, Zu-
