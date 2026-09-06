@@ -31,5 +31,14 @@
     "english_sen": "",
     "dataset": "a1_german_word_list_with_english.json",
     "memorized_at": "12:53 PM Sonntag 6 September 2026"
+  },
+  {
+    "sl_no": 6,
+    "german": "abfliegen",
+    "english": "to depart (by plane), to take off",
+    "german_sen": "",
+    "english_sen": "",
+    "dataset": "a1_german_word_list_with_english.json",
+    "memorized_at": "1:01 PM Sonntag 6 September 2026"
   }
 ]
