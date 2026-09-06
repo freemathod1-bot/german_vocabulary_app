@@ -1,11 +1,1 @@
-[
-  {
-    "sl_no": 1,
-    "german": "sein [v]",
-    "english": "to be",
-    "german_sen": "Ich bin zu Hause.",
-    "english_sen": "I am at home.",
-    "dataset": "german_daily_roots_top1000.json",
-    "deleted_at": "1:06 PM Sonntag 6 September 2026"
-  }
-]
+[]
