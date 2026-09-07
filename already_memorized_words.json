@@ -49,5 +49,14 @@
     "english_sen": "",
     "dataset": "a1_german_word_list_with_english.json",
     "memorized_at": "1:28 AM Dienstag 8 September 2026"
+  },
+  {
+    "sl_no": 2,
+    "german": "der Abend, -e",
+    "english": "evening",
+    "german_sen": "",
+    "english_sen": "",
+    "dataset": "a1_german_word_list_with_english.json",
+    "memorized_at": "1:28 AM Dienstag 8 September 2026"
   }
 ]
