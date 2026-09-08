@@ -67,5 +67,14 @@
     "english_sen": "",
     "dataset": "a1_german_word_list_with_english.json",
     "memorized_at": "1:29 AM Dienstag 8 September 2026"
+  },
+  {
+    "sl_no": 476,
+    "german": "der Verband (Pl: die Verbände) [n]",
+    "english": "bandage / dressing",
+    "german_sen": "Der Verband muss täglich gewechselt werden.",
+    "english_sen": "The bandage must be changed daily.",
+    "dataset": "german_daily_roots_top1000.json",
+    "memorized_at": "11:21 PM Dienstag 8 September 2026"
   }
 ]
