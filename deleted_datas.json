@@ -34,5 +34,14 @@
     "english_sen": "",
     "dataset": "a1_german_word_list_with_english.json",
     "deleted_at": "1:29 AM Dienstag 8 September 2026"
+  },
+  {
+    "sl_no": 3,
+    "german": "werden [v]",
+    "english": "to become / will",
+    "german_sen": "Es wird langsam dunkel.",
+    "english_sen": "It is slowly getting dark.",
+    "dataset": "german_daily_roots_top1000.json",
+    "deleted_at": "11:16 PM Dienstag 8 September 2026"
   }
 ]
