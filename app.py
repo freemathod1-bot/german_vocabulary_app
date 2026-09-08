@@ -659,6 +659,24 @@ def toggle_memorized_entry(sl_no=None, word_text=None, dataset_id=None, action="
             if len(memorized) < prev_count:
                 commit_msg = f"🗑️ Removed memorized [{dataset_id} SL {target_sl}] {word_name}"
 
+            # Safeguard: Ensure word is NOT in deleted_datas.json so main file is never affected
+            with DELETED_LOCK:
+                del_list = load_deleted()
+                orig_del_len = len(del_list)
+                del_list = [
+                    item for item in del_list
+                    if not (
+                        isinstance(item, dict) and (
+                            (item.get("german", "").strip().lower() == clean_german) or
+                            (item.get("dataset") == dataset_id and int(item.get("sl_no", -1)) == target_sl)
+                        )
+                    )
+                ]
+                if len(del_list) < orig_del_len:
+                    save_deleted(del_list)
+                    if GITHUB_TOKEN:
+                        sync_to_github("deleted_datas.json", del_list, f"↩️ Ensured [{dataset_id} SL {target_sl}] {word_name} remains in main file")
+
         save_memorized(memorized)
 
         gh_result = {"success": True}
@@ -685,6 +703,7 @@ def toggle_memorized_entry(sl_no=None, word_text=None, dataset_id=None, action="
             "memorized_sl_list": memorized_sl_list,
             "memorized_words_list": memorized_words_set,
             "words": memorized,
+            "deleted_words": load_deleted(),
             "github_synced": gh_result.get("success", False),
             "commit_sha": gh_result.get("commit_sha", "")
         }
@@ -1519,7 +1538,7 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
 
     .col-action {
       text-align: right;
-      width: 220px;
+      width: 260px;
     }
 
     .action-btn-group {
@@ -1574,6 +1593,40 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
       border-color: var(--accent-red);
       color: #ffffff;
       box-shadow: 0 0 12px rgba(239, 68, 68, 0.35);
+    }
+
+    .delete-memorized-btn {
+      background: rgba(239, 68, 68, 0.1);
+      border: 1px solid rgba(239, 68, 68, 0.35);
+      color: #fca5a5;
+    }
+
+    .delete-memorized-btn:hover {
+      background: rgba(239, 68, 68, 0.25);
+      border-color: #ef4444;
+      color: #ffffff;
+      box-shadow: 0 0 10px rgba(239, 68, 68, 0.3);
+    }
+
+    .delete-main-btn {
+      background: rgba(100, 116, 139, 0.1);
+      border: 1px solid rgba(100, 116, 139, 0.25);
+      border-radius: var(--radius-sm);
+      color: #94a3b8;
+      font-family: inherit;
+      font-size: 0.76rem;
+      font-weight: 500;
+      padding: 6px 9px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .delete-main-btn:hover {
+      background: rgba(239, 68, 68, 0.2);
+      border-color: rgba(239, 68, 68, 0.5);
+      color: #fca5a5;
+      box-shadow: 0 0 8px rgba(239, 68, 68, 0.25);
     }
 
     .restore-btn {
@@ -3355,19 +3408,40 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
               </button>
             </div>
           `;
-        } else {
-          const deleteBtnHtml = isMem ? `
-              <button class="delete-btn" data-sl="${w.sl_no}" data-word="${encodeURIComponent(w.german)}" title="Delete word and save to deleted_datas.json">
-                🗑️ Delete
-              </button>` : '';
-
+        } else if (chkOnlyMemorized.checked || (selectedCalendarDateStr && !isDeletedView)) {
+          // Viewing memorized words: Delete removes from memorized words ONLY (main file untouched)
           actionsHtml = `
             <div class="action-btn-group">
-              <button class="memorize-btn ${memClass}" data-sl="${w.sl_no}" data-word="${encodeURIComponent(w.german)}" title="Toggle Memorized (saves to already_memorized_words.json)">
-                ${btnText}
-              </button>${deleteBtnHtml}
+              <button class="delete-btn delete-memorized-btn" data-sl="${w.sl_no}" data-word="${encodeURIComponent(w.german)}" data-dataset="${escapeHtml(w.dataset || currentDatasetId)}" title="Delete from memorized words (word stays in main vocabulary file)">
+                🗑️ Delete from Memorized
+              </button>
             </div>
           `;
+        } else {
+          // Normal dataset view
+          if (isMem) {
+            actionsHtml = `
+              <div class="action-btn-group">
+                <button class="memorize-btn is-memorized" data-sl="${w.sl_no}" data-word="${encodeURIComponent(w.german)}" data-dataset="${escapeHtml(w.dataset || currentDatasetId)}" title="Click to un-memorize (word remains in main file)">
+                  ✅ Memorized
+                </button>
+                <button class="delete-btn delete-memorized-btn" data-sl="${w.sl_no}" data-word="${encodeURIComponent(w.german)}" data-dataset="${escapeHtml(w.dataset || currentDatasetId)}" title="Delete from memorized words (word stays in main vocabulary file)">
+                  🗑️ Delete
+                </button>
+              </div>
+            `;
+          } else {
+            actionsHtml = `
+              <div class="action-btn-group">
+                <button class="memorize-btn" data-sl="${w.sl_no}" data-word="${encodeURIComponent(w.german)}" data-dataset="${escapeHtml(currentDatasetId)}" title="Toggle Memorized (saves to already_memorized_words.json)">
+                  ➕ Memorize
+                </button>
+                <button class="delete-main-btn" data-sl="${w.sl_no}" data-word="${encodeURIComponent(w.german)}" data-dataset="${escapeHtml(currentDatasetId)}" title="Delete/hide word from main vocabulary file (saves to deleted_datas.json)">
+                  🗑️ Main File
+                </button>
+              </div>
+            `;
+          }
         }
 
         html += `
@@ -3418,17 +3492,32 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
         const sl = parseInt(memBtn.getAttribute('data-sl'), 10);
         const rawWord = memBtn.getAttribute('data-word');
         const wordText = rawWord ? decodeURIComponent(rawWord) : '';
-        if (sl) toggleMemorize(sl, wordText);
+        const datasetId = memBtn.getAttribute('data-dataset') || currentDatasetId;
+        if (sl) toggleMemorize(sl, wordText, datasetId);
         return;
       }
 
-      const delBtn = e.target.closest('.delete-btn');
-      if (delBtn) {
+      const delMemBtn = e.target.closest('.delete-memorized-btn');
+      if (delMemBtn) {
         e.stopPropagation();
-        const sl = parseInt(delBtn.getAttribute('data-sl'), 10);
-        const rawWord = delBtn.getAttribute('data-word');
+        const sl = parseInt(delMemBtn.getAttribute('data-sl'), 10);
+        const rawWord = delMemBtn.getAttribute('data-word');
         const wordText = rawWord ? decodeURIComponent(rawWord) : '';
-        if (sl) deleteWord(sl, wordText);
+        const datasetId = delMemBtn.getAttribute('data-dataset') || currentDatasetId;
+        if (sl) deleteFromMemorized(sl, wordText, datasetId);
+        return;
+      }
+
+      const delMainBtn = e.target.closest('.delete-main-btn');
+      if (delMainBtn) {
+        e.stopPropagation();
+        const sl = parseInt(delMainBtn.getAttribute('data-sl'), 10);
+        const rawWord = delMainBtn.getAttribute('data-word');
+        const wordText = rawWord ? decodeURIComponent(rawWord) : '';
+        const datasetId = delMainBtn.getAttribute('data-dataset') || currentDatasetId;
+        if (confirm(`Are you sure you want to delete "${wordText || 'this word'}" from the main vocabulary file?\n\nIt will be moved to deleted_datas.json and hidden from the main list.`)) {
+          if (sl) deleteWord(sl, wordText, datasetId);
+        }
         return;
       }
 
@@ -3490,11 +3579,13 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
     btnUncoverAll.addEventListener('click', function() { setCoverMode('none'); });
 
     // Memorize Toggle
-    async function toggleMemorize(sl_no, word_text) {
+    async function toggleMemorize(sl_no, word_text, dataset_id) {
       if (isSaving) return;
       isSaving = true;
 
-      const targetWordObj = allWords.find(w => w.sl_no === sl_no) || { sl_no: sl_no, german: word_text };
+      const targetWordObj = memorizedList.find(w => w.sl_no === sl_no && (!dataset_id || w.dataset === dataset_id))
+        || allWords.find(w => w.sl_no === sl_no)
+        || { sl_no: sl_no, german: word_text };
       const isMem = isWordMemorized(targetWordObj);
       const action = isMem ? "remove" : "add";
 
@@ -3505,7 +3596,7 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
           body: JSON.stringify({
             sl_no: sl_no,
             word: word_text || (targetWordObj ? targetWordObj.german : ''),
-            dataset: currentDatasetId,
+            dataset: dataset_id || (targetWordObj ? targetWordObj.dataset : currentDatasetId) || currentDatasetId,
             action: action
           })
         });
@@ -3515,13 +3606,17 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
             memorizedList = data.words;
             updateMemorizedSets();
           }
+          if (data.deleted_words) {
+            deletedList = data.deleted_words;
+            updateDeletedSets();
+          }
 
           if (action === "add") {
             const ghNote = data.github_synced ? " 🚀 Synced to GitHub!" : "";
             showToast("✅ Saved [SL " + sl_no + "] (" + memorizedList.length + " total memorized)" + ghNote);
           } else {
             const ghNote = data.github_synced ? " 🗑️ Removed from GitHub!" : "";
-            showToast("🗑️ Removed [SL " + sl_no + "] (" + memorizedList.length + " words remain)" + ghNote);
+            showToast("🗑️ Deleted [SL " + sl_no + "] from memorized words (main file untouched)" + ghNote);
           }
 
           applyFilters();
@@ -3536,8 +3631,52 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
       }
     }
 
-    // Delete Word to deleted_datas.json
-    async function deleteWord(sl_no, word_text) {
+    // Delete from Memorized Words (STRICTLY leaves main file untouched)
+    async function deleteFromMemorized(sl_no, word_text, dataset_id) {
+      if (isSaving) return;
+      isSaving = true;
+
+      const targetWordObj = memorizedList.find(w => w.sl_no === sl_no && (!dataset_id || w.dataset === dataset_id))
+        || allWords.find(w => w.sl_no === sl_no)
+        || { sl_no: sl_no, german: word_text };
+
+      try {
+        const res = await fetch('/api/memorize', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            sl_no: sl_no,
+            word: word_text || (targetWordObj ? targetWordObj.german : ''),
+            dataset: dataset_id || (targetWordObj ? targetWordObj.dataset : currentDatasetId) || currentDatasetId,
+            action: 'remove'
+          })
+        });
+        const data = await res.json();
+        if (data.success) {
+          if (data.words) {
+            memorizedList = data.words;
+            updateMemorizedSets();
+          }
+          if (data.deleted_words) {
+            deletedList = data.deleted_words;
+            updateDeletedSets();
+          }
+          const ghNote = data.github_synced ? " 🚀 Synced to GitHub!" : "";
+          showToast("🗑️ Deleted [" + (word_text || '') + "] from memorized words (main file untouched)" + ghNote);
+          applyFilters();
+          renderCalendarGrid();
+        } else {
+          showToast("❌ Error deleting from memorized: " + (data.error || "Failed"), "error");
+        }
+      } catch (err) {
+        showToast("❌ Error: " + err.message, "error");
+      } finally {
+        isSaving = false;
+      }
+    }
+
+    // Delete Word to deleted_datas.json (explicitly from main file)
+    async function deleteWord(sl_no, word_text, dataset_id) {
       if (isSaving) return;
       isSaving = true;
 
@@ -3550,7 +3689,7 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
           body: JSON.stringify({
             sl_no: sl_no,
             word: word_text || (targetWordObj ? targetWordObj.german : ''),
-            dataset: currentDatasetId,
+            dataset: dataset_id || currentDatasetId,
             action: 'delete'
           })
         });
