@@ -7,5 +7,14 @@
     "english_sen": "The bandage must be changed daily.",
     "dataset": "german_daily_roots_top1000.json",
     "memorized_at": "11:21 PM Dienstag 8 September 2026"
+  },
+  {
+    "sl_no": 1,
+    "german": "ab",
+    "english": "from, starting from (time/place), off",
+    "german_sen": "",
+    "english_sen": "",
+    "dataset": "a1_german_word_list_with_english.json",
+    "memorized_at": "11:45 PM Dienstag 8 September 2026"
   }
 ]
