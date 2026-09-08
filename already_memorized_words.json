@@ -7,14 +7,5 @@
     "english_sen": "The bandage must be changed daily.",
     "dataset": "german_daily_roots_top1000.json",
     "memorized_at": "11:21 PM Dienstag 8 September 2026"
-  },
-  {
-    "sl_no": 2,
-    "german": "haben [v]",
-    "english": "to have",
-    "german_sen": "Hast du heute Zeit?",
-    "english_sen": "Do you have time today?",
-    "dataset": "german_daily_roots_top1000.json",
-    "memorized_at": "11:32 PM Dienstag 8 September 2026"
   }
 ]
